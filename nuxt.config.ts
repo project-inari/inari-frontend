@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
-    modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
+    modules: [
+        '@nuxt/eslint',
+        '@nuxtjs/tailwindcss',
+        '@nuxtjs/i18n',
+        '@pinia/nuxt',
+    ],
     i18n: {
         vueI18n: './i18n.config.ts',
         strategy: 'prefix_and_default',

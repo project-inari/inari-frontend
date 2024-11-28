@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useFontClass } from '~/composables/useFontClass';
 const { fontDMSansPrompt, fontDMSansSarabun } = useFontClass();
 
 definePageMeta({
