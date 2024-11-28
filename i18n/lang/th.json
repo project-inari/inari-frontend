@@ -1,3 +1,6 @@
 {
-    "home.welcome": "ยินดีต้อนรับ"
+    "home.welcome": "ยินดีต้อนรับ",
+    "link.home": "หน้าหลัก",
+    "link.about": "เกี่ยวกับ",
+    "link.design": "ออกแบบ UI"
 }
