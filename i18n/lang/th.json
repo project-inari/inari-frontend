@@ -7,5 +7,7 @@
     "navbar.home": "หน้าหลัก",
     "navbar.feature": "คุณสมบัติ",
     "navbar.about": "เกี่ยวกับเรา",
-    "navbar.contact": "ติดต่อเรา"
+    "navbar.contact": "ติดต่อเรา",
+    "navbar.login": "เข้าสู่ระบบ",
+    "navbar.signup": "สมัครเลย"
 }

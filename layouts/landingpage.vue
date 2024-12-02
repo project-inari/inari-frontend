@@ -50,12 +50,12 @@
                 />
                 <PrimeButton
                     id="navbar-login"
-                    label="Login"
+                    :label="$t('navbar.login')"
                     variant="outlined"
                 />
                 <PrimeButton
                     id="navbar-signup"
-                    label="Sign Up"
+                    :label="$t('navbar.signup')"
                 />
             </div>
         </div>
@@ -133,13 +133,13 @@ const changeLocale = (value: string) => {
 }
 
 #navbar-login {
-    width: 100px;
+    width: 110px;
     height: 48px;
     font-size: 18px;
 }
 
 #navbar-signup {
-    width: 100px;
+    width: 110px;
     height: 48px;
     font-size: 18px;
 }
