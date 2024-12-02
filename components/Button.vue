@@ -4,7 +4,16 @@
             :label="props.textLabel"
             :icon="props.buttonIcon"
             :severity="props.severity"
+            :variant="props.outlined ? 'outlined' : undefined"
             :rounded
+            :style="{
+                width: sizeMapping[
+                    props.size as 'small' | 'medium' | 'large' | 'extraLarge'
+                ].width,
+                height: sizeMapping[
+                    props.size as 'small' | 'medium' | 'large' | 'extraLarge'
+                ].height,
+            }"
         />
     </div>
 </template>
@@ -27,19 +36,44 @@ const props = defineProps({
         type: String,
         default: 'primary',
     },
+    outlined: {
+        type: Boolean,
+        default: false,
+    },
+    size: {
+        type: String,
+        default: 'medium',
+        validator: (value: string) =>
+            ['small', 'medium', 'large', 'extraLarge'].includes(value),
+    },
 });
+
+const sizeMapping: {
+    [key in 'small' | 'medium' | 'large' | 'extraLarge']: {
+        width: string;
+        height: string;
+    };
+} = {
+    small: {
+        width: '80px',
+        height: '24px',
+    },
+    medium: {
+        width: '100px',
+        height: '36px',
+    },
+    large: {
+        width: '120px',
+        height: '48px',
+    },
+    extraLarge: {
+        width: '140px',
+        height: '60px',
+    },
+};
 </script>
 
 <style lang="scss" scoped>
-.p-button {
-    // --p-button-primary-background: var(--p-amber-500);
-    // --p-button-primary-hover-background: var(--p-primary-600);
-    // --p-button-primary-border-color: var(--p-amber-500);
-    // --p-button-primary-hover-border-color: var(--p-primary-600);
-    width: 90px;
-    height: 40px;
-}
-
 html.dark-mode {
     .p-button {
         --p-button-primary-background: var(--p-blue-400);
