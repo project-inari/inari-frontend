@@ -1,6 +1,11 @@
 {
+    "inari": "INARI",
     "home.welcome": "Welcome",
     "link.home": "Home",
     "link.about": "About",
-    "link.design": "UI Design System"
+    "link.design": "UI Design System",
+    "navbar.home": "Home",
+    "navbar.feature": "Features",
+    "navbar.about": "About Us",
+    "navbar.contact": "Contact Us"
 }

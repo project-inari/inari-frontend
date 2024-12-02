@@ -1,6 +1,11 @@
 {
+    "inari": "อินาริ",
     "home.welcome": "ยินดีต้อนรับ",
     "link.home": "หน้าหลัก",
     "link.about": "เกี่ยวกับ",
-    "link.design": "ออกแบบ UI"
+    "link.design": "ออกแบบ UI",
+    "navbar.home": "หน้าหลัก",
+    "navbar.feature": "คุณสมบัติ",
+    "navbar.about": "เกี่ยวกับเรา",
+    "navbar.contact": "ติดต่อเรา"
 }
