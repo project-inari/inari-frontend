@@ -14,4 +14,7 @@ declare module 'vue' {
     PrimeSelect: typeof import('primevue/select')['default']
     PrimeToggleSwitch: typeof import('primevue/toggleswitch')['default']
   }
+  export interface ComponentCustomProperties {
+    AnimateOnScroll: typeof import('primevue/animateonscroll')['default']
+  }
 }

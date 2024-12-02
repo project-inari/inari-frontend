@@ -1,7 +1,10 @@
 <template>
     <div>
         <!-- Navbar Element -->
-        <div class="navbar-container">
+        <div
+            v-motion-slide-visible-bottom:duration="5000"
+            class="navbar-container"
+        >
             <div class="navbar-logo-name">
                 <NuxtLinkLocale to="/">
                     <NuxtImg
