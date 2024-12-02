@@ -41,6 +41,13 @@
                 class="navbar-buttons"
                 :class="fontDMSansPrompt"
             >
+                <PrimeSelect
+                    id="navbar-language"
+                    :class="fontDMSansPrompt"
+                    :options="localeOptions"
+                    :model-value="currentLocale"
+                    @update:model-value="changeLocale"
+                />
                 <PrimeButton
                     id="navbar-login"
                     label="Login"
@@ -60,9 +67,19 @@
 
 <script lang="ts" setup>
 const { fontDMSansPrompt } = useFontClass();
+const { setLocale, locale } = useI18n();
 
-// const { setLocale } = useI18n();
-// const localePath = useLocalePath();
+const localeOptions = ['EN', 'ไทย'];
+let currentLocale = locale.value === 'en' ? 'EN' : 'ไทย';
+const changeLocale = (value: string) => {
+    if (value === 'EN') {
+        setLocale('en');
+        currentLocale = 'EN';
+    } else {
+        setLocale('th');
+        currentLocale = 'ไทย';
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -105,6 +122,14 @@ const { fontDMSansPrompt } = useFontClass();
     display: flex;
     gap: 1rem;
     flex-basis: content;
+}
+
+#navbar-language {
+    width: 100px;
+    height: 48px;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: text-bottom;
 }
 
 #navbar-login {
