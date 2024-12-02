@@ -27,6 +27,7 @@ export default defineNuxtConfig({
         '@nuxtjs/i18n',
         '@pinia/nuxt',
         '@primevue/nuxt-module',
+        '@nuxt/image',
     ],
     primevue: {
         components: {

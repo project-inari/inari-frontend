@@ -1,0 +1,55 @@
+name: ci-alpha
+
+on:
+    push:
+        branches:
+            - develop
+
+jobs:
+    alpha-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20.14'
+
+            - name: Install pnpm
+              run: npm install -g pnpm
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Build Nuxt app
+              run: pnpm build
+
+            - name: Set up GCP authentication
+              uses: google-github-actions/auth@v2
+              with:
+                  project_id: inari-poc
+                  credentials_json: ${{ secrets.GCP_POC_KEY }}
+
+            - name: Set up Cloud SDK
+              uses: google-github-actions/setup-gcloud@v2
+
+            - name: Configure GCP and Docker
+              run: |
+                  gcloud config set project inari-poc
+                  gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+
+            - name: Build Docker image
+              run: docker build -t inari-frontend .
+
+            - name: Tag Docker image
+              run: |
+                  docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:${{ github.sha }}
+                  docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:latest
+
+            - name: Push Docker image to Artifact Registry
+              run: |
+                  docker push asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:${{ github.sha }}
+                  docker push asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:latest

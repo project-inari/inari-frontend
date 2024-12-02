@@ -11,8 +11,9 @@
 const { fontDMSansPrompt, fontDMSansSarabun } = useFontClass();
 
 definePageMeta({
-    title: 'Home Page',
-    description: 'This is the home page',
+    title: 'INARI Inventory Management System',
+    description: 'Landing page for INARI Inventory Management System',
+    layout: 'landingpage',
 });
 </script>
 
