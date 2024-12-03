@@ -20,6 +20,7 @@
         "@primevue/themes": "4.2.4",
         "@vueuse/motion": "2.2.6",
         "nuxt": "3.14.1592",
+        "nuxt-viewport": "2.2.0",
         "primeicons": "7.0.0",
         "primevue": "4.2.4",
         "vue": "3.5.11"

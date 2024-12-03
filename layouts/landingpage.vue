@@ -25,6 +25,7 @@
             </div>
 
             <div
+                v-if="$viewport.isGreaterOrEquals('desktop')"
                 class="navbar-menu"
                 :class="fontDMSansPrompt"
             >
@@ -82,8 +83,10 @@
 const { fontDMSansPrompt } = useFontClass();
 const { setLocale, locale } = useI18n();
 
+// locale
 const localeOptions = ['EN', 'ไทย'];
 let currentLocale = locale.value === 'en' ? 'EN' : 'ไทย';
+
 const changeLocale = (value: string) => {
     if (value === 'EN') {
         setLocale('en');
@@ -128,7 +131,7 @@ const changeLocale = (value: string) => {
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 60px;
+    gap: 45px;
     font-size: 18px;
     color: #727272;
     white-space: nowrap;

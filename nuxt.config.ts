@@ -29,7 +29,20 @@ export default defineNuxtConfig({
         '@primevue/nuxt-module',
         '@nuxt/image',
         '@vueuse/motion/nuxt',
+        'nuxt-viewport',
     ],
+    viewport: {
+        breakpoints: {
+            mobile: 0,
+            tablet: 590,
+            desktop: 1280,
+        },
+        defaultBreakpoints: {
+            mobile: 'mobile',
+            tablet: 'tablet',
+            desktop: 'desktop',
+        },
+    },
     primevue: {
         components: {
             include: '*',
