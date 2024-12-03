@@ -87,14 +87,17 @@ const changeLocale = (value: string) => {
 
 <style lang="scss" scoped>
 .navbar-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    // background-color: #ececec;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: relative;
+    // background-color: #ececec;
 }
 
 .navbar-logo-name {
@@ -115,7 +118,7 @@ const changeLocale = (value: string) => {
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 50px;
+    gap: 60px;
     font-size: 18px;
     color: #727272;
     white-space: nowrap;
