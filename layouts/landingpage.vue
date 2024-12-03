@@ -28,16 +28,26 @@
                 class="navbar-menu"
                 :class="fontDMSansPrompt"
             >
-                <NuxtLinkLocale to="/">{{ $t('navbar.home') }}</NuxtLinkLocale>
-                <NuxtLinkLocale to="/feature">{{
-                    $t('navbar.feature')
-                }}</NuxtLinkLocale>
-                <NuxtLinkLocale to="/about">{{
-                    $t('navbar.about')
-                }}</NuxtLinkLocale>
-                <NuxtLinkLocale to="/contact">{{
-                    $t('navbar.contact')
-                }}</NuxtLinkLocale>
+                <NuxtLinkLocale
+                    to="/"
+                    class="navbar-menu-link"
+                    >{{ $t('navbar.home') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/feature"
+                    class="navbar-menu-link"
+                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/about"
+                    class="navbar-menu-link"
+                    >{{ $t('navbar.about') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/contact"
+                    class="navbar-menu-link"
+                    >{{ $t('navbar.contact') }}</NuxtLinkLocale
+                >
             </div>
 
             <div
@@ -122,6 +132,45 @@ const changeLocale = (value: string) => {
     font-size: 18px;
     color: #727272;
     white-space: nowrap;
+}
+
+.navbar-menu-link {
+    background-image: linear-gradient(to right, #10b981, #10b981 50%, #000 50%);
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 1px 0;
+    position: relative;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &::before {
+        content: '';
+        background: #10b981;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+        background-position: 0;
+
+        &::before {
+            width: 100%;
+        }
+    }
+
+    &.router-link-active {
+        &::before {
+            width: 100%;
+        }
+    }
 }
 
 .navbar-buttons {
