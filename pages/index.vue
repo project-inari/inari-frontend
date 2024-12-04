@@ -2,8 +2,7 @@
     <div>
         <p :class="fontDMSansPrompt">{{ $t('home.welcome') }}</p>
         <p :class="fontDMSansSarabun">{{ $t('home.welcome') }}</p>
-
-        <PrimeButton label="Test" />
+        <p>{{ $viewport.breakpoint.value }}</p>
     </div>
 </template>
 

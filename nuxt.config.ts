@@ -19,7 +19,7 @@ const InariTheme = definePreset(Aura, {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    compatibilityDate: '2024-04-03',
+    compatibilityDate: '2024-12-04',
     devtools: { enabled: true },
     modules: [
         '@nuxt/eslint',
@@ -28,7 +28,21 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@primevue/nuxt-module',
         '@nuxt/image',
+        '@vueuse/motion/nuxt',
+        'nuxt-viewport',
     ],
+    viewport: {
+        breakpoints: {
+            mobile: 0,
+            tablet: 590,
+            desktop: 1280,
+        },
+        defaultBreakpoints: {
+            mobile: 'mobile',
+            tablet: 'tablet',
+            desktop: 'desktop',
+        },
+    },
     primevue: {
         components: {
             include: '*',
