@@ -77,11 +77,8 @@ defineEmits(['updated']);
     width: 40px;
     height: 40px;
     display: flex;
-    /* Use flexbox for centering */
     justify-content: center;
-    /* Horizontal centering */
     align-items: center;
-    /* Vertical centering */
     position: relative;
 }
 

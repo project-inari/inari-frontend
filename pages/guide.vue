@@ -1,11 +1,11 @@
 <template>
-    <div>About Page</div>
+    <div>User Guide Page</div>
 </template>
 
 <script lang="ts" setup>
 definePageMeta({
     title: 'INARI Inventory Management System',
-    description: 'About page for INARI Inventory Management System',
+    description: 'User Guide page for INARI Inventory Management System',
     layout: 'landingpage',
 });
 </script>

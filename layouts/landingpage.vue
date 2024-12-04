@@ -40,14 +40,14 @@
                     >{{ $t('navbar.feature') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
-                    to="/about"
+                    to="/package"
                     class="navbar-menu-link"
-                    >{{ $t('navbar.about') }}</NuxtLinkLocale
+                    >{{ $t('navbar.package') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
-                    to="/contact"
+                    to="/guide"
                     class="navbar-menu-link"
-                    >{{ $t('navbar.contact') }}</NuxtLinkLocale
+                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
                 >
             </div>
 
@@ -146,7 +146,7 @@ const handleOpenBurgerMenu = () => {
     transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 45px;
+    gap: 50px;
     font-size: 18px;
     color: #727272;
     white-space: nowrap;
