@@ -32,21 +32,25 @@
                 <NuxtLinkLocale
                     to="/"
                     class="navbar-menu-link"
-                    >{{ $t('navbar.home') }}</NuxtLinkLocale
-                >
+                    @click="handleOpenBurgerMenu"
+                    >{{ $t('navbar.home') }}
+                </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/feature"
                     class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
                     >{{ $t('navbar.feature') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/package"
                     class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
                     >{{ $t('navbar.package') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/guide"
                     class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
                     >{{ $t('navbar.guide') }}</NuxtLinkLocale
                 >
             </div>
@@ -77,14 +81,54 @@
                 <Burger
                     v-if="$viewport.isLessThan('desktop')"
                     type="vortex"
-                    :active="isburgerMenuOpen"
+                    :active="isBurgerMenuOpen"
                     @updated="handleOpenBurgerMenu"
                 />
             </div>
         </div>
+
+        <div
+            v-if="$viewport.isLessThan('desktop')"
+            :class="[
+                'navbar-overlay-container',
+                { 'is-open': isBurgerMenuOpen },
+            ]"
+        >
+            <div
+                class="navbar-overlay-menu"
+                :class="fontDMSansPrompt"
+            >
+                <NuxtLinkLocale
+                    to="/"
+                    class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
+                    >{{ $t('navbar.home') }}
+                </NuxtLinkLocale>
+                <NuxtLinkLocale
+                    to="/feature"
+                    class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
+                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/package"
+                    class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
+                    >{{ $t('navbar.package') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/guide"
+                    class="navbar-menu-link"
+                    @click="handleOpenBurgerMenu"
+                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                >
+            </div>
+        </div>
         <!-- End of Navbar Element -->
 
-        <slot />
+        <div class="page-content">
+            <slot />
+        </div>
     </div>
 </template>
 
@@ -107,9 +151,9 @@ const changeLocale = (value: string) => {
 };
 
 // burger menu
-const isburgerMenuOpen = ref(false);
+const isBurgerMenuOpen = ref(false);
 const handleOpenBurgerMenu = () => {
-    isburgerMenuOpen.value = !isburgerMenuOpen.value;
+    isBurgerMenuOpen.value = !isBurgerMenuOpen.value;
 };
 </script>
 
@@ -124,8 +168,8 @@ const handleOpenBurgerMenu = () => {
     align-items: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    // background-color: #ececec;
 }
 
 .navbar-logo-name {
@@ -135,7 +179,7 @@ const handleOpenBurgerMenu = () => {
 
 .inari-navbar-text {
     font-size: 32px;
-    font-weight: 600;
+    font-weight: 700;
     color: #727272;
     margin-right: 0.5rem;
 }
@@ -198,6 +242,30 @@ const handleOpenBurgerMenu = () => {
     align-items: center;
 }
 
+.navbar-overlay-container {
+    width: 100%;
+    background-color: #d0d0d0;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.5s ease-in-out;
+    place-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-overlay-container.is-open {
+    height: 300px;
+}
+
+.navbar-overlay-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 20px;
+    align-items: center;
+
+    padding: 1rem;
+}
+
 #navbar-language {
     width: 100px;
     height: 48px;
@@ -216,5 +284,10 @@ const handleOpenBurgerMenu = () => {
     width: 110px;
     height: 48px;
     font-size: 18px;
+}
+
+.page-content {
+    padding: 1rem;
+    z-index: 0;
 }
 </style>
