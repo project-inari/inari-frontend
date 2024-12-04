@@ -56,6 +56,7 @@
                 :class="fontDMSansPrompt"
             >
                 <PrimeSelect
+                    v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-language"
                     :class="fontDMSansPrompt"
                     :options="localeOptions"
@@ -63,13 +64,21 @@
                     @update:model-value="changeLocale"
                 />
                 <PrimeButton
+                    v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-login"
                     :label="$t('navbar.login')"
                     variant="outlined"
                 />
                 <PrimeButton
+                    v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-signup"
                     :label="$t('navbar.signup')"
+                />
+                <Burger
+                    v-if="$viewport.isLessThan('desktop')"
+                    type="vortex"
+                    :active="isburgerMenuOpen"
+                    @updated="handleOpenBurgerMenu"
                 />
             </div>
         </div>
@@ -95,6 +104,12 @@ const changeLocale = (value: string) => {
         setLocale('th');
         currentLocale = 'ไทย';
     }
+};
+
+// burger menu
+const isburgerMenuOpen = ref(false);
+const handleOpenBurgerMenu = () => {
+    isburgerMenuOpen.value = !isburgerMenuOpen.value;
 };
 </script>
 
@@ -180,6 +195,7 @@ const changeLocale = (value: string) => {
     display: flex;
     gap: 1rem;
     flex-basis: content;
+    align-items: center;
 }
 
 #navbar-language {
