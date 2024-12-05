@@ -6,7 +6,7 @@
             class="navbar-container"
         >
             <div class="navbar-logo-name">
-                <NuxtLinkLocale to="/">
+                <NuxtLinkLocale :to="baseUrl">
                     <NuxtImg
                         src="img/default-logo.png"
                         alt="INARI-Logo"
@@ -14,7 +14,7 @@
                         height="70"
                     />
                 </NuxtLinkLocale>
-                <NuxtLinkLocale to="/">
+                <NuxtLinkLocale :to="baseUrl">
                     <h1
                         class="inari-navbar-text"
                         :class="fontDMSansPrompt"
@@ -135,6 +135,7 @@
 <script lang="ts" setup>
 const { fontDMSansPrompt } = useFontClass();
 const { setLocale, locale } = useI18n();
+const baseUrl = useBaseUrl();
 
 // locale
 const localeOptions = ['EN', 'ไทย'];
