@@ -129,6 +129,35 @@
         <div class="page-content">
             <slot />
         </div>
+
+        <!-- Footer Element -->
+        <div
+            v-motion-slide-visible-bottom:duration="5000"
+            class="footer-container"
+            :style="{ backgroundImage: `url('${footerBackground}')` }"
+        >
+            <div class="footer-logo-name">
+                <NuxtLinkLocale :to="baseUrl">
+                    <NuxtImg
+                        src="img/gradient-logo.png"
+                        alt="INARI-Logo"
+                        width="150"
+                        height="150"
+                    />
+                </NuxtLinkLocale>
+                <NuxtLinkLocale :to="baseUrl">
+                    <h1
+                        class="inari-footer-text"
+                        :class="fontDMSansPrompt"
+                    >
+                        {{ $t('inari') }}
+                    </h1>
+                </NuxtLinkLocale>
+            </div>
+
+            <div class="footer-menu">footer</div>
+        </div>
+        <!-- End of Footer Element -->
     </div>
 </template>
 
@@ -156,6 +185,9 @@ const isBurgerMenuOpen = ref(false);
 const handleOpenBurgerMenu = () => {
     isBurgerMenuOpen.value = !isBurgerMenuOpen.value;
 };
+
+// footer background
+const footerBackground = 'img/footer-bg.png';
 </script>
 
 <style lang="scss" scoped>
@@ -290,5 +322,59 @@ const handleOpenBurgerMenu = () => {
 .page-content {
     padding: 1rem;
     z-index: 0;
+}
+
+.footer-container {
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 400px;
+}
+
+.footer-logo-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 40%;
+    flex-grow: 1;
+}
+
+.inari-footer-text {
+    font-size: 48px;
+    font-weight: 700;
+    color: #727272;
+    text-wrap: nowrap;
+}
+
+.footer-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 20px;
+    align-items: center;
+    flex-basis: 60%;
+    flex-grow: 1;
+}
+
+@media (max-width: 590px) {
+    .footer-container {
+        flex-direction: column-reverse;
+        height: 500px;
+    }
+
+    .inari-footer-text {
+        font-size: 40px;
+        font-weight: 700;
+        color: #727272;
+        margin-right: 0.5rem;
+    }
 }
 </style>
