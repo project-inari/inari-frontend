@@ -134,7 +134,6 @@
         <div
             v-motion-slide-visible-bottom:duration="5000"
             class="footer-container"
-            :style="{ backgroundImage: `url('${footerBackground}')` }"
         >
             <div class="footer-logo-name">
                 <NuxtLinkLocale :to="baseUrl">
@@ -155,7 +154,31 @@
                 </NuxtLinkLocale>
             </div>
 
-            <div class="footer-menu">footer</div>
+            <div
+                class="footer-menu"
+                :class="fontDMSansPrompt"
+            >
+                <NuxtLinkLocale
+                    to="/"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.home') }}
+                </NuxtLinkLocale>
+                <NuxtLinkLocale
+                    to="/feature"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/package"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.package') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/guide"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                >
+            </div>
         </div>
         <!-- End of Footer Element -->
     </div>
@@ -185,9 +208,6 @@ const isBurgerMenuOpen = ref(false);
 const handleOpenBurgerMenu = () => {
     isBurgerMenuOpen.value = !isBurgerMenuOpen.value;
 };
-
-// footer background
-const footerBackground = 'img/footer-bg.png';
 </script>
 
 <style lang="scss" scoped>
@@ -331,16 +351,14 @@ const footerBackground = 'img/footer-bg.png';
     align-items: center;
     padding: 1rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #efefef;
     width: 100%;
-    height: 400px;
+    height: 300px;
 }
 
 .footer-logo-name {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-basis: 40%;
@@ -357,11 +375,44 @@ const footerBackground = 'img/footer-bg.png';
 .footer-menu {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    font-size: 20px;
+    gap: 20px;
+    font-size: 16px;
     align-items: center;
     flex-basis: 60%;
     flex-grow: 1;
+}
+
+.footer-menu-link {
+    background-image: linear-gradient(to right, #10b981, #10b981 50%, #000 50%);
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 1px 0;
+    position: relative;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &::before {
+        content: '';
+        background: #10b981;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+        background-position: 0;
+
+        &::before {
+            width: 100%;
+        }
+    }
 }
 
 @media (max-width: 590px) {
