@@ -129,6 +129,58 @@
         <div class="page-content">
             <slot />
         </div>
+
+        <!-- Footer Element -->
+        <div
+            v-motion-slide-visible-bottom:duration="5000"
+            class="footer-container"
+        >
+            <div class="footer-logo-name">
+                <NuxtLinkLocale :to="baseUrl">
+                    <NuxtImg
+                        src="img/gradient-logo.png"
+                        alt="INARI-Logo"
+                        width="150"
+                        height="150"
+                    />
+                </NuxtLinkLocale>
+                <NuxtLinkLocale :to="baseUrl">
+                    <h1
+                        class="inari-footer-text"
+                        :class="fontDMSansPrompt"
+                    >
+                        {{ $t('inari') }}
+                    </h1>
+                </NuxtLinkLocale>
+            </div>
+
+            <div
+                class="footer-menu"
+                :class="fontDMSansPrompt"
+            >
+                <NuxtLinkLocale
+                    to="/"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.home') }}
+                </NuxtLinkLocale>
+                <NuxtLinkLocale
+                    to="/feature"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/package"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.package') }}</NuxtLinkLocale
+                >
+                <NuxtLinkLocale
+                    to="/guide"
+                    class="footer-menu-link"
+                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                >
+            </div>
+        </div>
+        <!-- End of Footer Element -->
     </div>
 </template>
 
@@ -290,5 +342,90 @@ const handleOpenBurgerMenu = () => {
 .page-content {
     padding: 1rem;
     z-index: 0;
+}
+
+.footer-container {
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #efefef;
+    width: 100%;
+    height: 300px;
+}
+
+.footer-logo-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 40%;
+    flex-grow: 1;
+}
+
+.inari-footer-text {
+    font-size: 48px;
+    font-weight: 700;
+    color: #727272;
+    text-wrap: nowrap;
+}
+
+.footer-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 16px;
+    align-items: center;
+    flex-basis: 60%;
+    flex-grow: 1;
+}
+
+.footer-menu-link {
+    background-image: linear-gradient(to right, #10b981, #10b981 50%, #000 50%);
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    padding: 1px 0;
+    position: relative;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &::before {
+        content: '';
+        background: #10b981;
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+        background-position: 0;
+
+        &::before {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 590px) {
+    .footer-container {
+        flex-direction: column-reverse;
+        height: 500px;
+    }
+
+    .inari-footer-text {
+        font-size: 40px;
+        font-weight: 700;
+        color: #727272;
+        margin-right: 0.5rem;
+    }
 }
 </style>
