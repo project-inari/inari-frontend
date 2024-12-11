@@ -126,9 +126,7 @@
         </div>
         <!-- End of Navbar Element -->
 
-        <div class="page-content">
-            <slot />
-        </div>
+        <slot />
 
         <!-- Footer Element -->
         <div
@@ -337,11 +335,6 @@ const handleOpenBurgerMenu = () => {
     width: 110px;
     height: 48px;
     font-size: 18px;
-}
-
-.page-content {
-    padding: 1rem;
-    z-index: 0;
 }
 
 .footer-container {
