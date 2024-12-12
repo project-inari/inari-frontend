@@ -1,10 +1,17 @@
 {
     "inari": "INARI",
-    "home.welcome": "Welcome",
+
     "navbar.home": "Home",
     "navbar.feature": "Features",
     "navbar.package": "Package",
     "navbar.guide": "User Guide",
     "navbar.login": "Login",
-    "navbar.signup": "Sign Up"
+    "navbar.signup": "Sign Up",
+
+    "hero.maintext1": "We Track.",
+    "hero.maintext2": "We Plan.",
+    "hero.maintext3": "We Connect.",
+    "hero.maintext4": "You Grow. Simple.",
+    "hero.subtext": " Every Step of the Way!",
+    "hero.cta.button": "Take the First Step with INARI"
 }
