@@ -60,7 +60,6 @@
                 :class="fontDMSansPrompt"
             >
                 <PrimeSelect
-                    v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-language"
                     :class="fontDMSansPrompt"
                     :options="localeOptions"
@@ -122,6 +121,20 @@
                     @click="handleOpenBurgerMenu"
                     >{{ $t('navbar.guide') }}</NuxtLinkLocale
                 >
+                <div
+                    v-if="$viewport.isLessThan('tablet')"
+                    class="navbar-overlay-menu-buttons"
+                >
+                    <PrimeButton
+                        id="navbar-overlay-login"
+                        :label="$t('navbar.login')"
+                        severity="secondary"
+                    />
+                    <PrimeButton
+                        id="navbar-overlay-signup"
+                        :label="$t('navbar.signup')"
+                    />
+                </div>
             </div>
         </div>
         <!-- End of Navbar Element -->
@@ -317,6 +330,11 @@ const handleOpenBurgerMenu = () => {
     padding: 1rem;
 }
 
+.navbar-overlay-menu-buttons {
+    display: flex;
+    gap: 20px;
+}
+
 #navbar-language {
     width: 100px;
     height: 48px;
@@ -332,6 +350,19 @@ const handleOpenBurgerMenu = () => {
 }
 
 #navbar-signup {
+    width: 110px;
+    height: 48px;
+    font-size: 18px;
+}
+
+#navbar-overlay-login {
+    width: 110px;
+    height: 48px;
+    font-size: 18px;
+    color: #10b981;
+}
+
+#navbar-overlay-signup {
     width: 110px;
     height: 48px;
     font-size: 18px;
@@ -409,6 +440,10 @@ const handleOpenBurgerMenu = () => {
 }
 
 @media (max-width: 590px) {
+    .navbar-overlay-container.is-open {
+        height: 400px;
+    }
+
     .footer-container {
         flex-direction: column-reverse;
         height: 500px;
