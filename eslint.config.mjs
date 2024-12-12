@@ -24,6 +24,7 @@ export default withNuxt(
             'vue/multi-word-component-names': 'off',
             'max-len': 'off',
             'vue/first-attribute-linebreak': 'off',
+            'vue/html-self-closing': 'off',
         },
     },
 );

@@ -399,8 +399,8 @@ const handleOpenBurgerMenu = () => {
 .footer-menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    font-size: 16px;
+    gap: 16px;
+    font-size: 20px;
     align-items: center;
     flex-basis: 60%;
     flex-grow: 1;
@@ -446,7 +446,7 @@ const handleOpenBurgerMenu = () => {
 
     .footer-container {
         flex-direction: column-reverse;
-        height: 500px;
+        height: auto;
     }
 
     .inari-footer-text {
@@ -454,6 +454,14 @@ const handleOpenBurgerMenu = () => {
         font-weight: 700;
         color: #727272;
         margin-right: 0.5rem;
+    }
+
+    .footer-menu {
+        flex-basis: 0;
+    }
+
+    .footer-logo-name {
+        flex-basis: 0;
     }
 }
 </style>
