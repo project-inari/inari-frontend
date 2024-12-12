@@ -60,7 +60,6 @@
                 :class="fontDMSansPrompt"
             >
                 <PrimeSelect
-                    v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-language"
                     :class="fontDMSansPrompt"
                     :options="localeOptions"
@@ -122,13 +121,25 @@
                     @click="handleOpenBurgerMenu"
                     >{{ $t('navbar.guide') }}</NuxtLinkLocale
                 >
+                <div
+                    v-if="$viewport.isLessThan('tablet')"
+                    class="navbar-overlay-menu-buttons"
+                >
+                    <PrimeButton
+                        id="navbar-overlay-login"
+                        :label="$t('navbar.login')"
+                        severity="secondary"
+                    />
+                    <PrimeButton
+                        id="navbar-overlay-signup"
+                        :label="$t('navbar.signup')"
+                    />
+                </div>
             </div>
         </div>
         <!-- End of Navbar Element -->
 
-        <div class="page-content">
-            <slot />
-        </div>
+        <slot />
 
         <!-- Footer Element -->
         <div
@@ -319,6 +330,11 @@ const handleOpenBurgerMenu = () => {
     padding: 1rem;
 }
 
+.navbar-overlay-menu-buttons {
+    display: flex;
+    gap: 20px;
+}
+
 #navbar-language {
     width: 100px;
     height: 48px;
@@ -339,9 +355,17 @@ const handleOpenBurgerMenu = () => {
     font-size: 18px;
 }
 
-.page-content {
-    padding: 1rem;
-    z-index: 0;
+#navbar-overlay-login {
+    width: 110px;
+    height: 48px;
+    font-size: 18px;
+    color: #10b981;
+}
+
+#navbar-overlay-signup {
+    width: 110px;
+    height: 48px;
+    font-size: 18px;
 }
 
 .footer-container {
@@ -375,8 +399,8 @@ const handleOpenBurgerMenu = () => {
 .footer-menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    font-size: 16px;
+    gap: 16px;
+    font-size: 20px;
     align-items: center;
     flex-basis: 60%;
     flex-grow: 1;
@@ -416,9 +440,13 @@ const handleOpenBurgerMenu = () => {
 }
 
 @media (max-width: 590px) {
+    .navbar-overlay-container.is-open {
+        height: 400px;
+    }
+
     .footer-container {
         flex-direction: column-reverse;
-        height: 500px;
+        height: auto;
     }
 
     .inari-footer-text {
@@ -426,6 +454,14 @@ const handleOpenBurgerMenu = () => {
         font-weight: 700;
         color: #727272;
         margin-right: 0.5rem;
+    }
+
+    .footer-menu {
+        flex-basis: 0;
+    }
+
+    .footer-logo-name {
+        flex-basis: 0;
     }
 }
 </style>
