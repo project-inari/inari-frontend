@@ -1,17 +1,20 @@
 {
     "inari": "INARI",
+
     "landing.navbar.home": "Home",
     "landing.navbar.feature": "Features",
     "landing.navbar.package": "Package",
     "landing.navbar.guide": "User Guide",
     "landing.navbar.login": "Login",
     "landing.navbar.signup": "Sign Up",
+
     "landing.hero.maintext1": "We Track.",
     "landing.hero.maintext2": "We Plan.",
     "landing.hero.maintext3": "We Connect.",
     "landing.hero.maintext4": "You Grow. Simple.",
     "landing.hero.subtext": " Every Step of the Way!",
     "landing.hero.cta.button": "Take the First Step with INARI",
+
     "landing.keyfeatures.header": "Key Features",
     "landing.keyfeatures.feature1.title": "Simple Inventory Management",
     "landing.keyfeatures.feature1.subtitle": "Inventory Headache? We love it!",
