@@ -33,25 +33,25 @@
                     to="/"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.home') }}
+                    >{{ $t('landing.navbar.home') }}
                 </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/feature"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.feature') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/package"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.package') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.package') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/guide"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.guide') }}</NuxtLinkLocale
                 >
             </div>
 
@@ -69,13 +69,13 @@
                 <PrimeButton
                     v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-login"
-                    :label="$t('navbar.login')"
+                    :label="$t('landing.navbar.login')"
                     variant="outlined"
                 />
                 <PrimeButton
                     v-if="$viewport.isGreaterThan('mobile')"
                     id="navbar-signup"
-                    :label="$t('navbar.signup')"
+                    :label="$t('landing.navbar.signup')"
                 />
                 <Burger
                     v-if="$viewport.isLessThan('desktop')"
@@ -101,25 +101,25 @@
                     to="/"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.home') }}
+                    >{{ $t('landing.navbar.home') }}
                 </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/feature"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.feature') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/package"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.package') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.package') }}</NuxtLinkLocale
                 >
                 <NuxtLinkLocale
                     to="/guide"
                     class="navbar-menu-link"
                     @click="handleOpenBurgerMenu"
-                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.guide') }}</NuxtLinkLocale
                 >
                 <div
                     v-if="$viewport.isLessThan('tablet')"
@@ -127,12 +127,12 @@
                 >
                     <PrimeButton
                         id="navbar-overlay-login"
-                        :label="$t('navbar.login')"
+                        :label="$t('landing.navbar.login')"
                         severity="secondary"
                     />
                     <PrimeButton
                         id="navbar-overlay-signup"
-                        :label="$t('navbar.signup')"
+                        :label="$t('landing.navbar.signup')"
                     />
                 </div>
             </div>
@@ -172,22 +172,22 @@
                 <NuxtLinkLocale
                     to="/"
                     class="footer-menu-link"
-                    >{{ $t('navbar.home') }}
+                    >{{ $t('landing.navbar.home') }}
                 </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/feature"
                     class="footer-menu-link"
-                    >{{ $t('navbar.feature') }}</NuxtLinkLocale
-                >
+                    >{{ $t('landing.navbar.feature') }}
+                </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/package"
                     class="footer-menu-link"
-                    >{{ $t('navbar.package') }}</NuxtLinkLocale
-                >
+                    >{{ $t('landing.navbar.package') }}
+                </NuxtLinkLocale>
                 <NuxtLinkLocale
                     to="/guide"
                     class="footer-menu-link"
-                    >{{ $t('navbar.guide') }}</NuxtLinkLocale
+                    >{{ $t('landing.navbar.guide') }}</NuxtLinkLocale
                 >
             </div>
         </div>

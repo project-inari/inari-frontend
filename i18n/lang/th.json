@@ -1,10 +1,12 @@
 {
     "inari": "อินาริ",
-    "home.welcome": "ยินดีต้อนรับ",
-    "navbar.home": "หน้าหลัก",
-    "navbar.feature": "คุณสมบัติ",
-    "navbar.package": "แพ็คเกจ",
-    "navbar.guide": "คู่มือการใช้งาน",
-    "navbar.login": "เข้าสู่ระบบ",
-    "navbar.signup": "สมัครเลย"
+
+    "landing.navbar.home": "หน้าหลัก",
+    "landing.navbar.feature": "คุณสมบัติ",
+    "landing.navbar.package": "แพ็คเกจ",
+    "landing.navbar.guide": "คู่มือการใช้งาน",
+    "landing.navbar.login": "เข้าสู่ระบบ",
+    "landing.navbar.signup": "สมัครเลย",
+
+    "landing.keyfeatures.header": "คุณสมบัติหลัก"
 }
