@@ -129,6 +129,25 @@
             </div>
         </div>
         <!-- End of Key Features Element -->
+
+        <!-- Why Choose Us Element -->
+        <div
+            v-motion-slide-visible-bottom:duration="10000"
+            class="why-choose-us-container"
+        >
+            <div class="why-choose-us-layer-background" />
+            <div class="why-choose-us-layer-content-box">
+                <div
+                    class="why-choose-us-layer-content"
+                    :class="fontDMSansPrompt"
+                >
+                    <h2 class="why-choose-us-header">
+                        {{ $t('landing.whychooseus.header') }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <!-- End of Why Choose Us Element -->
     </div>
 </template>
 
@@ -316,5 +335,55 @@ definePageMeta({
     .key-feature-rev {
         gap: 30px;
     }
+}
+
+// why choose us styles
+.why-choose-us-container {
+    position: relative;
+    height: 800px;
+    margin: 0 20px;
+    margin-bottom: 20px;
+}
+
+.why-choose-us-layer-background {
+    position: absolute;
+    width: 90%;
+    height: 750px;
+    background-color: #c5fff2;
+    opacity: 0.7;
+    border-radius: 25px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50px;
+    z-index: 1;
+}
+
+.why-choose-us-layer-content-box {
+    position: absolute;
+    width: 90%;
+    height: 750px;
+    background-color: #c5fff2;
+    border-radius: 25px;
+    margin: auto;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.why-choose-us-layer-content {
+    position: absolute;
+    z-index: 3;
+    text-align: center;
+    width: 100%;
+}
+
+.why-choose-us-header {
+    font-size: 36px;
+    font-weight: 600;
+    padding: 20px;
 }
 </style>
