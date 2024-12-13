@@ -40,7 +40,7 @@
                 />
                 <PrimeButton
                     id="hero-cta-button"
-                    :label="$t('landing.hero.cta.button')"
+                    :label="$t('landing.hero.ctabutton')"
                     icon="pi pi-angle-double-right"
                     icon-pos="right"
                 />
@@ -341,8 +341,8 @@ definePageMeta({
 .why-choose-us-container {
     position: relative;
     height: 800px;
-    margin: 0 20px;
-    margin-bottom: 20px;
+    margin: 20px;
+    // margin-bottom: 20px;
 }
 
 .why-choose-us-layer-background {
@@ -354,9 +354,9 @@ definePageMeta({
     border-radius: 25px;
     margin: auto;
     top: 0;
-    bottom: 0;
+    bottom: 60px;
     left: 0;
-    right: 50px;
+    right: 60px;
     z-index: 1;
 }
 
@@ -367,7 +367,7 @@ definePageMeta({
     background-color: #c5fff2;
     border-radius: 25px;
     margin: auto;
-    top: 50px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0;
