@@ -1,17 +1,22 @@
 {
     "inari": "INARI",
-
-    "navbar.home": "Home",
-    "navbar.feature": "Features",
-    "navbar.package": "Package",
-    "navbar.guide": "User Guide",
-    "navbar.login": "Login",
-    "navbar.signup": "Sign Up",
-
-    "hero.maintext1": "We Track.",
-    "hero.maintext2": "We Plan.",
-    "hero.maintext3": "We Connect.",
-    "hero.maintext4": "You Grow. Simple.",
-    "hero.subtext": " Every Step of the Way!",
-    "hero.cta.button": "Take the First Step with INARI"
+    "landing.navbar.home": "Home",
+    "landing.navbar.feature": "Features",
+    "landing.navbar.package": "Package",
+    "landing.navbar.guide": "User Guide",
+    "landing.navbar.login": "Login",
+    "landing.navbar.signup": "Sign Up",
+    "landing.hero.maintext1": "We Track.",
+    "landing.hero.maintext2": "We Plan.",
+    "landing.hero.maintext3": "We Connect.",
+    "landing.hero.maintext4": "You Grow. Simple.",
+    "landing.hero.subtext": " Every Step of the Way!",
+    "landing.hero.cta.button": "Take the First Step with INARI",
+    "landing.keyfeatures.header": "Key Features",
+    "landing.keyfeatures.feature1.title": "Simple Inventory Management",
+    "landing.keyfeatures.feature1.subtitle": "Inventory Headache? We love it!",
+    "landing.keyfeatures.feature2.title": "Platform Integration",
+    "landing.keyfeatures.feature2.subtitle": "More Platforms, Less Problems.",
+    "landing.keyfeatures.feature3.title": "Plan-Ahead Analytics",
+    "landing.keyfeatures.feature3.subtitle": "Stay On Track? Stay Ahead"
 }

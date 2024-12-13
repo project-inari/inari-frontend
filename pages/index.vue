@@ -4,30 +4,30 @@
         <div
             v-motion-slide-visible-bottom:duration="10000"
             class="hero-container"
-            style="background-image: url('/img/hero-bg.png')"
+            style="background-image: url('/img/landing/hero-bg.png')"
         >
             <div
                 class="hero-content"
                 :class="fontDMSansPrompt"
             >
                 <span class="hero-content--maintext">{{
-                    $t('hero.maintext1')
+                    $t('landing.hero.maintext1')
                 }}</span
                 ><br />
                 <span class="hero-content--maintext">{{
-                    $t('hero.maintext2')
+                    $t('landing.hero.maintext2')
                 }}</span
                 ><br />
                 <span class="hero-content--maintext">{{
-                    $t('hero.maintext3')
+                    $t('landing.hero.maintext3')
                 }}</span
                 ><br />
                 <span class="hero-content--maintext">{{
-                    $t('hero.maintext4')
+                    $t('landing.hero.maintext4')
                 }}</span
                 ><br />
                 <span class="hero-content--subtext">{{
-                    $t('hero.subtext')
+                    $t('landing.hero.subtext')
                 }}</span>
                 <br
                     v-if="$viewport.isGreaterThan('mobile')"
@@ -40,7 +40,7 @@
                 />
                 <PrimeButton
                     id="hero-cta-button"
-                    :label="$t('hero.cta.button')"
+                    :label="$t('landing.hero.cta.button')"
                     icon="pi pi-angle-double-right"
                     icon-pos="right"
                 />
@@ -56,6 +56,85 @@
             </div>
         </div>
         <!-- End of Hero Element -->
+
+        <!-- Key Features Element -->
+        <div
+            v-motion-slide-visible-bottom:duration="10000"
+            class="key-features-container"
+        >
+            <h2
+                class="key-features-header"
+                :class="fontDMSansPrompt"
+            >
+                {{ $t('landing.keyfeatures.header') }}
+            </h2>
+            <div
+                class="key-features-content"
+                :class="fontDMSansPrompt"
+            >
+                <div class="key-feature">
+                    <NuxtImg
+                        v-if="$viewport.matches('mobile', 'desktop')"
+                        src="/img/landing/key-features-1.png"
+                        height="150"
+                        width="150"
+                    />
+                    <NuxtImg
+                        v-if="$viewport.match('tablet')"
+                        src="/img/landing/key-features-1.png"
+                        height="100"
+                        width="100"
+                    />
+                    <h3 class="key-feature-title">
+                        {{ $t('landing.keyfeatures.feature1.title') }}
+                    </h3>
+                    <p class="key-feature-subtitle">
+                        {{ $t('landing.keyfeatures.feature1.subtitle') }}
+                    </p>
+                </div>
+                <div class="key-feature">
+                    <NuxtImg
+                        v-if="$viewport.matches('mobile', 'desktop')"
+                        src="/img/landing/key-features-2.png"
+                        height="150"
+                        width="150"
+                    />
+                    <NuxtImg
+                        v-if="$viewport.match('tablet')"
+                        src="/img/landing/key-features-2.png"
+                        height="100"
+                        width="100"
+                    />
+                    <h3 class="key-feature-title">
+                        {{ $t('landing.keyfeatures.feature2.title') }}
+                    </h3>
+                    <p class="key-feature-subtitle">
+                        {{ $t('landing.keyfeatures.feature2.subtitle') }}
+                    </p>
+                </div>
+                <div class="key-feature">
+                    <NuxtImg
+                        v-if="$viewport.matches('mobile', 'desktop')"
+                        src="/img/landing/key-features-3.png"
+                        height="150"
+                        width="150"
+                    />
+                    <NuxtImg
+                        v-if="$viewport.match('tablet')"
+                        src="/img/landing/key-features-3.png"
+                        height="100"
+                        width="100"
+                    />
+                    <h3 class="key-feature-title">
+                        {{ $t('landing.keyfeatures.feature3.title') }}
+                    </h3>
+                    <p class="key-feature-subtitle">
+                        {{ $t('landing.keyfeatures.feature3.subtitle') }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- End of Key Features Element -->
     </div>
 </template>
 
@@ -70,6 +149,7 @@ definePageMeta({
 </script>
 
 <style lang="scss" scoped>
+// hero styles
 .hero-container {
     height: 450px;
     display: flex;
@@ -118,5 +198,61 @@ definePageMeta({
     width: 350px;
     height: 48px;
     font-size: 20px;
+}
+
+// key features styles
+.key-features-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.key-features-header {
+    font-size: 36px;
+    font-weight: 600;
+    padding: 20px;
+}
+
+.key-features-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 20px;
+}
+
+.key-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-basis: 33%;
+    text-wrap: nowrap;
+}
+
+.key-feature-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.key-feature-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+@media (max-width: 1280px) {
+    .key-features-header {
+        font-size: 32px;
+        padding: 16px;
+    }
+
+    .key-feature-title {
+        font-size: 20px;
+    }
+
+    .key-feature-subtitle {
+        font-size: 16px;
+    }
 }
 </style>
