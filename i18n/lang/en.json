@@ -15,8 +15,11 @@
     "landing.keyfeatures.header": "Key Features",
     "landing.keyfeatures.feature1.title": "Simple Inventory Management",
     "landing.keyfeatures.feature1.subtitle": "Inventory Headache? We love it!",
+    "landing.keyfeatures.feature1.description": "We’re the ultimate planner! Inari checks your past data and suggests your next move. Whether you’re prepping for New Year or stocking up for your next big sale, we’ve got you. Why just stay on track when you can stay ahead.",
     "landing.keyfeatures.feature2.title": "Platform Integration",
     "landing.keyfeatures.feature2.subtitle": "More Platforms, Less Problems.",
+    "landing.keyfeatures.feature2.description": "Selling on Shopee, Lazada, Facebook, or TikTok? Inari’s got you covered! Forget juggling between apps – Inari syncs everything real-time in one place. Why overcomplicate?",
     "landing.keyfeatures.feature3.title": "Plan-Ahead Analytics",
-    "landing.keyfeatures.feature3.subtitle": "Stay On Track? Stay Ahead"
+    "landing.keyfeatures.feature3.subtitle": "Stay On Track? Stay Ahead",
+    "landing.keyfeatures.feature3.description": "Focus on what matters—your business. Our simple, no-fuss platform keeps everything organized, so you don’t have to. Real-time tracking, easy updates, and intuitive notifications make inventory work a breeze. You take care of your business—we’ll handle the rest."
 }

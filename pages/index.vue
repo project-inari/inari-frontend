@@ -74,63 +74,57 @@
             >
                 <div class="key-feature">
                     <NuxtImg
-                        v-if="$viewport.matches('mobile', 'desktop')"
                         src="/img/landing/key-features-1.png"
                         height="150"
                         width="150"
                     />
-                    <NuxtImg
-                        v-if="$viewport.match('tablet')"
-                        src="/img/landing/key-features-1.png"
-                        height="100"
-                        width="100"
-                    />
-                    <h3 class="key-feature-title">
-                        {{ $t('landing.keyfeatures.feature1.title') }}
-                    </h3>
-                    <p class="key-feature-subtitle">
-                        {{ $t('landing.keyfeatures.feature1.subtitle') }}
-                    </p>
+                    <div class="key-features-content-text">
+                        <h3 class="key-feature-title">
+                            {{ $t('landing.keyfeatures.feature1.title') }}
+                        </h3>
+                        <p class="key-feature-subtitle">
+                            {{ $t('landing.keyfeatures.feature1.subtitle') }}
+                        </p>
+                        <p class="key-feature-description">
+                            {{ $t('landing.keyfeatures.feature1.description') }}
+                        </p>
+                    </div>
                 </div>
-                <div class="key-feature">
+                <div class="key-feature-rev">
                     <NuxtImg
-                        v-if="$viewport.matches('mobile', 'desktop')"
                         src="/img/landing/key-features-2.png"
                         height="150"
                         width="150"
                     />
-                    <NuxtImg
-                        v-if="$viewport.match('tablet')"
-                        src="/img/landing/key-features-2.png"
-                        height="100"
-                        width="100"
-                    />
-                    <h3 class="key-feature-title">
-                        {{ $t('landing.keyfeatures.feature2.title') }}
-                    </h3>
-                    <p class="key-feature-subtitle">
-                        {{ $t('landing.keyfeatures.feature2.subtitle') }}
-                    </p>
+                    <div class="key-features-content-text">
+                        <h3 class="key-feature-title">
+                            {{ $t('landing.keyfeatures.feature2.title') }}
+                        </h3>
+                        <p class="key-feature-subtitle">
+                            {{ $t('landing.keyfeatures.feature2.subtitle') }}
+                        </p>
+                        <p class="key-feature-description">
+                            {{ $t('landing.keyfeatures.feature2.description') }}
+                        </p>
+                    </div>
                 </div>
                 <div class="key-feature">
                     <NuxtImg
-                        v-if="$viewport.matches('mobile', 'desktop')"
                         src="/img/landing/key-features-3.png"
                         height="150"
                         width="150"
                     />
-                    <NuxtImg
-                        v-if="$viewport.match('tablet')"
-                        src="/img/landing/key-features-3.png"
-                        height="100"
-                        width="100"
-                    />
-                    <h3 class="key-feature-title">
-                        {{ $t('landing.keyfeatures.feature3.title') }}
-                    </h3>
-                    <p class="key-feature-subtitle">
-                        {{ $t('landing.keyfeatures.feature3.subtitle') }}
-                    </p>
+                    <div class="key-features-content-text">
+                        <h3 class="key-feature-title">
+                            {{ $t('landing.keyfeatures.feature3.title') }}
+                        </h3>
+                        <p class="key-feature-subtitle">
+                            {{ $t('landing.keyfeatures.feature3.subtitle') }}
+                        </p>
+                        <p class="key-feature-description">
+                            {{ $t('landing.keyfeatures.feature3.description') }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,13 +216,29 @@ definePageMeta({
     padding: 20px;
 }
 
-.key-feature {
+.key-feature,
+.key-feature-rev {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     flex-basis: 33%;
-    text-wrap: nowrap;
+}
+
+.key-features-content-text,
+.key-features-content-text-rev {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.key-feature-description,
+.key-feature-description-rev {
+    font-size: 16px;
+    font-weight: 300;
+    color: #727272;
+    text-align: center;
 }
 
 .key-feature-title {
@@ -238,13 +248,56 @@ definePageMeta({
 
 .key-feature-subtitle {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1190px) {
+    .key-features-content {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .key-feature,
+    .key-feature-rev {
+        gap: 60px;
+    }
+
+    .key-feature {
+        flex-direction: row;
+    }
+
+    .key-feature-rev {
+        flex-direction: row-reverse;
+
+        .key-features-content-text {
+            align-items: flex-end;
+        }
+
+        .key-feature-title {
+            text-align: right;
+        }
+
+        .key-feature-subtitle {
+            text-align: right;
+        }
+
+        .key-feature-description {
+            text-align: right;
+        }
+    }
+
+    .key-features-content-text {
+        align-items: flex-start;
+    }
+
+    .key-feature-description {
+        text-align: left;
+    }
+}
+
+@media (max-width: 590px) {
     .key-features-header {
-        font-size: 32px;
-        padding: 16px;
+        font-size: 26px;
     }
 
     .key-feature-title {
@@ -253,6 +306,15 @@ definePageMeta({
 
     .key-feature-subtitle {
         font-size: 16px;
+    }
+
+    .key-feature-description {
+        font-size: 14px;
+    }
+
+    .key-feature,
+    .key-feature-rev {
+        gap: 30px;
     }
 }
 </style>
