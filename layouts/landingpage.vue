@@ -226,7 +226,7 @@ const handleOpenBurgerMenu = () => {
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 9999;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -307,17 +307,23 @@ const handleOpenBurgerMenu = () => {
 }
 
 .navbar-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    background-color: #d0d0d0;
-    overflow: hidden;
     height: 0;
+    background-color: rgba(208, 208, 208, 0.95);
+    overflow: hidden;
     transition: height 0.5s ease-in-out;
-    place-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 999;
 }
 
 .navbar-overlay-container.is-open {
-    height: 300px;
+    height: 100vh;
 }
 
 .navbar-overlay-menu {
@@ -440,10 +446,6 @@ const handleOpenBurgerMenu = () => {
 }
 
 @media (max-width: 590px) {
-    .navbar-overlay-container.is-open {
-        height: 400px;
-    }
-
     .footer-container {
         flex-direction: column-reverse;
         height: auto;
