@@ -1,28 +1,62 @@
 {
     "inari": "INARI",
-
-    "landing.navbar.home": "Home",
-    "landing.navbar.feature": "Features",
-    "landing.navbar.package": "Package",
-    "landing.navbar.guide": "User Guide",
-    "landing.navbar.login": "Login",
-    "landing.navbar.signup": "Sign Up",
-
-    "landing.hero.maintext1": "We Track.",
-    "landing.hero.maintext2": "We Plan.",
-    "landing.hero.maintext3": "We Connect.",
-    "landing.hero.maintext4": "You Grow. Simple.",
-    "landing.hero.subtext": " Every Step of the Way!",
-    "landing.hero.cta.button": "Take the First Step with INARI",
-
-    "landing.keyfeatures.header": "Key Features",
-    "landing.keyfeatures.feature1.title": "Simple Inventory Management",
-    "landing.keyfeatures.feature1.subtitle": "Inventory Headache? We love it!",
-    "landing.keyfeatures.feature1.description": "We’re the ultimate planner! Inari checks your past data and suggests your next move. Whether you’re prepping for New Year or stocking up for your next big sale, we’ve got you. Why just stay on track when you can stay ahead.",
-    "landing.keyfeatures.feature2.title": "Platform Integration",
-    "landing.keyfeatures.feature2.subtitle": "More Platforms, Less Problems.",
-    "landing.keyfeatures.feature2.description": "Selling on Shopee, Lazada, Facebook, or TikTok? Inari’s got you covered! Forget juggling between apps – Inari syncs everything real-time in one place. Why overcomplicate?",
-    "landing.keyfeatures.feature3.title": "Plan-Ahead Analytics",
-    "landing.keyfeatures.feature3.subtitle": "Stay On Track? Stay Ahead",
-    "landing.keyfeatures.feature3.description": "Focus on what matters—your business. Our simple, no-fuss platform keeps everything organized, so you don’t have to. Real-time tracking, easy updates, and intuitive notifications make inventory work a breeze. You take care of your business—we’ll handle the rest."
+    "landing": {
+        "navbar": {
+            "home": "Home",
+            "feature": "Features",
+            "package": "Package",
+            "guide": "User Guide",
+            "login": "Login",
+            "signup": "Sign Up"
+        },
+        "hero": {
+            "maintext1": "We Track.",
+            "maintext2": "We Plan.",
+            "maintext3": "We Connect.",
+            "maintext4": "You Grow. Simple.",
+            "subtext": " Every Step of the Way!",
+            "ctabutton": "Take the First Step with INARI"
+        },
+        "keyfeatures": {
+            "header": "Key Features",
+            "feature1": {
+                "title": "Simple Inventory Management",
+                "subtitle": "Inventory Headache? We love it!",
+                "description": "Focus on what matters—your business. Our simple, no-fuss platform keeps everything organized, so you don’t have to. Real-time tracking, easy updates, and intuitive notifications make inventory work a breeze. You take care of your business—we’ll handle the rest."
+            },
+            "feature2": {
+                "title": "Platform Integration",
+                "subtitle": "More Platforms, Less Problems.",
+                "description": "Selling on Shopee, Lazada, Facebook, or TikTok? Inari’s got you covered! Forget juggling between apps – Inari syncs everything real-time in one place. Why overcomplicate?"
+            },
+            "feature3": {
+                "title": "Plan-Ahead Analytics",
+                "subtitle": "Stay On Track? Stay Ahead.",
+                "description": "We’re the ultimate planner! Inari checks your past data and suggests your next move. Whether you’re prepping for New Year or stocking up for your next big sale, we’ve got you. Why just stay on track when you can stay ahead."
+            }
+        },
+        "whychooseus": {
+            "header": "Why Choose Us?",
+            "content1": {
+                "title": "No Expertise? \nNo Problem!",
+                "description": "Don’t worry about tech skills, Inari keeps everything simple. Our platform is designed so that anyone can use it, no matter their experience. And for the tech-savvy? Even they’ll be impressed by how powerful it really is."
+            },
+            "content2": {
+                "title": "One Platform to Rule Them All",
+                "description": "Managing your shop on Shopee, Lazada, Facebook, or TikTok? Come to us, we’ll connect you."
+            },
+            "content3": {
+                "title": "Goodbye Understocking, \nNo More Overstocking",
+                "description": "Inari helps you stay balanced, so you’re always stocked just right. No more guessing, just perfect stock control."
+            },
+            "content4": {
+                "title": "We Plan, So You Don’t Have To",
+                "description": "We’ll help you prepare for the busy times, while saving cost on the low seasons."
+            },
+            "content5": {
+                "title": "We’re With You, \nEvery Step of the Way",
+                "description": "From day one to your biggest business milestones, Inari’s by your side. We’re here to support you from start to success."
+            }
+        }
+    }
 }

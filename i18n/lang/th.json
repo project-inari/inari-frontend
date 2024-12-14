@@ -1,12 +1,20 @@
 {
     "inari": "อินาริ",
-
-    "landing.navbar.home": "หน้าหลัก",
-    "landing.navbar.feature": "คุณสมบัติ",
-    "landing.navbar.package": "แพ็คเกจ",
-    "landing.navbar.guide": "คู่มือการใช้งาน",
-    "landing.navbar.login": "เข้าสู่ระบบ",
-    "landing.navbar.signup": "สมัครเลย",
-
-    "landing.keyfeatures.header": "คุณสมบัติหลัก"
+    "landing": {
+        "navbar": {
+            "home": "หน้าหลัก",
+            "feature": "คุณสมบัติ",
+            "package": "แพ็คเกจ",
+            "guide": "คู่มือการใช้งาน",
+            "login": "เข้าสู่ระบบ",
+            "signup": "สมัครเลย"
+        },
+        "hero": {},
+        "keyfeatures": {
+            "header": "คุณสมบัติหลัก"
+        },
+        "whychooseus": {
+            "header": "ทำไมต้องเลือกเรา?"
+        }
+    }
 }

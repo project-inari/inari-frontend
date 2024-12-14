@@ -40,7 +40,7 @@
                 />
                 <PrimeButton
                     id="hero-cta-button"
-                    :label="$t('landing.hero.cta.button')"
+                    :label="$t('landing.hero.ctabutton')"
                     icon="pi pi-angle-double-right"
                     icon-pos="right"
                 />
@@ -129,6 +129,80 @@
             </div>
         </div>
         <!-- End of Key Features Element -->
+
+        <!-- Why Choose Us Element -->
+        <div
+            v-motion-slide-visible-bottom:duration="10000"
+            class="why-choose-us-container"
+        >
+            <div class="why-choose-us-layer-background" />
+            <div
+                class="why-choose-us-layer-content-box"
+                :class="fontDMSansPrompt"
+            >
+                <h2 class="why-choose-us-header">
+                    {{ $t('landing.whychooseus.header') }}
+                </h2>
+                <div class="why-choose-us-contents">
+                    <div class="why-choose-us-content">
+                        <div class="why-choose-us-content-left-section">
+                            <h2 class="why-choose-us-content-no">01</h2>
+                            <h3 class="why-choose-us-content-title">
+                                {{ $t('landing.whychooseus.content1.title') }}
+                            </h3>
+                        </div>
+                        <p class="why-choose-us-content-description">
+                            {{ $t('landing.whychooseus.content1.description') }}
+                        </p>
+                    </div>
+                    <div class="why-choose-us-content">
+                        <div class="why-choose-us-content-left-section">
+                            <h2 class="why-choose-us-content-no">02</h2>
+                            <h3 class="why-choose-us-content-title">
+                                {{ $t('landing.whychooseus.content2.title') }}
+                            </h3>
+                        </div>
+                        <p class="why-choose-us-content-description">
+                            {{ $t('landing.whychooseus.content2.description') }}
+                        </p>
+                    </div>
+                    <div class="why-choose-us-content">
+                        <div class="why-choose-us-content-left-section">
+                            <h2 class="why-choose-us-content-no">03</h2>
+                            <h3 class="why-choose-us-content-title">
+                                {{ $t('landing.whychooseus.content3.title') }}
+                            </h3>
+                        </div>
+                        <p class="why-choose-us-content-description">
+                            {{ $t('landing.whychooseus.content3.description') }}
+                        </p>
+                    </div>
+                    <div class="why-choose-us-content">
+                        <div class="why-choose-us-content-left-section">
+                            <h2 class="why-choose-us-content-no">04</h2>
+                            <h3 class="why-choose-us-content-title">
+                                {{ $t('landing.whychooseus.content4.title') }}
+                            </h3>
+                        </div>
+                        <p class="why-choose-us-content-description">
+                            {{ $t('landing.whychooseus.content4.description') }}
+                        </p>
+                    </div>
+                    <div class="why-choose-us-content">
+                        <div class="why-choose-us-content-left-section">
+                            <h2 class="why-choose-us-content-no">05</h2>
+                            <h3 class="why-choose-us-content-title">
+                                {{ $t('landing.whychooseus.content5.title') }}
+                            </h3>
+                        </div>
+                        <p class="why-choose-us-content-description">
+                            {{ $t('landing.whychooseus.content5.description') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Why Choose Us Element -->
     </div>
 </template>
 
@@ -315,6 +389,155 @@ definePageMeta({
     .key-feature,
     .key-feature-rev {
         gap: 30px;
+    }
+}
+
+// why choose us styles
+.why-choose-us-container {
+    position: relative;
+    height: 800px;
+    margin: 20px;
+}
+
+.why-choose-us-layer-background {
+    position: absolute;
+    width: 90%;
+    height: 750px;
+    background-color: #c5fff2;
+    opacity: 0.7;
+    border-radius: 25px;
+    margin: auto;
+    top: 0;
+    bottom: 60px;
+    left: 0;
+    right: 60px;
+    z-index: 1;
+}
+
+.why-choose-us-layer-content-box {
+    position: absolute;
+    width: 90%;
+    height: 750px;
+    background-color: #c5fff2;
+    border-radius: 25px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.why-choose-us-header {
+    font-size: 36px;
+    font-weight: 600;
+    padding: 20px;
+    flex-grow: 0;
+}
+
+.why-choose-us-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
+
+.why-choose-us-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 30px;
+}
+
+.why-choose-us-content-left-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-basis: 50%;
+}
+
+.why-choose-us-content-no {
+    font-size: 50px;
+    font-weight: 800;
+    border-right: thick solid #000000;
+    width: 100px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.why-choose-us-content-title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.why-choose-us-content-description {
+    font-size: 16px;
+    font-weight: 300;
+    color: #727272;
+    text-align: right;
+    flex-basis: 55%;
+    text-wrap: balance;
+}
+
+@media (min-width: 1280px) {
+    .why-choose-us-content {
+        padding-left: 120px;
+    }
+
+    .why-choose-us-content-description {
+        text-align: left;
+    }
+}
+
+@media (max-width: 810px) {
+    .why-choose-us-container {
+        height: 1100px;
+    }
+
+    .why-choose-us-layer-background {
+        height: 1050px;
+    }
+
+    .why-choose-us-layer-content-box {
+        height: 1050px;
+    }
+
+    .why-choose-us-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 590px) {
+    .why-choose-us-header {
+        font-size: 26px;
+    }
+
+    .why-choose-us-content-no {
+        font-size: 30px;
+        width: 60px;
+    }
+
+    .why-choose-us-content-title {
+        font-size: 20px;
+    }
+
+    .why-choose-us-content-description {
+        font-size: 14px;
+    }
+
+    .why-choose-us-content {
+        padding-right: 10px;
     }
 }
 </style>
