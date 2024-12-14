@@ -476,7 +476,7 @@ definePageMeta({
     font-size: 24px;
     font-weight: 600;
     text-align: left;
-    white-space: preline;
+    white-space: pre-wrap;
 }
 
 .why-choose-us-content-description {
@@ -484,7 +484,7 @@ definePageMeta({
     font-weight: 300;
     color: #727272;
     text-align: right;
-    flex-basis: 50%;
+    flex-basis: 55%;
     text-wrap: balance;
 }
 </style>
