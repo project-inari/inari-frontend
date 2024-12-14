@@ -452,7 +452,7 @@ definePageMeta({
 .why-choose-us-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding-right: 30px;
 }
 
@@ -486,5 +486,58 @@ definePageMeta({
     text-align: right;
     flex-basis: 55%;
     text-wrap: balance;
+}
+
+@media (min-width: 1280px) {
+    .why-choose-us-content {
+        padding-left: 120px;
+    }
+
+    .why-choose-us-content-description {
+        text-align: left;
+    }
+}
+
+@media (max-width: 810px) {
+    .why-choose-us-container {
+        height: 1100px;
+    }
+
+    .why-choose-us-layer-background {
+        height: 1050px;
+    }
+
+    .why-choose-us-layer-content-box {
+        height: 1050px;
+    }
+
+    .why-choose-us-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 590px) {
+    .why-choose-us-header {
+        font-size: 26px;
+    }
+
+    .why-choose-us-content-no {
+        font-size: 30px;
+        width: 60px;
+    }
+
+    .why-choose-us-content-title {
+        font-size: 20px;
+    }
+
+    .why-choose-us-content-description {
+        font-size: 14px;
+    }
+
+    .why-choose-us-content {
+        padding-right: 10px;
+    }
 }
 </style>
