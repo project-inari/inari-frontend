@@ -31,9 +31,8 @@
             </div>
             <NuxtImg
                 src="/img/mascot-5.png"
-                width="400"
-                height="400"
-                sizes="(max-width: 590px) 200px, (max-width: 1020px) 250px, 400px"
+                width="300"
+                height="300"
             />
         </div>
     </NuxtLayout>
@@ -52,7 +51,8 @@ const { fontDMSansPrompt } = useFontClass();
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 700px;
+    height: 100vh;
+    padding-bottom: 100px;
 }
 
 .error-info-section {
@@ -60,7 +60,6 @@ const { fontDMSansPrompt } = useFontClass();
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-basis: 30%;
     margin-top: -50px;
 }
 
@@ -85,6 +84,7 @@ p {
 @media (max-width: 1020px) {
     h1 {
         font-size: 100px;
+        margin-bottom: -40px;
     }
 
     p {
@@ -92,9 +92,15 @@ p {
     }
 
     #back-home-button {
-        width: 100px;
+        width: 120px;
         height: 40px;
         font-size: 16px;
+    }
+}
+
+@media (max-width: 590px) {
+    .error-container {
+        flex-direction: column-reverse;
     }
 }
 </style>
