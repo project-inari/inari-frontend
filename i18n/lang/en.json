@@ -58,5 +58,14 @@
                 "description": "From day one to your biggest business milestones, Inari’s by your side. We’re here to support you from start to success."
             }
         }
+    },
+    "error": {
+        "backhomebutton": "Back Home",
+        "404": {
+            "text": "Oops! Page Not Found..."
+        },
+        "others": {
+            "text": "Oops! Something Went Wrong..."
+        }
     }
 }
