@@ -145,6 +145,7 @@
         <div
             v-motion-slide-visible-bottom:duration="5000"
             class="footer-container"
+            style="background-image: url('/img/landing/footer-bg.png')"
         >
             <div class="footer-logo-name">
                 <NuxtLinkLocale :to="baseUrl">
@@ -381,14 +382,14 @@ const handleOpenBurgerMenu = () => {
     align-items: center;
     padding: 1rem;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #efefef;
     width: 100%;
     height: 300px;
+    background-size: cover;
+    background-position: center;
 }
 
 .footer-logo-name {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-basis: 40%;
@@ -396,10 +397,11 @@ const handleOpenBurgerMenu = () => {
 }
 
 .inari-footer-text {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 700;
     color: #727272;
     text-wrap: nowrap;
+    text-shadow: 2px 2px 2px #a6a6a6;
 }
 
 .footer-menu {
