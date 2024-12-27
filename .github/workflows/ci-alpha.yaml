@@ -31,7 +31,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           project_id: inari-non-prod
-          credentials_json: ${{ secrets.GCP_POC_KEY }}
+          credentials_json: ${{ secrets.GCP_NON_PROD_KEY }}
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
