@@ -1,52 +1,52 @@
 name: ci-release
 
 on:
-    release:
-        types: [published]
+  release:
+    types: [published]
 
 jobs:
-    tag-build:
-        runs-on: ubuntu-latest
+  tag-build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Check out code
-              uses: actions/checkout@v4
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '20.14'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.14"
 
-            - name: Install pnpm
-              run: npm install -g pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-            - name: Install dependencies
-              run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
-            - name: Build Nuxt app
-              run: pnpm build
+      - name: Build Nuxt app
+        run: pnpm build
 
-            - name: Set up GCP authentication
-              uses: google-github-actions/auth@v2
-              with:
-                  project_id: inari-non-prod
-                  credentials_json: ${{ secrets.GCP_NON_PROD_KEY }}
+      - name: Set up GCP authentication
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: inari-non-prod
+          credentials_json: ${{ secrets.GCP_NON_PROD_KEY }}
 
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
-            - name: Configure GCP and Docker
-              run: |
-                  gcloud config set project inari-non-prod
-                  gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+      - name: Configure GCP and Docker
+        run: |
+          gcloud config set project inari-non-prod
+          gcloud auth configure-docker asia-southeast1-docker.pkg.dev
 
-            - name: Build Docker image
-              run: docker build -t inari-frontend .
+      - name: Build Docker image
+        run: docker build -t inari-frontend .
 
-            - name: Tag Docker image
-              run: |
-                  docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
+      - name: Tag Docker image
+        run: |
+          docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
 
-            - name: Push Docker image to Artifact Registry
-              run: |
-                  asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
+      - name: Push Docker image to Artifact Registry
+        run: |
+          docker push asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
