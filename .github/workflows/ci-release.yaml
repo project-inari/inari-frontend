@@ -29,15 +29,15 @@ jobs:
             - name: Set up GCP authentication
               uses: google-github-actions/auth@v2
               with:
-                  project_id: inari-poc
-                  credentials_json: ${{ secrets.GCP_POC_KEY }}
+                  project_id: inari-non-prod
+                  credentials_json: ${{ secrets.GCP_NON_PROD_KEY }}
 
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@v2
 
             - name: Configure GCP and Docker
               run: |
-                  gcloud config set project inari-poc
+                  gcloud config set project inari-non-prod
                   gcloud auth configure-docker asia-southeast1-docker.pkg.dev
 
             - name: Build Docker image
@@ -45,8 +45,8 @@ jobs:
 
             - name: Tag Docker image
               run: |
-                  docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:${GITHUB_REF#refs/tags/}
+                  docker tag inari-frontend asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
 
             - name: Push Docker image to Artifact Registry
               run: |
-                  docker push asia-southeast1-docker.pkg.dev/inari-poc/inari-poc-registry/inari-frontend:${GITHUB_REF#refs/tags/}
+                  asia-southeast1-docker.pkg.dev/inari-non-prod/inari-registry/inari-frontend:${GITHUB_REF#refs/tags/}
