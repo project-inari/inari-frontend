@@ -18,7 +18,7 @@
         "@nuxtjs/i18n": "9.0.0-rc.2",
         "@pinia/nuxt": "0.5.5",
         "@primevue/themes": "4.2.4",
-        "@vue/server-renderer": "^3.5.13",
+        "@vue/server-renderer": "3.5.13",
         "@vueuse/motion": "2.2.6",
         "nuxt": "3.14.1592",
         "nuxt-viewport": "2.2.0",
