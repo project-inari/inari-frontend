@@ -10,5 +10,7 @@ export default defineEventHandler(event => {
     }
     const subdomain = hostParts[0];
 
+    // eslint-disable-next-line no-console
+    console.log('url', getRequestURL(event).host);
     event.context.subdomain = subdomain;
 });
