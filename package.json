@@ -15,7 +15,7 @@
     "dependencies": {
         "@nuxt/eslint": "0.5.7",
         "@nuxt/image": "1.8.1",
-        "@nuxtjs/i18n": "9.0.0-rc.2",
+        "@nuxtjs/i18n": "9.3.1",
         "@pinia/nuxt": "0.5.5",
         "@primevue/themes": "4.2.4",
         "@vue/server-renderer": "3.5.13",
