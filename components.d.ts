@@ -10,7 +10,11 @@ declare module 'vue' {
     PrimeButton: typeof import('primevue/button')['default']
     PrimeColumn: typeof import('primevue/column')['default']
     PrimeDataTable: typeof import('primevue/datatable')['default']
+    PrimeFloatLabel: typeof import('primevue/floatlabel')['default']
+    PrimeForm: typeof import('@primevue/forms/form')['default']
+    PrimeInputText: typeof import('primevue/inputtext')['default']
     PrimeMenu: typeof import('primevue/menu')['default']
+    PrimePassword: typeof import('primevue/password')['default']
     PrimeSelect: typeof import('primevue/select')['default']
     PrimeToggleSwitch: typeof import('primevue/toggleswitch')['default']
   }
