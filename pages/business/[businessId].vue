@@ -1,8 +1,5 @@
 <template>
-    <div>
-        <NuxtPage />
-        <!-- Handle 404 -->
-    </div>
+    <div></div>
 </template>
 
 <script lang="ts" setup>
