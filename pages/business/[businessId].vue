@@ -1,14 +1,15 @@
 <template>
-    <div>
-        <NuxtPage />
-        <!-- Handle 404 -->
-    </div>
+    <div>{{ businessId }}</div>
 </template>
 
 <script lang="ts" setup>
 definePageMeta({
-    layout: 'landingpage',
+    layout: 'dashboard',
 });
+
+const route = useRoute();
+
+const businessId = route.params.businessId;
 </script>
 
 <style lang="scss" scoped></style>
