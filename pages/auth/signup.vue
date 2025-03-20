@@ -85,7 +85,13 @@
             <PrimeButton
                 id="signup-button"
                 :label="$t('signup.form.button')"
+                @click="handleSignup"
             />
+            <NuxtLinkLocale
+                to="/auth/login"
+                class="link-to-login"
+                >{{ $t('signup.form.login') }}</NuxtLinkLocale
+            >
         </div>
     </div>
 </template>
@@ -104,6 +110,34 @@ const confirmPassword = ref('');
 const firstName = ref('');
 const lastName = ref('');
 const phoneNo = ref('');
+
+const config = useRuntimeConfig();
+
+const handleSignup = async () => {
+    try {
+        const response = await $fetch(
+            `${config.public.BACKEND_API_BASE_URL}/v1/auth/signup`,
+            {
+                method: 'POST',
+                body: {
+                    email: email.value,
+                    username: username.value,
+                    password: password.value,
+                    first_name: firstName.value,
+                    last_name: lastName.value,
+                    phone_no: phoneNo.value,
+                },
+            },
+        );
+
+        console.log('Signup successful:', response);
+        alert('Signup successful! Please login.');
+        navigateTo('/auth/login');
+    } catch (error) {
+        console.error('Signup failed:', error);
+        alert('Signup failed. Please try again.');
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -140,5 +174,15 @@ const phoneNo = ref('');
 
 ::v-deep(.p-password input) {
     width: 100% !important;
+}
+
+.link-to-login {
+    text-decoration: none;
+    color: #727272;
+    text-align: center;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 </style>

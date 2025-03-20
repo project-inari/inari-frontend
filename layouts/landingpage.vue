@@ -66,17 +66,21 @@
                     :model-value="currentLocale"
                     @update:model-value="changeLocale"
                 />
-                <PrimeButton
-                    v-if="$viewport.isGreaterThan('mobile')"
-                    id="navbar-login"
-                    :label="$t('landing.navbar.login')"
-                    variant="outlined"
-                />
-                <PrimeButton
-                    v-if="$viewport.isGreaterThan('mobile')"
-                    id="navbar-signup"
-                    :label="$t('landing.navbar.signup')"
-                />
+                <NuxtLinkLocale to="/auth/login">
+                    <PrimeButton
+                        v-if="$viewport.isGreaterThan('mobile')"
+                        id="navbar-login"
+                        :label="$t('landing.navbar.login')"
+                        variant="outlined"
+                    />
+                </NuxtLinkLocale>
+                <NuxtLinkLocale to="/auth/signup">
+                    <PrimeButton
+                        v-if="$viewport.isGreaterThan('mobile')"
+                        id="navbar-signup"
+                        :label="$t('landing.navbar.signup')"
+                    />
+                </NuxtLinkLocale>
                 <Burger
                     v-if="$viewport.isLessThan('desktop')"
                     type="vortex"
@@ -125,15 +129,19 @@
                     v-if="$viewport.isLessThan('tablet')"
                     class="navbar-overlay-menu-buttons"
                 >
-                    <PrimeButton
-                        id="navbar-overlay-login"
-                        :label="$t('landing.navbar.login')"
-                        severity="secondary"
-                    />
-                    <PrimeButton
-                        id="navbar-overlay-signup"
-                        :label="$t('landing.navbar.signup')"
-                    />
+                    <NuxtLinkLocale to="/auth/login">
+                        <PrimeButton
+                            id="navbar-overlay-login"
+                            :label="$t('landing.navbar.login')"
+                            severity="secondary"
+                        />
+                    </NuxtLinkLocale>
+                    <NuxtLinkLocale to="/auth/signup">
+                        <PrimeButton
+                            id="navbar-overlay-signup"
+                            :label="$t('landing.navbar.signup')"
+                        />
+                    </NuxtLinkLocale>
                 </div>
             </div>
         </div>

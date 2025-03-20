@@ -75,9 +75,11 @@
             "username": "Name",
             "firstname": "First Name",
             "lastname": "Last Name",
+            "phoneno": "Phone Number",
             "password": "Password",
             "confirmpassword": "Confirm Password",
-            "button": "Sign Up"
+            "button": "Sign Up",
+            "login": "Already have an account? Login"
         }
     }
 }
