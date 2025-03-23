@@ -81,5 +81,14 @@
             "button": "Sign Up",
             "login": "Already have an account? Login"
         }
+    },
+    "login": {
+        "header": "Login to INARI",
+        "form": {
+            "email": "Email",
+            "password": "Password",
+            "button": "Login",
+            "signup": "Don't have an account? Sign Up"
+        }
     }
 }

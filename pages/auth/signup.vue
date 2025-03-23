@@ -72,7 +72,7 @@
                 <label for="password">{{ $t('signup.form.password') }}</label>
             </PrimeFloatLabel>
             <PrimeFloatLabel variant="in">
-                <PrimePassword
+                <PrimeInputText
                     id="confirm_password"
                     v-model="confirmPassword"
                     class="signup-input-text"
