@@ -1,6 +1,8 @@
 <template>
     <div class="dashboard-layout">
+        <!-- TOP BAR -->
         <header class="topbar-container">
+            <!-- Left: Logo + Title + Dropdown -->
             <div class="topbar-left">
                 <div class="logo-container">
                     <img
@@ -10,8 +12,17 @@
                     />
                     <h2 class="topbar-title">INARI</h2>
                 </div>
+
+                <!-- Always-visible dropdown in the top bar -->
+                <PrimeDropdown
+                    v-model="selectedBusiness"
+                    :options="businessOptions"
+                    option-label="label"
+                    class="topbar-dropdown"
+                />
             </div>
 
+            <!-- Right: Breadcrumb + User Icon -->
             <div class="topbar-right">
                 <PrimeBreadcrumb :model="breadcrumbItems" />
                 <div class="topbar-user">
@@ -20,23 +31,16 @@
             </div>
         </header>
 
+        <!-- MAIN CONTAINER -->
         <div class="main-container">
+            <!-- SIDEBAR -->
             <aside
                 class="sidebar-container"
                 :class="{ collapsed: isSidebarCollapsed }"
                 @mouseenter="onSidebarHover(true)"
                 @mouseleave="onSidebarHover(false)"
             >
-                <PrimeDropdown
-                    v-show="!isSidebarCollapsed"
-                    v-model="selectedBusiness"
-                    :options="businessOptions"
-                    option-label="label"
-                    class="sidebar-dropdown"
-                />
-
                 <h4 class="menu-heading">MAIN MENU</h4>
-
                 <ul class="menu-list">
                     <li
                         v-for="(item, index) in menuItems"
@@ -47,6 +51,7 @@
                             <span class="menu-text">{{ item.label }}</span>
                         </div>
 
+                        <!-- First-level children -->
                         <ul
                             v-if="item.children && item.children.length"
                             class="submenu-list"
@@ -56,15 +61,13 @@
                                 :key="cIndex"
                             >
                                 <div class="menu-item-content">
-                                    <i
-                                        v-if="child.icon"
-                                        :class="[child.icon, 'menu-icon']"
-                                    ></i>
-                                    <span class="menu-text">{{
-                                        child.label
-                                    }}</span>
+                                    <!-- <i v-if="child.icon" :class="[child.icon, 'menu-icon']"></i> -->
+                                    <span class="menu-text">
+                                        {{ child.label }}
+                                    </span>
                                 </div>
 
+                                <!-- Second-level children -->
                                 <ul
                                     v-if="
                                         child.children && child.children.length
@@ -86,6 +89,7 @@
                 </ul>
             </aside>
 
+            <!-- CONTENT -->
             <main class="content-container">
                 <slot />
             </main>
@@ -94,21 +98,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import PrimeBreadcrumb from 'primevue/breadcrumb';
-import PrimeDropdown from 'primevue/dropdown';
-
+/* Sidebar collapsible state & hover logic */
 const isSidebarCollapsed = ref(true);
 function onSidebarHover(hovering: boolean) {
     isSidebarCollapsed.value = !hovering;
 }
 
+/* Breadcrumb data */
 const breadcrumbItems = ref([
     { label: 'Beer Garden' },
     { label: 'Inventory' },
     { label: 'All Stock' },
 ]);
 
+/* Business dropdown data */
 const businessOptions = ref([
     { label: 'Beer Garden', value: 'beer-garden' },
     { label: 'Wine Cellar', value: 'wine-cellar' },
@@ -116,6 +119,7 @@ const businessOptions = ref([
 ]);
 const selectedBusiness = ref('beer-garden');
 
+/* Sidebar menu items */
 const menuItems = ref([
     {
         label: 'Setting',
@@ -189,12 +193,14 @@ const menuItems = ref([
 </script>
 
 <style scoped lang="scss">
+/* Layout Container */
 .dashboard-layout {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+/* Top Bar */
 .topbar-container {
     background-color: #fff;
     display: flex;
@@ -204,9 +210,12 @@ const menuItems = ref([
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Top Bar: Left */
 .topbar-left {
     display: flex;
     align-items: center;
+    gap: 1rem;
+    /* space between logo-container & dropdown */
 }
 
 .logo-container {
@@ -226,6 +235,12 @@ const menuItems = ref([
     color: #727272;
 }
 
+/* PrimeVue dropdown in the top bar */
+.topbar-dropdown {
+    width: 200px;
+}
+
+/* Top Bar: Right */
 .topbar-right {
     display: flex;
     align-items: center;
@@ -237,14 +252,18 @@ const menuItems = ref([
     color: #727272;
 }
 
+/* Main Container (Sidebar + Content) */
 .main-container {
     display: flex;
     flex: 1;
 }
 
+/* Sidebar */
 .sidebar-container {
     width: 60px;
+    /* Collapsed width by default */
     background-color: #effff0;
+    /* Example sidebar background */
     border-right: 1px solid #e2e2e2;
     transition: width 0.3s ease;
     overflow: hidden;
@@ -253,15 +272,12 @@ const menuItems = ref([
     flex-direction: column;
 }
 
-.sidebar-dropdown {
-    margin-bottom: 1rem;
-    width: 100%;
-}
-
+/* Expanded on hover */
 .sidebar-container:not(.collapsed) {
     width: 240px;
 }
 
+/* Menu Heading */
 .menu-heading {
     font-size: 14px;
     font-weight: 600;
@@ -278,6 +294,7 @@ const menuItems = ref([
     margin: 0;
 }
 
+/* Menu List */
 .menu-list {
     list-style: none;
     margin: 0;
@@ -285,6 +302,7 @@ const menuItems = ref([
     flex: 1;
 }
 
+/* Top-level items */
 .menu-list > li {
     position: relative;
     display: block;
@@ -293,6 +311,7 @@ const menuItems = ref([
     white-space: nowrap;
 }
 
+/* Icon + text row */
 .menu-item-content {
     display: flex;
     align-items: center;
@@ -316,13 +335,16 @@ const menuItems = ref([
     transition: opacity 0.2s;
 }
 
+/* Submenu (first level) */
 .submenu-list {
     list-style: none;
     margin: 0.2rem 0 0 2rem;
     padding: 0;
     display: none;
+    /* hidden by default */
 }
 
+/* Show submenu on hover */
 .menu-list > li:hover > .submenu-list {
     display: block;
 }
@@ -332,6 +354,7 @@ const menuItems = ref([
     font-size: 14px;
 }
 
+/* Second-level submenu */
 .submenu-list-l2 {
     list-style: none;
     margin: 0.2rem 0 0 1.5rem;
@@ -348,6 +371,7 @@ const menuItems = ref([
     color: #555;
 }
 
+/* Hide text & submenus if collapsed */
 .sidebar-container.collapsed .menu-text,
 .sidebar-container.collapsed .submenu-list,
 .sidebar-container.collapsed .submenu-list-l2,
@@ -355,11 +379,13 @@ const menuItems = ref([
     display: none;
 }
 
+/* Content Area */
 .content-container {
     flex: 1;
     padding: 1rem 2rem;
 }
 
+/* Responsive Example */
 @media (max-width: 768px) {
     .main-container {
         flex-direction: column;
