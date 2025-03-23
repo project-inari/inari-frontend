@@ -36,7 +36,6 @@
             <PrimeButton
                 id="login-button"
                 :label="$t('login.form.button')"
-                @click="handleLogin"
             />
             <NuxtLinkLocale
                 to="/auth/signup"

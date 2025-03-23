@@ -7,9 +7,12 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    PrimeBreadcrumb: typeof import('primevue/breadcrumb')['default']
     PrimeButton: typeof import('primevue/button')['default']
+    PrimeChip: typeof import('primevue/chip')['default']
     PrimeColumn: typeof import('primevue/column')['default']
     PrimeDataTable: typeof import('primevue/datatable')['default']
+    PrimeDropdown: typeof import('primevue/dropdown')['default']
     PrimeFloatLabel: typeof import('primevue/floatlabel')['default']
     PrimeForm: typeof import('@primevue/forms/form')['default']
     PrimeInputText: typeof import('primevue/inputtext')['default']
