@@ -15,31 +15,71 @@
             {{ $t('login.header') }}
         </h1>
         <div class="login-form">
-            <PrimeFloatLabel variant="in">
+            <PrimeMessage
+                v-if="submitAttempted && errorMessages.length"
+                class="error-box"
+                severity="error"
+            >
+                <ul :class="fontDMSansPrompt">
+                    <li
+                        v-for="(error, index) in errorMessages"
+                        :key="index"
+                    >
+                        {{ error }}
+                    </li>
+                </ul>
+            </PrimeMessage>
+            <PrimeFloatLabel
+                variant="in"
+                :class="fontDMSansPrompt"
+            >
                 <PrimeInputText
                     id="email"
                     v-model="email"
                     class="login-input-text"
                     variant="filled"
+                    :class="fontDMSansPrompt"
                 />
-                <label for="email">{{ $t('login.form.email') }}</label>
+                <label
+                    for="email"
+                    :class="fontDMSansPrompt"
+                    >{{ $t('login.form.email') }}</label
+                >
             </PrimeFloatLabel>
-            <PrimeFloatLabel variant="in">
+            <PrimeFloatLabel
+                variant="in"
+                :class="fontDMSansPrompt"
+            >
                 <PrimeInputText
                     id="password"
                     v-model="password"
                     class="login-input-text"
                     variant="filled"
+                    :class="fontDMSansPrompt"
                 />
-                <label for="password">{{ $t('login.form.password') }}</label>
+                <label
+                    for="password"
+                    :class="fontDMSansPrompt"
+                    >{{ $t('login.form.password') }}</label
+                >
             </PrimeFloatLabel>
             <PrimeButton
                 id="login-button"
                 :label="$t('login.form.button')"
+                :class="fontDMSansPrompt"
+                @click="submitForm"
             />
+            <PrimeMessage
+                v-if="callError"
+                class="error-box"
+                severity="error"
+            >
+                <p :class="fontDMSansPrompt">{{ $t('login.error.500') }}</p>
+            </PrimeMessage>
             <NuxtLinkLocale
                 to="/auth/signup"
                 class="link-to-login"
+                :class="fontDMSansPrompt"
                 >{{ $t('login.form.signup') }}</NuxtLinkLocale
             >
         </div>
@@ -47,14 +87,45 @@
 </template>
 
 <script lang="ts" setup>
+import { useForm, useField } from 'vee-validate';
+import * as yup from 'yup';
+
 definePageMeta({
     title: 'INARI Login',
 });
 
 const { fontDMSansPrompt } = useFontClass();
 
-const email = ref('');
-const password = ref('');
+const schema = yup.object({
+    email: yup.string().email('Invalid email').required('Email is required'),
+    password: yup.string().required('Password is required'),
+});
+
+const submitAttempted = ref(false);
+const callError = ref(false);
+
+const { handleSubmit, errors } = useForm({
+    validationSchema: schema,
+});
+
+const { value: email } = useField<string>('email');
+const { value: password } = useField<string>('password');
+
+const errorMessages = computed(() => Object.values(errors.value));
+
+const onSubmit = handleSubmit(
+    async () => {
+        callError.value = false;
+        submitAttempted.value = false;
+    },
+    () => {
+        submitAttempted.value = true;
+    },
+);
+
+const submitForm = () => {
+    onSubmit();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -86,7 +157,7 @@ const password = ref('');
 }
 
 .login-input-text {
-    width: 300px !important;
+    width: 320px !important;
 }
 
 ::v-deep(.p-password input) {
@@ -101,5 +172,11 @@ const password = ref('');
     &:hover {
         text-decoration: underline;
     }
+}
+
+.error-box {
+    width: 320px;
+    margin-bottom: 10px;
+    text-wrap: wrap;
 }
 </style>

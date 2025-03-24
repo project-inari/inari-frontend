@@ -80,6 +80,9 @@
             "confirmpassword": "Confirm Password",
             "button": "Sign Up",
             "login": "Already have an account? Login"
+        },
+        "error": {
+            "500": "Server not responding, please try again later."
         }
     },
     "login": {
@@ -89,6 +92,9 @@
             "password": "Password",
             "button": "Login",
             "signup": "Don't have an account? Sign Up"
+        },
+        "error": {
+            "500": "Server not responding, please try again later."
         }
     }
 }

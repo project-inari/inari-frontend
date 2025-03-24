@@ -24,12 +24,15 @@
         "nuxt-viewport": "2.2.0",
         "primeicons": "7.0.0",
         "primevue": "4.2.4",
-        "vue": "3.5.13"
+        "vee-validate": "^4.15.0",
+        "vue": "3.5.13",
+        "yup": "^1.6.1"
     },
     "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c",
     "devDependencies": {
         "@nuxtjs/tailwindcss": "6.12.1",
         "@primevue/nuxt-module": "4.2.4",
+        "@types/node": "^22.13.13",
         "eslint-config-prettier": "9.1.0",
         "eslint-plugin-nuxt": "4.0.0",
         "eslint-plugin-prettier": "5.2.1",

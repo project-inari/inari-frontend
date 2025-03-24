@@ -17,6 +17,7 @@ declare module 'vue' {
     PrimeForm: typeof import('@primevue/forms/form')['default']
     PrimeInputText: typeof import('primevue/inputtext')['default']
     PrimeMenu: typeof import('primevue/menu')['default']
+    PrimeMessage: typeof import('primevue/message')['default']
     PrimePassword: typeof import('primevue/password')['default']
     PrimeSelect: typeof import('primevue/select')['default']
     PrimeToggleSwitch: typeof import('primevue/toggleswitch')['default']
