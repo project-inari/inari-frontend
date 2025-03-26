@@ -31,6 +31,13 @@ export default defineNuxtConfig({
         '@vueuse/motion/nuxt',
         'nuxt-viewport',
     ],
+    runtimeConfig: {
+        BACKEND_API_BASE_URL: process.env.BACKEND_API_BASE_URL,
+        BACKEND_API_KEY: process.env.BACKEND_API_KEY,
+        public: {
+            FIREBASE_CONFIG: process.env.FIREBASE_CONFIG,
+        },
+    },
     viewport: {
         breakpoints: {
             mobile: 0,
