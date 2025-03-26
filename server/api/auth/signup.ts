@@ -46,6 +46,7 @@ export default defineEventHandler(async event => {
 
     setCookie(event, 'username', data.username, { httpOnly: true });
     setCookie(event, 'token', data.token, { httpOnly: true });
+    setCookie(event, 'uid', data.uid, { httpOnly: true });
 
     return data;
 });

@@ -117,6 +117,19 @@ const onSubmit = handleSubmit(
     async () => {
         callError.value = false;
         submitAttempted.value = false;
+
+        try {
+            await $fetch('/api/auth/login', {
+                method: 'POST',
+                body: {
+                    email: email.value,
+                    password: password.value,
+                },
+            });
+        } catch (error) {
+            callError.value = true;
+            console.log(error);
+        }
     },
     () => {
         submitAttempted.value = true;
