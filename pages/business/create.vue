@@ -3,7 +3,7 @@
         class="main-container"
         :class="fontDMSansPrompt"
     >
-        Welcome to {{ businessId }} Management Dashboard!
+        Create new business page
     </div>
 </template>
 
@@ -13,10 +13,6 @@ definePageMeta({
 });
 
 const { fontDMSansPrompt } = useFontClass();
-
-const route = useRoute();
-
-const businessId = route.params.businessId;
 </script>
 
 <style lang="scss" scoped>

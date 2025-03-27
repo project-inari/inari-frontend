@@ -21,7 +21,7 @@ export default defineEventHandler(async event => {
             });
         }
 
-        return { success: true, uid: userCredential.user.uid };
+        return { success: true, username: userCredential.user.displayName };
     } catch (error) {
         console.error('Error signing in:', error);
         throw createError({

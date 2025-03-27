@@ -1,13 +1,13 @@
-import { createError } from 'h3';
+// import { createError } from 'h3';
 
-export default defineEventHandler(async event => {
-    if (event.node.req.url?.includes('/api/')) {
-        const token = getCookie(event, 'token') as string;
-        if (!token) {
-            throw createError({
-                statusCode: 401,
-                statusMessage: 'Unauthorized',
-            });
-        }
-    }
+export default defineEventHandler(async _event => {
+    // if (event.node.req.url?.includes('/api/')) {
+    //     const token = getCookie(event, 'token') as string;
+    //     if (!token) {
+    //         throw createError({
+    //             statusCode: 401,
+    //             statusMessage: 'Unauthorized',
+    //         });
+    //     }
+    // }
 });
