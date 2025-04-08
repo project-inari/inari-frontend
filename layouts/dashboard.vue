@@ -5,22 +5,13 @@
             <!-- Left: Logo + Title + Dropdown -->
             <div class="topbar-left">
                 <div class="logo-container">
-                    <img
-                        src="/img/default-logo.png"
-                        alt="INARI-Logo"
-                        class="logo"
-                    />
+                    <img src="/img/default-logo.png" alt="INARI-Logo" class="logo" />
                     <h2 class="topbar-title">INARI</h2>
                 </div>
 
                 <!-- Business Dropdown -->
-                <PrimeDropdown
-                    v-model="selectedBusiness"
-                    :options="businessOptions"
-                    class="topbar-dropdown"
-                    option-label="label"
-                    option-value="value"
-                />
+                <PrimeDropdown v-model="selectedBusiness" :options="businessOptions" class="topbar-dropdown"
+                    option-label="label" option-value="value" />
             </div>
 
             <!-- Right: Breadcrumb -->
@@ -32,90 +23,54 @@
         <!-- MAIN CONTAINER -->
         <div class="main-container">
             <!-- SIDEBAR -->
-            <aside
-                class="sidebar-container"
-                :class="{ collapsed: isSidebarCollapsed }"
-                @mouseenter="onSidebarHover(true)"
-                @mouseleave="onSidebarHover(false)"
-            >
+            <aside class="sidebar-container" :class="{ collapsed: isSidebarCollapsed }"
+                @mouseenter="onSidebarHover(true)" @mouseleave="onSidebarHover(false)">
                 <h4 class="menu-heading">MAIN MENU</h4>
                 <ul class="menu-list">
                     <!-- Top-level items -->
-                    <li
-                        v-for="(item, i) in menuItems"
-                        :key="i"
-                    >
-                        <div
-                            class="menu-item-content"
-                            :class="{ active: isActive([item.label]) }"
-                            @click="onMenuItemClick(item)"
-                        >
+                    <li v-for="(item, i) in menuItems" :key="i">
+                        <div class="menu-item-content" :class="{ active: isActive([item.label]) }"
+                            @click="onMenuItemClick(item)">
                             <!-- Icon (SVG or FA) -->
                             <template v-if="item.iconPath">
-                                <img
-                                    :src="item.iconPath"
-                                    class="menu-icon"
-                                    alt=""
-                                />
+                                <img :src="item.iconPath" class="menu-icon" alt="" />
                             </template>
 
                             <span class="menu-text">{{ item.label }}</span>
                         </div>
 
                         <!-- First-level children -->
-                        <ul
-                            v-if="item.children && item.children.length"
-                            class="submenu-list"
-                        >
-                            <li
-                                v-for="(child, cIndex) in item.children"
-                                :key="cIndex"
-                            >
-                                <div
-                                    class="menu-item-content"
-                                    :class="{
-                                        active: isActive([
-                                            item.label,
-                                            child.label,
-                                        ]),
-                                    }"
-                                    @click.stop="onChildClick(item, child)"
-                                >
+                        <ul v-if="item.children && item.children.length" class="submenu-list">
+                            <li v-for="(child, cIndex) in item.children" :key="cIndex">
+                                <div class="menu-item-content" :class="{
+                                    active: isActive([
+                                        item.label,
+                                        child.label,
+                                    ]),
+                                }" @click.stop="onChildClick(item, child)">
                                     <span class="menu-text">{{
                                         child.label
                                     }}</span>
                                 </div>
 
                                 <!-- Second-level children -->
-                                <ul
-                                    v-if="
-                                        child.children && child.children.length
-                                    "
-                                    class="submenu-list-l2"
-                                >
-                                    <li
-                                        v-for="(
-                                            subChild, sIndex
-                                        ) in child.children"
-                                        :key="sIndex"
-                                    >
-                                        <div
-                                            class="menu-item-content"
-                                            :class="{
-                                                active: isActive([
-                                                    item.label,
-                                                    child.label,
-                                                    subChild.label,
-                                                ]),
-                                            }"
-                                            @click.stop="
-                                                onSubChildClick(
-                                                    item,
-                                                    child,
-                                                    subChild,
-                                                )
-                                            "
-                                        >
+                                <ul v-if="
+                                    child.children && child.children.length
+                                " class="submenu-list-l2">
+                                    <li v-for="(subChild, sIndex) in child.children" :key="sIndex">
+                                        <div class="menu-item-content" :class="{
+                                            active: isActive([
+                                                item.label,
+                                                child.label,
+                                                subChild.label,
+                                            ]),
+                                        }" @click.stop="
+                                            onSubChildClick(
+                                                item,
+                                                child,
+                                                subChild,
+                                            )
+                                            ">
                                             <span class="menu-text">{{
                                                 subChild.label
                                             }}</span>
@@ -145,7 +100,7 @@ const route = useRoute();
 const pathBusinessId = route.params.businessId;
 
 // Example: fetch user businesses from an API
-const businesses: Business[] = await $fetch(
+const businesses = await $fetch<Business[]>(
     `/api/user/${currentUsername.value}/business`,
     {
         method: 'GET',
@@ -295,12 +250,12 @@ function updateBreadcrumb(pathLabels: string[]) {
     breadcrumbItems.value = [
         { label: currentBusinessStore.businessName },
         ...pathLabels.map(p =>
-            // Optionally, format the label (e.g. capitalize)
-            ({
-                label: p
-                    .replace(/-/g, ' ')
-                    .replace(/^\w/, c => c.toUpperCase()),
-            }),
+        // Optionally, format the label (e.g. capitalize)
+        ({
+            label: p
+                .replace(/-/g, ' ')
+                .replace(/^\w/, c => c.toUpperCase()),
+        }),
         ),
     ];
 }
@@ -413,6 +368,9 @@ watch(
     align-items: center;
     padding: 0.5rem 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .topbar-left {
@@ -428,14 +386,14 @@ watch(
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
 }
 
 .topbar-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
-    color: #727272;
+    color: #333;
 }
 
 .topbar-dropdown {
@@ -446,6 +404,12 @@ watch(
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.topbar-right .p-breadcrumb {
+    font-size: 14px;
+    color: #555;
 }
 
 /* Main Container (Sidebar + Content) */
@@ -454,7 +418,7 @@ watch(
     flex: 1;
 }
 
-/* Sidebar */
+/* Sidebar Fixes */
 .sidebar-container {
     width: 60px;
     background-color: #effff0;
@@ -464,6 +428,8 @@ watch(
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 999;
 }
 
 /* Expand on hover */
@@ -495,7 +461,7 @@ watch(
     flex: 1;
 }
 
-.menu-list > li {
+.menu-list>li {
     position: relative;
     display: block;
     padding: 0.3rem 0;
@@ -555,7 +521,7 @@ watch(
 }
 
 /* Show submenu on hover */
-.menu-list > li:hover > .submenu-list {
+.menu-list>li:hover>.submenu-list {
     display: block;
 }
 
@@ -573,7 +539,7 @@ watch(
 }
 
 /* Show second-level submenu on hover */
-.submenu-list li:hover > .submenu-list-l2 {
+.submenu-list li:hover>.submenu-list-l2 {
     display: block;
 }
 
@@ -598,6 +564,43 @@ watch(
         width: 100%;
         border-right: none;
         border-bottom: 1px solid #e2e2e2;
+    }
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .topbar-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .topbar-left,
+    .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .topbar-dropdown {
+        width: 100%;
+    }
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+    .sidebar-container {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .sidebar-container.collapsed {
+        width: 100%;
+    }
+
+    .menu-list>li {
+        display: flex;
+        justify-content: space-between;
     }
 }
 </style>

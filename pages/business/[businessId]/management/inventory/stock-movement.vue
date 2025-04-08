@@ -18,9 +18,7 @@
         <!-- MOVEMENT HISTORY TABLE -->
         <PrimeDataTable
             :value="filteredMovementData"
-            :paginator="true"
-            :rows="5"
-            responsive-layout="scroll"
+            scrollable
             class="movement-table"
         >
             <PrimeColumn
@@ -47,54 +45,6 @@
             <PrimeColumn
                 field="totalQty"
                 header="Total Qty."
-            />
-        </PrimeDataTable>
-
-        <!-- SECOND SEARCH BAR -->
-        <div class="stock-table-search">
-            <PrimeInputText
-                v-model="stockSearch"
-                placeholder="Search your business"
-                class="stock-search-input"
-            />
-        </div>
-
-        <!-- STOCK TABLE -->
-        <PrimeDataTable
-            :value="filteredStockData"
-            :paginator="true"
-            :rows="5"
-            responsive-layout="scroll"
-            class="stock-table"
-        >
-            <PrimeColumn
-                header="SKU"
-                field="sku"
-            />
-            <PrimeColumn header="Inventory Items">
-                <template #body="slotProps">
-                    <div class="item-cell">
-                        <NuxtImg
-                            :src="slotProps.data.img"
-                            alt="item-image"
-                            width="40"
-                            height="40"
-                        />
-                        <span>{{ slotProps.data.item }}</span>
-                    </div>
-                </template>
-            </PrimeColumn>
-            <PrimeColumn
-                header="Variants"
-                field="variant"
-            />
-            <PrimeColumn
-                header="Stock Qty"
-                field="qty"
-            />
-            <PrimeColumn
-                header="Stock Values"
-                field="value"
             />
         </PrimeDataTable>
     </div>
@@ -158,7 +108,6 @@ const movementData = ref([
         items: 'Heineken Original',
         totalQty: 10,
     },
-    // ... more data as needed
 ]);
 
 // Filter logic for the movement table
@@ -206,20 +155,6 @@ const stockData = ref([
     },
     // ... more data as needed
 ]);
-
-// Filter logic for the stock table
-const filteredStockData = computed(() => {
-    const keyword = stockSearch.value.toLowerCase();
-    if (!keyword) return stockData.value;
-
-    return stockData.value.filter(row => {
-        return (
-            row.sku.toLowerCase().includes(keyword) ||
-            row.item.toLowerCase().includes(keyword) ||
-            row.variant.toLowerCase().includes(keyword)
-        );
-    });
-});
 </script>
 
 <style scoped lang="scss">

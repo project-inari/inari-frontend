@@ -1,241 +1,197 @@
 <template>
-    <div class="warehouse-management-page">
+    <div class="warehouse-management-page" :class="fontDMSansPrompt">
         <!-- PAGE TITLE & ACTIONS -->
         <header class="wm-header">
-            <h1>Warehouse Management</h1>
+            <h1>Warehouse</h1>
             <!-- Top Search + Action Buttons -->
             <div class="wm-header-actions">
-                <PrimeInputText
-                    v-model="topSearchKeyword"
-                    placeholder="Search your business"
-                    class="top-search-input"
-                />
                 <div class="wm-action-buttons">
-                    <PrimeButton
-                        label="Move Stock"
-                        class="p-button-outlined p-button-sm move-stock-button"
-                        icon="pi pi-external-link"
-                        @click="onMoveStock"
-                    />
-                    <PrimeButton
-                        label="Create +"
-                        class="p-button-sm create-button"
-                        icon="pi pi-plus"
-                        @click="onCreateNew"
-                    />
+                    <PrimeButton label="Create Warehouse" class="p-button-sm create-button" icon="pi pi-plus"
+                        @click="onCreateNew" />
                 </div>
             </div>
         </header>
 
         <!-- WAREHOUSE CARDS -->
         <section class="warehouse-cards-container">
-            <div
-                v-for="(wh, index) in warehouseCards"
-                :key="index"
-                class="warehouse-card"
-                @click="selectWarehouse(wh)"
-            >
-                <NuxtImg
-                    :src="wh.img"
-                    alt="warehouse-icon"
-                    class="warehouse-icon"
-                    width="80"
-                    height="80"
-                />
-                <h3>{{ wh.label }}</h3>
+            <div v-for="wh in warehouseCards" :key="wh.id" class="warehouse-card" @click="selectWarehouse(wh)">
+                <NuxtImg :src="wh.img" alt="warehouse-icon" class="warehouse-icon" width="80" height="80" />
+                <h3>{{ wh.name }}</h3>
             </div>
         </section>
 
         <!-- SELECTED WAREHOUSE SECTION -->
-        <section
-            v-if="selectedWarehouse"
-            class="selected-warehouse-section"
-        >
-            <h2>{{ selectedWarehouse.label }}</h2>
+        <section v-if="selectedWarehouse" class="selected-warehouse-section">
+            <h2>{{ selectedWarehouse.name }}</h2>
 
             <!-- Search bar for table items -->
             <div class="warehouse-search-bar">
-                <PrimeInputText
-                    v-model="tableSearchKeyword"
-                    placeholder="Search your business"
-                    class="warehouse-table-search"
-                />
+                <PrimeInputText v-model="tableSearchKeyword" placeholder="Search inventory..."
+                    class="warehouse-table-search" />
             </div>
 
             <!-- Inventory Table for the Selected Warehouse -->
-            <PrimeDataTable
-                :value="filteredData"
-                :paginator="true"
-                :rows="5"
-                responsive-layout="scroll"
-                class="warehouse-table"
-            >
-                <PrimeColumn
-                    field="sku"
-                    header="SKU"
-                />
+            <PrimeDataTable :value="filteredData" scrollable class="warehouse-table">
+                <PrimeColumn field="sku" header="SKU" />
                 <PrimeColumn header="Inventory Items">
                     <template #body="slotProps">
                         <div class="item-cell">
-                            <NuxtImg
-                                :src="slotProps.data.img"
-                                alt="item-image"
-                                width="40"
-                                height="40"
-                            />
+                            <NuxtImg :src="slotProps.data.img" alt="item-image" width="40" height="40" />
                             <span>{{ slotProps.data.item }}</span>
                         </div>
                     </template>
                 </PrimeColumn>
-                <PrimeColumn
-                    field="variant"
-                    header="Variants"
-                />
-                <PrimeColumn
-                    field="qty"
-                    header="Stock Qty"
-                />
-                <PrimeColumn
-                    field="value"
-                    header="Stock Values"
-                />
+                <PrimeColumn field="variant" header="Variants" />
+                <!-- Stock Qty from qtyInWarehouse -->
+                <PrimeColumn header="Stock Qty">
+                    <template #body="slotProps">
+                        <span>{{ getWarehouseQty(slotProps.data) }}</span>
+                    </template>
+                </PrimeColumn>
+                <PrimeColumn field="purchasePrice" header="Purchase Price" />
+                <!-- Categories Column -->
+                <PrimeColumn header="Categories">
+                    <template #body="slotProps">
+                        <div class="tags-cell">
+                            <PrimeTag v-for="(cat, idx) in slotProps.data.categories" :key="idx" :value="cat.name"
+                                severity="secondary" class="category-tag" />
+                        </div>
+                    </template>
+                </PrimeColumn>
+                <!-- Stock Value Column -->
+                <PrimeColumn header="Stock Value">
+                    <template #body="slotProps">
+                        <span>{{ getWarehouseValue(slotProps.data) }}</span>
+                    </template>
+                </PrimeColumn>
+                <!-- Tags Column with Colors -->
                 <PrimeColumn header="Tags">
                     <template #body="slotProps">
-                        <PrimeChip
-                            v-for="(tag, idx) in slotProps.data.tags"
-                            :key="idx"
-                            :label="tag"
-                            class="status-chip"
-                        />
+                        <div class="tags-cell">
+                            <PrimeTag v-for="(tag, idx) in slotProps.data.tags" :key="idx" :value="tag.name"
+                                :severity="getTagColor(tag)" class="status-tag" />
+                        </div>
                     </template>
                 </PrimeColumn>
             </PrimeDataTable>
         </section>
+
+        <CreateWarehouseModal v-model:visible="isCreateWarehouseModalOpen" />
     </div>
 </template>
 
 <script setup lang="ts">
+import type { InventoryItem } from '~/model/InventoryItem'
+
 definePageMeta({
     layout: 'dashboard',
-});
+})
 
-// ----------------------
-// 1) Top Search / Actions
-// ----------------------
-const topSearchKeyword = ref('');
+const { fontDMSansPrompt } = useFontClass()
+const currentBusinessStore = useCurrentBusinessStore()
 
-// Example event handlers
-function onMoveStock() {
-    console.log('Move Stock clicked!');
-    // Add your logic here
-}
+/* ----------------------
+   1) Top Search / Actions
+---------------------- */
+const topSearchKeyword = ref('')
+const isCreateWarehouseModalOpen = ref(false)
 function onCreateNew() {
-    console.log('Create + clicked!');
-    // Add your logic here
+  console.log('Create Warehouse clicked!')
+  isCreateWarehouseModalOpen.value = true
 }
 
-// ----------------------
-// 2) Warehouse Cards
-// ----------------------
-const warehouseCards = ref([
-    {
-        label: 'Archive',
-        img: '/img/archive-icon.png',
-    },
-    {
-        label: 'Warehouse 1',
-        img: '/img/warehouse1-icon.png',
-    },
-    {
-        label: 'Warehouse 2',
-        img: '/img/warehouse2-icon.png',
-    },
-    {
-        label: 'Warehouse 3',
-        img: '/img/warehouse3-icon.png',
-    },
-    {
-        label: 'Home Inventory',
-        img: '/img/home-inventory-icon.png',
-    },
-]);
+/* ----------------------
+   2) Warehouse Cards
+---------------------- */
+// Fetch warehouse cards via API.
+const warehouseList = await $fetch(`/api/business/${currentBusinessStore.businessId}/inventory/warehouse/list`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+})
+const warehouseCards = ref(warehouseList)
 
-const selectedWarehouse = ref<any>(null);
-function selectWarehouse(warehouse: any) {
-    selectedWarehouse.value = warehouse;
+const selectedWarehouse = ref<{ id: number; name: string } | null>(null)
+function selectWarehouse(wh: { id: number; name: string }) {
+    selectedWarehouse.value = { ...wh }
 }
 
-// ----------------------
-// 3) Table Data
-// ----------------------
-const tableSearchKeyword = ref('');
+/* ----------------------
+   3) Inventory Data (API)
+---------------------- */
+// Fetch inventory data from API as an array of InventoryItem.
+const inventoryList = await $fetch<InventoryItem[]>(`/api/business/${currentBusinessStore.businessId}/inventory/list`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+})
+const inventoryData = ref(inventoryList)
 
-// Example data for demonstration
-const warehouseItems = ref([
-    {
-        warehouse: 'Warehouse 1',
-        sku: '001',
-        img: '/img/heineken.png',
-        item: 'Heineken Original',
-        variant: '620 ml',
-        qty: 288,
-        value: 8640,
-        tags: ['Alcohol', 'Heineken'],
-    },
-    {
-        warehouse: 'Warehouse 1',
-        sku: '002',
-        img: '/img/heineken.png',
-        item: 'Heineken Original',
-        variant: '500 ml',
-        qty: 120,
-        value: 3600,
-        tags: ['Alcohol'],
-    },
-    {
-        warehouse: 'Warehouse 2',
-        sku: '010',
-        img: '/img/pringles.png',
-        item: 'Pringles Sour Cream',
-        variant: '300 g',
-        qty: 200,
-        value: 6000,
-        tags: ['Snacks'],
-    },
-    {
-        warehouse: 'Home Inventory',
-        sku: '020',
-        img: '/img/snowbeer.png',
-        item: 'Snow Weizen',
-        variant: '500 ml',
-        qty: 60,
-        value: 1800,
-        tags: ['Beer', 'Alcohol'],
-    },
-]);
+const categroiesList = await $fetch(`/api/business/${currentBusinessStore.businessId}/category/list`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+})
 
-// Filter data based on selected warehouse + search
+/* ----------------------
+   4) Filtered Data
+---------------------- */
+// Filter inventory items based on selected warehouse using qtyInWarehouse.
+const tableSearchKeyword = ref('')
 const filteredData = computed(() => {
-    if (!selectedWarehouse.value) return [];
-    const whLabel = selectedWarehouse.value.label;
-    // Filter items that match the selected warehouse
-    let data = warehouseItems.value.filter(item => item.warehouse === whLabel);
+    if (!selectedWarehouse.value) return []
+    const whId = selectedWarehouse.value.id
+    let data = inventoryData.value.filter(item => {
+        return item.qtyInWarehouse && item.qtyInWarehouse.some(wh => wh.warehouseId === whId && wh.qty > 0)
+    })
 
-    // If there's a search keyword, filter further
-    const keyword = tableSearchKeyword.value.toLowerCase();
+    // Further filter by search keyword.
+    const keyword = tableSearchKeyword.value.toLowerCase()
     if (keyword) {
-        data = data.filter(
-            item =>
-                item.item.toLowerCase().includes(keyword) ||
-                item.sku.toLowerCase().includes(keyword),
-        );
+        data = data.filter(item => {
+            const values = [
+                item.sku,
+                item.item,
+                item.variant,
+                item.brand,
+                item.note,
+                String(item.purchasePrice),
+                String(item.sellingPrice),
+                String(item.qty),
+                ...item.categoryId.map((cat),
+                ...item.tags.map(tag => tag.name)
+            ]
+            return values.some(v => v && v.toLowerCase().includes(keyword))
+        })
     }
-    return data;
-});
+    return data
+})
+
+/* ----------------------
+   5) Warehouse Value & Quantity
+---------------------- */
+function getWarehouseQty(item: InventoryItem) {
+    if (!selectedWarehouse.value) return 0
+    const whId = selectedWarehouse.value.id
+    const record = item.qtyInWarehouse?.find(wh => wh.warehouseId === whId)
+    return record ? record.qty : 0
+}
+function getWarehouseValue(item: InventoryItem) {
+    if (!selectedWarehouse.value) return 0
+    const whId = selectedWarehouse.value.id
+    const record = item.qtyInWarehouse?.find(wh => wh.warehouseId === whId)
+    return record ? record.qty * item.purchasePrice : 0
+}
+
+/* ----------------------
+   6) Last Updated & Refresh
+---------------------- */
+const lastUpdated = ref(new Date().toLocaleString())
+function refreshData() {
+    lastUpdated.value = new Date().toLocaleString()
+    // Optionally, re-fetch inventory data
+}
 </script>
 
 <style scoped lang="scss">
-.warehouse-management-page {
+.inventory-manager-page {
     padding: 1rem;
     background-color: #fff;
 }
@@ -256,10 +212,6 @@ const filteredData = computed(() => {
         display: flex;
         align-items: center;
         gap: 1rem;
-
-        .top-search-input {
-            width: 250px;
-        }
 
         .wm-action-buttons {
             margin-left: auto;
@@ -342,5 +294,11 @@ const filteredData = computed(() => {
 .status-chip {
     margin-right: 4px;
     margin-top: 4px;
+}
+
+.tags-cell {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
 }
 </style>

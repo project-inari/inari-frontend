@@ -137,7 +137,7 @@ const onSubmit = handleSubmit(
         }
 
         try {
-            businessRes = await $fetch(
+            businessRes = await $fetch<Business[]>(
                 `/api/user/${loginRes?.username}/business`,
                 {
                     method: 'GET',
