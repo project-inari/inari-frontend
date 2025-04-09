@@ -154,11 +154,6 @@
 
 <script setup lang="ts">
 import type { InventoryItem } from '~/model/InventoryItem'
-import { ref, computed, watch } from 'vue'
-import { useFontClass } from '~/composables/useFontClass'
-import { getTagColor } from '~/utils/getTagColor'
-import CreateSupplierOrderModal from '~/components/CreateSupplierOrderModal.vue'
-import CreateItemModal from '~/components/CreateItemModal.vue'
 
 definePageMeta({
   layout: 'dashboard',

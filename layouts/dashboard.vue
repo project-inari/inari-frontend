@@ -50,7 +50,7 @@
                                 }" @click.stop="onChildClick(item, child)">
                                     <span class="menu-text">{{
                                         child.label
-                                    }}</span>
+                                        }}</span>
                                 </div>
 
                                 <!-- Second-level children -->
@@ -73,7 +73,7 @@
                                             ">
                                             <span class="menu-text">{{
                                                 subChild.label
-                                            }}</span>
+                                                }}</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -114,6 +114,7 @@ if (pathBusinessId) {
     const found = businesses.find(b => b.id === Number(pathBusinessId));
     if (found) {
         currentBusinessStore.setCurrentBusiness(found.id, found.name);
+        currentBusinessStore.setCurrentBusinessCategoriesAndTags(found.id);
     }
 }
 

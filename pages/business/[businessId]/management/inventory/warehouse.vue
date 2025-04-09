@@ -53,8 +53,7 @@
                 <PrimeColumn header="Categories">
                     <template #body="slotProps">
                         <div class="tags-cell">
-                            <PrimeTag v-for="(cat, idx) in slotProps.data.categories" :key="idx" :value="cat.name"
-                                severity="secondary" class="category-tag" />
+                            <span>{{ getCategoryPath(slotProps.data.categoryId).join(' → ') }}</span>
                         </div>
                     </template>
                 </PrimeColumn>
@@ -96,8 +95,8 @@ const currentBusinessStore = useCurrentBusinessStore()
 const topSearchKeyword = ref('')
 const isCreateWarehouseModalOpen = ref(false)
 function onCreateNew() {
-  console.log('Create Warehouse clicked!')
-  isCreateWarehouseModalOpen.value = true
+    console.log('Create Warehouse clicked!')
+    isCreateWarehouseModalOpen.value = true
 }
 
 /* ----------------------
@@ -146,6 +145,8 @@ const filteredData = computed(() => {
     const keyword = tableSearchKeyword.value.toLowerCase()
     if (keyword) {
         data = data.filter(item => {
+            // Use getCategoryPath to get a category path array.
+            const categoryPath = getCategoryPath(item.categoryId)
             const values = [
                 item.sku,
                 item.item,
@@ -154,8 +155,8 @@ const filteredData = computed(() => {
                 item.note,
                 String(item.purchasePrice),
                 String(item.sellingPrice),
-                String(item.qty),
-                ...item.categoryId.map((cat),
+                // For filtering, include the category path string values.
+                ...categoryPath,
                 ...item.tags.map(tag => tag.name)
             ]
             return values.some(v => v && v.toLowerCase().includes(keyword))
@@ -187,6 +188,23 @@ const lastUpdated = ref(new Date().toLocaleString())
 function refreshData() {
     lastUpdated.value = new Date().toLocaleString()
     // Optionally, re-fetch inventory data
+}
+
+function getCategoryPath(categoryId: number): string[] {
+    const cat = categroiesList.find((c: any) => c.id === categoryId)
+    if (!cat) return []
+    const path: string[] = []
+    function buildPath(c: any) {
+        if (c.parentCategoryId) {
+            const parent = categroiesList.find((p: any) => p.id === c.parentCategoryId)
+            if (parent) {
+                buildPath(parent)
+            }
+        }
+        path.push(c.name)
+    }
+    buildPath(cat)
+    return path
 }
 </script>
 
