@@ -1,5 +1,5 @@
 export interface Product {
-    productId: number;
+    productId?: number;
     name: string;
     supplierId: number;
     categoryId: number;
@@ -8,7 +8,7 @@ export interface Product {
 };
 
 export interface Variant {
-    variantId: number;
+    variantId?: number;
     name: string;
     sku: string;
     purchasePrice: number;

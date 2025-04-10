@@ -8,7 +8,7 @@ export function getTagColor(tag: string | { color: string }): string {
             case 'blue':
                 return 'info';
             case 'orange':
-                return 'warning';
+                return 'warn';
             case 'red':
                 return 'danger';
             case 'black':

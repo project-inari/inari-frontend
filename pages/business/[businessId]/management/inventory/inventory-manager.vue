@@ -6,8 +6,8 @@
         <h1 :class="fontDMSansPrompt">Inventory Manager</h1>
       </div>
       <div class="header-right">
-        <PrimeButton label="Add Stock" icon="pi pi-plus" class="add-stock-button" @click="onAddStock"
-          :class="fontDMSansPrompt" />
+        <PrimeButton label="Add Stock" icon="pi pi-plus" class="add-stock-button" :class="fontDMSansPrompt"
+          @click="onAddStock" />
       </div>
     </header>
 
@@ -22,7 +22,7 @@
       <div class="filter-bar">
         <label class="filter-label">Filter:</label>
         <PrimeMultiSelect v-model="selectedFilters" :options="groupedFilterOptions" option-label="label"
-          optionGroupLabel="label" optionGroupChildren="items" placeholder="Select Filter" display="chip"
+          option-group-label="label" option-group-children="items" placeholder="Select Filter" display="chip"
           class="w-full md:w-80">
           <template #optiongroup="{ option }">
             <div class="flex items-center gap-2">
@@ -33,12 +33,12 @@
         </PrimeMultiSelect>
       </div>
 
-      <PrimeButton icon="pi pi-refresh" class="p-button-sm" @click="refreshData" severity="secondary" />
+      <PrimeButton icon="pi pi-refresh" class="p-button-sm" severity="secondary" @click="refreshData" />
     </div>
 
     <!-- INVENTORY TABLE (scrollable, sortable) -->
-    <PrimeDataTable :value="filteredProducts" removableSort scrollable scrollHeight="400px" responsive-layout="scroll"
-      selectionMode="single" v-model:selection="selectedRowItem" class="inventory-table" :class="fontDMSansPrompt">
+    <PrimeDataTable v-model:selection="selectedRowItem" :value="filteredProducts" removable-sort scrollable scroll-height="400px"
+      responsive-layout="scroll" selection-mode="single" class="inventory-table" :class="fontDMSansPrompt">
       <PrimeColumn field="sku" header="SKU" sortable />
       <PrimeColumn header="Image">
         <template #body="slotProps">
@@ -86,7 +86,7 @@
     </div>
 
     <!-- DYNAMIC DISPLAY SECTION -->
-    <section class="dynamic-display-section" v-if="selectedItem">
+    <section v-if="selectedItem" class="dynamic-display-section">
       <div class="dynamic-display-header">
         <h3>Dynamic Display</h3>
       </div>
@@ -144,8 +144,8 @@
     </section>
 
     <!-- Create Supplier Order Modal -->
-    <CreateSupplierOrderModal :isOpened="isSupplierOrderModalOpen" v-model:visible="isSupplierOrderModalOpen"
-      :onSubmit="submitSupplierOrder" @close="closeSupplierOrderModal" />
+    <CreateSupplierOrderModal v-model:visible="isSupplierOrderModalOpen" :is-opened="isSupplierOrderModalOpen"
+      :on-submit="submitSupplierOrder" @close="closeSupplierOrderModal" />
 
     <!-- Create/Edit Item Modal (using CreateItemModal component) -->
     <CreateItemModal v-model:visible="isEditItemModalOpen" :item="selectedItemForEdit" @save="onItemModalSave" />
@@ -154,6 +154,7 @@
 
 <script setup lang="ts">
 import type { InventoryItem } from '~/model/InventoryItem'
+import type { Product } from '~/model/Product'
 
 definePageMeta({
   layout: 'dashboard',
@@ -357,6 +358,7 @@ function onCreateProduct() {
 ---------------------------- */
 function onAddStock() {
   console.log('Add Stock button clicked!')
+  isSupplierOrderModalOpen.value = true
   // Add your "Add Stock" logic here
 }
 
@@ -367,11 +369,30 @@ function refreshData() {
 }
 
 const isEditItemModalOpen = ref(false)
-const selectedItemForEdit = ref<InventoryItem>()
-function editItem(rowData: any) {
-  console.log('Edit item clicked:', rowData)
-  selectedItemForEdit.value = rowData
-  isEditItemModalOpen.value = true
+const selectedItemForEdit = ref<Product>()
+  async function editItem(rowData: InventoryItem) {
+  // Adjust this if your InventoryItem has a different field for the variant ID.
+  const variantId = rowData.id
+  if (!variantId) {
+    console.error('No variantId found in the inventory item.')
+    return
+  }
+  try {
+    // Fetch the product data for this variant.
+    const productData = await $fetch<Product>(
+      `/api/business/${currentBusinessStore.businessId}/product/variant/${variantId}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    // Set the reactive product for editing.
+    selectedItemForEdit.value = productData
+    // Open the modal.
+    isEditItemModalOpen.value = true
+  } catch (error) {
+    console.error('Failed to fetch product data for variant', variantId, error)
+  }
 }
 
 function onItemModalSave(updatedItem: InventoryItem) {

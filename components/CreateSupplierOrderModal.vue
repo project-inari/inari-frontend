@@ -1,8 +1,8 @@
 <template>
     <div>
         <!-- Main Dialog -->
-        <PrimeDialog maximizable modal header="Create Supplier Order" :style="{ width: '70rem' }"
-            :class="fontDMSansPrompt" v-model:visible="visible">
+        <PrimeDialog v-model:visible="visible" maximizable modal header="Create Supplier Order"
+            :style="{ width: '70rem' }" :class="fontDMSansPrompt">
             <div class="action-bar">
                 <div>
                     <label>Search: </label>
@@ -27,12 +27,12 @@
                     <PrimeInputText v-model="groupInputs[supplierKey].receiveId" placeholder="Receive ID"
                         class="input-group" />
                     <PrimeDropdown v-model="groupInputs[supplierKey].warehouseId" :options="warehouseOptions"
-                        optionLabel="name" optionValue="id" placeholder="Select Warehouse" class="input-group" />
+                        option-label="name" option-value="id" placeholder="Select Warehouse" class="input-group" />
                     <PrimeInputNumber v-model="groupInputs[supplierKey].shippingCost" placeholder="Shipping Cost"
                         class="input-group" />
                 </div>
 
-                <PrimeDataTable :value="items" removableSort scrollable scrollHeight="300px" responsive-layout="scroll"
+                <PrimeDataTable :value="items" removable-sort scrollable scroll-height="300px" responsive-layout="scroll"
                     class="inventory-table" :class="fontDMSansPrompt">
                     <PrimeColumn field="sku" header="SKU" sortable />
                     <PrimeColumn header="Image">
@@ -49,7 +49,7 @@
                     <PrimeColumn field="purchasePrice" header="Purchase Price" sortable />
                     <PrimeColumn field="orderQty" header="To Order Qty" sortable>
                         <template #body="slotProps">
-                            <PrimeInputNumber v-model="slotProps.data.orderQty" showButtons :min="0" fluid />
+                            <PrimeInputNumber v-model="slotProps.data.orderQty" show-buttons :min="0" fluid />
                         </template>
                     </PrimeColumn>
                     <PrimeColumn field="qty" header="Stock Qty" sortable />
@@ -84,10 +84,10 @@
         <!-- Add Item Dialog -->
         <PrimeDialog v-model:visible="isAddItemModalVisible" modal header="Add Item to Supplier Order"
             :class="fontDMSansPrompt">
-            <PrimeDataTable v-model:selection="itemToAddSelected" :value="allItemsList" selectionMode="multiple"
-                dataKey="id" removableSort scrollable scrollHeight="400px" responsive-layout="scroll"
+            <PrimeDataTable v-model:selection="itemToAddSelected" :value="allItemsList" selection-mode="multiple"
+                data-key="id" removable-sort scrollable scroll-height="400px" responsive-layout="scroll"
                 class="inventory-table" :class="fontDMSansPrompt">
-                <PrimeColumn selectionMode="multiple" headerStyle="width: 3rem" />
+                <PrimeColumn selection-mode="multiple" header-style="width: 3rem" />
                 <PrimeColumn field="sku" header="SKU" sortable />
                 <PrimeColumn header="Image">
                     <template #body="slotProps">
@@ -115,7 +115,6 @@
 <script lang="ts" setup>
 import type { InventoryItem } from '~/model/InventoryItem'
 import type { SupplierOrderItem } from '~/model/SupplierOrderItem'
-import CreateItemModal from '~/components/CreateItemModal.vue'
 
 const currentBusinessStore = useCurrentBusinessStore()
 const { fontDMSansPrompt } = useFontClass()

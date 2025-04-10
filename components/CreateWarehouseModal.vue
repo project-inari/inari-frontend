@@ -9,7 +9,7 @@
                     <NuxtImg v-if="editData.images && editData.images.length" :src="editData.images[0]"
                         alt="Warehouse Main Image" class="main-image" width="180" height="180" />
                     <div v-else class="placeholder-image">No Image</div>
-                    <input type="file" accept="image/*" ref="fileInput" style="display: none"
+                    <input ref="fileInput" type="file" accept="image/*" style="display: none"
                         @change="handleFileChange" />
                 </div>
 

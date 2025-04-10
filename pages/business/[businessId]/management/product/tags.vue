@@ -40,7 +40,7 @@
                                 </span>
                             </div>
                             <!-- Tag description if any -->
-                            <p class="tag-description" v-if="selectedTagDescription">
+                            <p v-if="selectedTagDescription" class="tag-description">
                                 {{ selectedTagDescription }}
                             </p>
                         </div>

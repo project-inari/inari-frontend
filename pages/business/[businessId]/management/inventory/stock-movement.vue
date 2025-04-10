@@ -47,6 +47,11 @@
                 header="Total Qty."
             />
         </PrimeDataTable>
+
+        <CreateStockMovementModal
+            v-model:visible="showCreateStockMovementModal"
+            :isOpened="showCreateStockMovementModal"
+        />
     </div>
 </template>
 
@@ -126,35 +131,15 @@ const filteredMovementData = computed(() => {
     });
 });
 
-// Example event handler
+const showCreateStockMovementModal = ref(false);
 function onMoveStock() {
     console.log('Move Stock clicked');
-    // Add your logic or route navigation here
+    showCreateStockMovementModal.value = true;
 }
 
 // -------------------------
 // 2) Stock Table
 // -------------------------
-const stockSearch = ref('');
-const stockData = ref([
-    {
-        sku: '001',
-        img: '/img/heineken.png',
-        item: 'Heineken Original',
-        variant: '620 ml',
-        qty: 288,
-        value: 8640,
-    },
-    {
-        sku: '002',
-        img: '/img/haribo.png',
-        item: 'Haribo Gold Bear',
-        variant: '72 pcs',
-        qty: 72,
-        value: 720,
-    },
-    // ... more data as needed
-]);
 </script>
 
 <style scoped lang="scss">

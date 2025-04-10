@@ -3,13 +3,13 @@
         <!-- LEFT SIDEBAR: Categories Tree -->
         <aside class="sidebar-categories">
             <h2>Categories</h2>
-            <PrimeTree :value="treeData" selectionMode="single" v-model:selectionKeys="selectedKey" />
+            <PrimeTree v-model:selection-keys="selectedKey" :value="treeData" selection-mode="single" />
         </aside>
 
         <!-- MAIN CONTENT -->
         <section class="product-manager-content">
             <!-- TOP SECTION: Dynamic Display for Selected Product Variant -->
-            <header class="product-detail-header" v-if="selectedProduct && selectedVariant">
+            <header v-if="selectedProduct && selectedVariant" class="product-detail-header">
                 <div class="dynamic-display-section">
                     <!-- Variant Selector & Image -->
                     <div class="variant-header">
@@ -17,7 +17,7 @@
                         <div class="variant-selector">
                             <label>Select Variant:</label>
                             <PrimeDropdown v-model="selectedVariant" :options="selectedProduct.variants"
-                                optionLabel="name" placeholder="Select Variant" class="variant-dropdown" />
+                                option-label="name" placeholder="Select Variant" class="variant-dropdown" />
                         </div>
                         <!-- Variant Image -->
                         <NuxtImg :src="selectedVariant.pictureUrl" alt="selected product image" class="dynamic-item-img"
@@ -49,7 +49,7 @@
                             <span>{{ calculateTotalStockQty(selectedVariant) }}</span>
                         </div>
                         <!-- Variant Tags (mapped from currentBusinessStore.businessTags) -->
-                        <div class="info-row variant-tags" v-if="variantTags.length">
+                        <div v-if="variantTags.length" class="info-row variant-tags">
                             <label class="dynamic-display-info-label">Tags:</label>
                             <div class="tags-cell">
                                 <PrimeTag v-for="(tag, idx) in variantTags" :key="idx" :value="tag?.name"
@@ -69,8 +69,8 @@
                     <PrimeInputText v-model="filterKeyword" placeholder="Filter" class="filter-input" />
                     <div class="sort-dropdown">
                         <label>SORT BY</label>
-                        <PrimeDropdown v-model="selectedSort" :options="sortOptions" optionLabel="label"
-                            optionValue="value" placeholder="Select" />
+                        <PrimeDropdown v-model="selectedSort" :options="sortOptions" option-label="label"
+                            option-value="value" placeholder="Select" />
                     </div>
                 </div>
                 <!-- PRODUCT GRID -->

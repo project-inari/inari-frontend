@@ -13,26 +13,26 @@
             <!-- LEFT SIDEBAR: PrimeVue Tree -->
             <aside class="sidebar-tree">
                 <h2>All Products</h2>
-                <PrimeTree :value="treeData" selectionMode="single" v-model:selectionKeys="selectedKey" />
+                <PrimeTree v-model:selection-keys="selectedKey" :value="treeData" selection-mode="single" />
             </aside>
 
             <!-- RIGHT CONTENT: Selected Category & Subcategory Table -->
             <section class="main-content">
                 <!-- UPPER BOX: Selected Category Details -->
-                <div class="selected-category-box" v-if="selectedCategoryObj">
+                <div v-if="selectedCategoryObj" class="selected-category-box">
                     <div class="selected-category-header">
                         <h2>{{ selectedCategoryObj.name.toUpperCase() }}</h2>
                     </div>
                     <!-- Category Image -->
-                    <div class="selected-category-image" v-if="selectedCategoryObj.pictureUrl">
+                    <div v-if="selectedCategoryObj.pictureUrl" class="selected-category-image">
                         <NuxtImg :src="selectedCategoryObj.pictureUrl" alt="Category Image" width="200" height="100" />
                     </div>
                     <!-- Category Description -->
-                    <p class="selected-category-description" v-if="selectedCategoryObj.description">
+                    <p v-if="selectedCategoryObj.description" class="selected-category-description">
                         {{ selectedCategoryObj.description }}
                     </p>
                     <!-- Assigned Tags -->
-                    <div class="assigned-tags" v-if="selectedCategoryObj.tags && selectedCategoryObj.tags.length">
+                    <div v-if="selectedCategoryObj.tags && selectedCategoryObj.tags.length" class="assigned-tags">
                         <span>Assigned Tags:</span>
                         <div class="tags-row">
                             <PrimeTag v-for="(tag, idx) in selectedCategoryObj.tags" :key="idx" :value="tag.name"
@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- LOWER TABLE: Subcategories of the Selected Category -->
-                <PrimeDataTable :value="subCategoryList" class="subcategory-table" :showGridlines="true" :rows="5">
+                <PrimeDataTable :value="subCategoryList" class="subcategory-table" :show-gridlines="true" :rows="5">
                     <PrimeColumn field="id" header="No." />
                     <PrimeColumn field="name" header="Sub-Category" />
                     <PrimeColumn field="description" header="Description" />

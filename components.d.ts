@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     PrimeBreadcrumb: typeof import('primevue/breadcrumb')['default']
     PrimeButton: typeof import('primevue/button')['default']
+    PrimeCalendar: typeof import('primevue/calendar')['default']
     PrimeChip: typeof import('primevue/chip')['default']
     PrimeColumn: typeof import('primevue/column')['default']
     PrimeDataTable: typeof import('primevue/datatable')['default']
