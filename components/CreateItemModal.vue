@@ -289,7 +289,7 @@ async function onSave() {
 }
 
 // ----- Supplier, Category, and Tag Lists -----
-const suppliers = await $fetch(`/api/business/${currentBusinessStore.businessId}/inventory/supplier/list`, {
+const suppliers = await $fetch(`/api/business/${currentBusinessStore.businessId}/supplier/list`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
 })

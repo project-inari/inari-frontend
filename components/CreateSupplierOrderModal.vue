@@ -166,7 +166,7 @@ const groupedItems = computed(() => {
 watchEffect(async () => {
     for (const supplierKey of Object.keys(groupedItems.value)) {
         if (!supplierInfoMap.value[supplierKey]) {
-            const res = await $fetch(`/api/business/${currentBusinessStore.businessId}/inventory/supplier/inquiry`, {
+            const res = await $fetch(`/api/business/${currentBusinessStore.businessId}/supplier/inquiry`, {
                 query: { supplierId: supplierKey }
             })
             supplierInfoMap.value[supplierKey] = res

@@ -218,7 +218,6 @@ const menuItems = ref([
                             },
                         ],
                     },
-                    { label: 'Supplier', route: 'supplier' },
                     { label: 'Order History', route: 'order-history' },
                 ],
             },
