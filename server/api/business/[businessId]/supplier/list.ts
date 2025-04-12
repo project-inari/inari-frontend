@@ -3,7 +3,7 @@ import type { Supplier } from '~/model/Supplier';
 export default defineEventHandler(async event => {
     const data: Supplier[] = [
         {
-            id: '0001',
+            id: 1,
             name: 'Supplier A',
             description: 'Leading beverage supplier',
             type: 'Beverage',
@@ -29,7 +29,7 @@ export default defineEventHandler(async event => {
             ]
         },
         {
-            id: '0002',
+            id: 2,
             name: 'Supplier B',
             description: 'Quality ingredients supplier',
             type: 'Food',
@@ -46,7 +46,7 @@ export default defineEventHandler(async event => {
             ]
         },
         {
-            id: '0003',
+            id: 3,
             name: 'Supplier C',
             description: 'Wholesale supplier',
             type: 'General',

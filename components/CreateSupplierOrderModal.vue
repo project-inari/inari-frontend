@@ -32,8 +32,8 @@
                         class="input-group" />
                 </div>
 
-                <PrimeDataTable :value="items" removable-sort scrollable scroll-height="300px" responsive-layout="scroll"
-                    class="inventory-table" :class="fontDMSansPrompt">
+                <PrimeDataTable :value="items" removable-sort scrollable scroll-height="300px"
+                    responsive-layout="scroll" class="inventory-table" :class="fontDMSansPrompt">
                     <PrimeColumn field="sku" header="SKU" sortable />
                     <PrimeColumn header="Image">
                         <template #body="slotProps">
@@ -52,7 +52,11 @@
                             <PrimeInputNumber v-model="slotProps.data.orderQty" show-buttons :min="0" fluid />
                         </template>
                     </PrimeColumn>
-                    <PrimeColumn field="qty" header="Stock Qty" sortable />
+                    <PrimeColumn header="Stock Qty">
+                        <template #body="slotProps">
+                            <span>{{ aggreateStockInAllWarehouses(slotProps.data) }}</span>
+                        </template>
+                    </PrimeColumn>
                     <PrimeColumn header="Total Price">
                         <template #body="slotProps">
                             <span>{{ slotProps.data.purchasePrice * slotProps.data.orderQty }}</span>
@@ -101,7 +105,11 @@
                 </PrimeColumn>
                 <PrimeColumn field="variant" header="Variants" sortable />
                 <PrimeColumn field="purchasePrice" header="Purchase Price" sortable />
-                <PrimeColumn field="qty" header="Stock Qty" sortable />
+                <PrimeColumn header="Stock Qty">
+                    <template #body="slotProps">
+                        <span>{{ aggreateStockInAllWarehouses(slotProps.data) }}</span>
+                    </template>
+                </PrimeColumn>
             </PrimeDataTable>
             <PrimeButton label="Add Selected Items" class="submit-add-item-button" severity="primary"
                 @click="onSubmitAddItem" />
@@ -235,6 +243,10 @@ async function onSubmitCreateNewSupplierOrders() {
 async function callGetAllItemsList() {
     const res = await $fetch(`/api/business/${currentBusinessStore.businessId}/inventory/list`)
     allItemsList.value = res
+}
+
+function aggreateStockInAllWarehouses(item: InventoryItem) {
+    return item.qtyInWarehouse?.reduce((sum, wh) => sum + wh.qty, 0) ?? 0
 }
 
 function openAddItemModal() {
