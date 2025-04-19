@@ -1,5 +1,8 @@
 <template>
-    <div class="supplier-order-history-page" :class="fontDMSansPrompt">
+    <div
+        class="supplier-order-history-page"
+        :class="fontDMSansPrompt"
+    >
         <!-- HEADER -->
         <header class="order-history-header">
             <div class="header-left">
@@ -7,8 +10,12 @@
             </div>
             <div class="header-right">
                 <!-- Button to open CreateSupplierOrderModal -->
-                <PrimeButton label="Create Supplier Order" icon="pi pi-plus" class="create-supplier-order-button"
-                    @click="onCreateSupplierOrder" />
+                <PrimeButton
+                    label="Create Supplier Order"
+                    icon="pi pi-plus"
+                    class="create-supplier-order-button"
+                    @click="onCreateSupplierOrder"
+                />
             </div>
         </header>
 
@@ -16,14 +23,26 @@
         <div class="header-actions">
             <div class="search-bar">
                 <label>Search Orders:</label>
-                <PrimeInputText v-model="searchKeyword" placeholder="Search orders..." class="global-search-input" />
+                <PrimeInputText
+                    v-model="searchKeyword"
+                    placeholder="Search orders..."
+                    class="global-search-input"
+                />
             </div>
         </div>
 
         <!-- UPPER TABLE: SUPPLIER ORDERS -->
         <div class="supplier-order-table-section">
-            <PrimeDataTable v-model:selection="selectedSupplierOrder" :value="filteredOrders" selection-mode="single"
-                removable-sort scrollable scroll-height="250px" responsive-layout="scroll" class="supplier-order-table">
+            <PrimeDataTable
+                v-model:selection="selectedSupplierOrder"
+                :value="filteredOrders"
+                selection-mode="single"
+                removable-sort
+                scrollable
+                scroll-height="250px"
+                responsive-layout="scroll"
+                class="supplier-order-table"
+            >
                 <!-- Running number column -->
                 <PrimeColumn header="#">
                     <template #body="slotProps">
@@ -31,28 +50,47 @@
                     </template>
                 </PrimeColumn>
                 <!-- Receive ID -->
-                <PrimeColumn field="receiveId" header="Receive ID" sortable />
+                <PrimeColumn
+                    field="receiveId"
+                    header="Receive ID"
+                    sortable
+                />
                 <!-- Date Created -->
-                <PrimeColumn field="dateCreated" header="Date" sortable />
+                <PrimeColumn
+                    field="dateCreated"
+                    header="Date"
+                    sortable
+                />
                 <!-- Supplier (lookup supplier name) -->
                 <PrimeColumn header="Supplier">
                     <template #body="slotProps">
-                        <span>{{ getSupplierName(slotProps.data.supplierId) }}</span>
+                        <span>{{
+                            getSupplierName(slotProps.data.supplierId)
+                        }}</span>
                     </template>
                 </PrimeColumn>
                 <!-- Warehouse (lookup warehouse name) -->
                 <PrimeColumn header="Warehouse">
                     <template #body="slotProps">
-                        <span>{{ getWarehouseName(slotProps.data.warehouseId) }}</span>
+                        <span>{{
+                            getWarehouseName(slotProps.data.warehouseId)
+                        }}</span>
                     </template>
                 </PrimeColumn>
                 <!-- Status -->
-                <PrimeColumn field="status" header="Status" sortable />
+                <PrimeColumn
+                    field="status"
+                    header="Status"
+                    sortable
+                />
             </PrimeDataTable>
         </div>
 
         <!-- LOWER SECTION: ORDER STATUS & ORDER ITEMS TABLE -->
-        <div class="order-items-section" v-if="selectedSupplierOrder">
+        <div
+            v-if="selectedSupplierOrder"
+            class="order-items-section"
+        >
             <h2 class="order-items-title">
                 Order Items for Order: {{ selectedSupplierOrder.receiveId }}
             </h2>
@@ -60,13 +98,24 @@
             <!-- Dropdown to change order status -->
             <div class="order-status-container">
                 <label>Change Order Status:</label>
-                <PrimeDropdown v-model="orderStatus" :options="orderStatusOptions" placeholder="Select Status"
-                    optionLabel="label" optionValue="value" />
+                <PrimeDropdown
+                    v-model="orderStatus"
+                    :options="orderStatusOptions"
+                    placeholder="Select Status"
+                    option-label="label"
+                    option-value="value"
+                />
             </div>
 
             <!-- Order Items Table -->
-            <PrimeDataTable :value="selectedOrderItems" removable-sort scrollable scroll-height="250px"
-                responsive-layout="scroll" class="order-items-table">
+            <PrimeDataTable
+                :value="selectedOrderItems"
+                removable-sort
+                scrollable
+                scroll-height="250px"
+                responsive-layout="scroll"
+                class="order-items-table"
+            >
                 <!-- Running number column -->
                 <PrimeColumn header="#">
                     <template #body="slotProps">
@@ -74,39 +123,64 @@
                     </template>
                 </PrimeColumn>
                 <!-- SKU -->
-                <PrimeColumn field="sku" header="SKU" sortable />
+                <PrimeColumn
+                    field="sku"
+                    header="SKU"
+                    sortable
+                />
                 <!-- Product -->
-                <PrimeColumn field="productName" header="Product" sortable />
+                <PrimeColumn
+                    field="productName"
+                    header="Product"
+                    sortable
+                />
                 <!-- Variant -->
-                <PrimeColumn field="variantName" header="Variant" />
+                <PrimeColumn
+                    field="variantName"
+                    header="Variant"
+                />
                 <!-- Purchase Price -->
-                <PrimeColumn field="purchasePrice" header="Purchase Price" sortable />
+                <PrimeColumn
+                    field="purchasePrice"
+                    header="Purchase Price"
+                    sortable
+                />
                 <!-- Order Qty -->
-                <PrimeColumn field="orderQty" header="Order Qty" />
+                <PrimeColumn
+                    field="orderQty"
+                    header="Order Qty"
+                />
                 <!-- Subtotal -->
                 <PrimeColumn header="Subtotal">
                     <template #body="slotProps">
-                        <span>{{ slotProps.data.purchasePrice * slotProps.data.orderQty }}</span>
+                        <span>{{
+                            slotProps.data.purchasePrice *
+                            slotProps.data.orderQty
+                        }}</span>
                     </template>
                 </PrimeColumn>
             </PrimeDataTable>
         </div>
 
         <!-- CreateSupplierOrderModal for creating new orders -->
-        <CreateSupplierOrderModal v-model:visible="isSupplierOrderModalOpen" :is-opened="isSupplierOrderModalOpen"
-            :on-submit="submitSupplierOrder" @close="closeSupplierOrderModal" />
+        <CreateSupplierOrderModal
+            v-model:visible="isSupplierOrderModalOpen"
+            :is-opened="isSupplierOrderModalOpen"
+            :on-submit="submitSupplierOrder"
+            @close="closeSupplierOrderModal"
+        />
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { SupplierOrder } from '~/model/SupplierOrder'
+import type { SupplierOrder } from '~/model/SupplierOrder';
 
 definePageMeta({
-    layout: 'dashboard'
-})
+    layout: 'dashboard',
+});
 
-const { fontDMSansPrompt } = useFontClass()
-const currentBusinessStore = useCurrentBusinessStore()
+const { fontDMSansPrompt } = useFontClass();
+const currentBusinessStore = useCurrentBusinessStore();
 
 // 1) Fetch supplier orders
 const fetchedOrders = await $fetch<SupplierOrder[]>(
@@ -114,9 +188,9 @@ const fetchedOrders = await $fetch<SupplierOrder[]>(
     {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-    }
-).catch(() => [])
-const supplierOrders = ref<SupplierOrder[]>(fetchedOrders)
+    },
+).catch(() => []);
+const supplierOrders = ref<SupplierOrder[]>(fetchedOrders);
 
 // 2) Fetch supplier list
 const fetchedSuppliers = await $fetch(
@@ -124,9 +198,9 @@ const fetchedSuppliers = await $fetch(
     {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-    }
-).catch(() => [])
-const supplierList = ref(fetchedSuppliers)
+    },
+).catch(() => []);
+const supplierList = ref(fetchedSuppliers);
 
 // 3) Fetch warehouse list
 const fetchedWarehouses = await $fetch(
@@ -134,42 +208,52 @@ const fetchedWarehouses = await $fetch(
     {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-    }
-).catch(() => [])
-const warehouseList = ref(fetchedWarehouses)
+    },
+).catch(() => []);
+const warehouseList = ref(fetchedWarehouses);
 
 // 4) Filter by search keyword
-const searchKeyword = ref('')
+const searchKeyword = ref('');
 const filteredOrders = computed(() => {
     if (!searchKeyword.value.trim()) {
-        return supplierOrders.value
+        return supplierOrders.value;
     }
-    return supplierOrders.value.filter((order) => {
-        const supplier = supplierList.value.find((s) => s.id === order.supplierId)
-        const supplierName = supplier ? supplier.name : ''
+    return supplierOrders.value.filter(order => {
+        const supplier = supplierList.value.find(
+            s => s.id === order.supplierId,
+        );
+        const supplierName = supplier ? supplier.name : '';
         return (
-            order.receiveId.toLowerCase().includes(searchKeyword.value.toLowerCase()) ||
-            order.status.toLowerCase().includes(searchKeyword.value.toLowerCase()) ||
-            supplierName.toLowerCase().includes(searchKeyword.value.toLowerCase())
-        )
-    })
-})
+            order.receiveId
+                .toLowerCase()
+                .includes(searchKeyword.value.toLowerCase()) ||
+            order.status
+                .toLowerCase()
+                .includes(searchKeyword.value.toLowerCase()) ||
+            supplierName
+                .toLowerCase()
+                .includes(searchKeyword.value.toLowerCase())
+        );
+    });
+});
 
 // 5) Selected order
-const selectedSupplierOrder = ref<SupplierOrder | null>(null)
+const selectedSupplierOrder = ref<SupplierOrder | null>(null);
 
 // 6) Items for the selected order
-const selectedOrderItems = computed(() => selectedSupplierOrder.value?.orderItems || [])
+const selectedOrderItems = computed(
+    () => selectedSupplierOrder.value?.orderItems || [],
+);
 
 // 7) Helper: get supplier name from ID
 function getSupplierName(supplierId: number): string {
-    const supplier = supplierList.value.find((s) => s.id === supplierId)
-    return supplier ? supplier.name : 'Unknown'
+    const supplier = supplierList.value.find(s => s.id === supplierId);
+    return supplier ? supplier.name : 'Unknown';
 }
 // Helper: get warehouse name from ID
 function getWarehouseName(warehouseId: number): string {
-    const w = warehouseList.value.find((w) => w.id === warehouseId)
-    return w ? w.name : 'Unknown'
+    const w = warehouseList.value.find(w => w.id === warehouseId);
+    return w ? w.name : 'Unknown';
 }
 
 // 8) For changing order status
@@ -178,31 +262,33 @@ const orderStatusOptions = ref([
     { label: 'Completed', value: 'Completed' },
     { label: 'Canceled', value: 'Canceled' },
     { label: 'On Hold', value: 'On Hold' },
-])
+]);
 const orderStatus = computed<string>({
     get() {
-        return selectedSupplierOrder.value ? selectedSupplierOrder.value.status : ''
+        return selectedSupplierOrder.value
+            ? selectedSupplierOrder.value.status
+            : '';
     },
     set(newVal) {
         if (selectedSupplierOrder.value) {
-            selectedSupplierOrder.value.status = newVal
+            selectedSupplierOrder.value.status = newVal;
             // Optionally, call an API to update the order status.
             // e.g. await $fetch(...);
         }
     },
-})
+});
 
 // 9) Handle "Create Supplier Order" via CreateSupplierOrderModal
-const isSupplierOrderModalOpen = ref(false)
+const isSupplierOrderModalOpen = ref(false);
 function onCreateSupplierOrder() {
-    isSupplierOrderModalOpen.value = true
+    isSupplierOrderModalOpen.value = true;
 }
 function submitSupplierOrder(event: Event) {
-    console.log('Supplier order submitted', event)
-    isSupplierOrderModalOpen.value = false
+    console.log('Supplier order submitted', event);
+    isSupplierOrderModalOpen.value = false;
 }
 function closeSupplierOrderModal() {
-    isSupplierOrderModalOpen.value = false
+    isSupplierOrderModalOpen.value = false;
 }
 </script>
 

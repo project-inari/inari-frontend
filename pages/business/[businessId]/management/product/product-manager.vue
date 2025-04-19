@@ -1,85 +1,156 @@
 <template>
-    <div class="product-manager-page" :class="fontDMSansPrompt">
+    <div
+        class="product-manager-page"
+        :class="fontDMSansPrompt"
+    >
         <!-- LEFT SIDEBAR: Categories Tree -->
         <aside class="sidebar-categories">
             <h2>Categories</h2>
-            <PrimeTree v-model:selection-keys="selectedKey" :value="treeData" selection-mode="single" />
+            <PrimeTree
+                v-model:selection-keys="selectedKey"
+                :value="treeData"
+                selection-mode="single"
+            />
         </aside>
 
         <!-- MAIN CONTENT -->
         <section class="product-manager-content">
             <!-- TOP SECTION: Dynamic Display for Selected Product Variant -->
-            <header v-if="selectedProduct && selectedVariant" class="product-detail-header">
+            <header
+                v-if="selectedProduct && selectedVariant"
+                class="product-detail-header"
+            >
                 <div class="dynamic-display-section">
                     <!-- Variant Selector & Image -->
                     <div class="variant-header">
                         <!-- Variant Selector -->
                         <div class="variant-selector">
                             <label>Select Variant:</label>
-                            <PrimeDropdown v-model="selectedVariant" :options="selectedProduct.variants"
-                                option-label="name" placeholder="Select Variant" class="variant-dropdown" />
+                            <PrimeDropdown
+                                v-model="selectedVariant"
+                                :options="selectedProduct.variants"
+                                option-label="name"
+                                placeholder="Select Variant"
+                                class="variant-dropdown"
+                            />
                         </div>
                         <!-- Variant Image -->
-                        <NuxtImg :src="selectedVariant.pictureUrl" alt="selected product image" class="dynamic-item-img"
-                            width="100" height="100" />
+                        <NuxtImg
+                            :src="selectedVariant.pictureUrl"
+                            alt="selected product image"
+                            class="dynamic-item-img"
+                            width="100"
+                            height="100"
+                        />
                     </div>
                     <div class="dynamic-display-left-side">
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">SKU:</label>
+                            <label class="dynamic-display-info-label"
+                                >SKU:</label
+                            >
                             <span>{{ selectedVariant.sku }}</span>
                         </div>
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">Product Name:</label>
+                            <label class="dynamic-display-info-label"
+                                >Product Name:</label
+                            >
                             <span>{{ selectedProduct.name }}</span>
                         </div>
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">Variant:</label>
+                            <label class="dynamic-display-info-label"
+                                >Variant:</label
+                            >
                             <span>{{ selectedVariant.name }}</span>
                         </div>
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">Categories:</label>
-                            <span>{{ getCategoryPath(selectedProduct.categoryId).join(' → ') }}</span>
+                            <label class="dynamic-display-info-label"
+                                >Categories:</label
+                            >
+                            <span>{{
+                                getCategoryPath(
+                                    selectedProduct.categoryId,
+                                ).join(' → ')
+                            }}</span>
                         </div>
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">Selling Price:</label>
+                            <label class="dynamic-display-info-label"
+                                >Selling Price:</label
+                            >
                             <span>{{ selectedVariant.sellingPrice }} Baht</span>
                         </div>
                         <div class="info-row">
-                            <label class="dynamic-display-info-label">Stock Qty:</label>
-                            <span>{{ calculateTotalStockQty(selectedVariant) }}</span>
+                            <label class="dynamic-display-info-label"
+                                >Stock Qty:</label
+                            >
+                            <span>{{
+                                calculateTotalStockQty(selectedVariant)
+                            }}</span>
                         </div>
                         <!-- Variant Tags (mapped from currentBusinessStore.businessTags) -->
-                        <div v-if="variantTags.length" class="info-row variant-tags">
-                            <label class="dynamic-display-info-label">Tags:</label>
+                        <div
+                            v-if="variantTags.length"
+                            class="info-row variant-tags"
+                        >
+                            <label class="dynamic-display-info-label"
+                                >Tags:</label
+                            >
                             <div class="tags-cell">
-                                <PrimeTag v-for="(tag, idx) in variantTags" :key="idx" :value="tag?.name"
-                                    :severity="tag ? getTagColor(tag) : ''" class="status-tag" />
+                                <PrimeTag
+                                    v-for="(tag, idx) in variantTags"
+                                    :key="idx"
+                                    :value="tag?.name"
+                                    :severity="tag ? getTagColor(tag) : ''"
+                                    class="status-tag"
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="detail-right">
-                    <PrimeButton label="Create" icon="pi pi-plus" class="create-button" @click="onCreateProduct" />
+                    <PrimeButton
+                        label="Create"
+                        icon="pi pi-plus"
+                        class="create-button"
+                        @click="onCreateProduct"
+                    />
                 </div>
             </header>
 
             <!-- FILTER BAR & PRODUCT GRID -->
             <div class="product-manager-grid-section">
                 <div class="filter-bar">
-                    <PrimeInputText v-model="filterKeyword" placeholder="Filter" class="filter-input" />
+                    <PrimeInputText
+                        v-model="filterKeyword"
+                        placeholder="Filter"
+                        class="filter-input"
+                    />
                     <div class="sort-dropdown">
                         <label>SORT BY</label>
-                        <PrimeDropdown v-model="selectedSort" :options="sortOptions" option-label="label"
-                            option-value="value" placeholder="Select" />
+                        <PrimeDropdown
+                            v-model="selectedSort"
+                            :options="sortOptions"
+                            option-label="label"
+                            option-value="value"
+                            placeholder="Select"
+                        />
                     </div>
                 </div>
                 <!-- PRODUCT GRID -->
                 <div class="product-grid">
-                    <div v-for="(product, index) in filteredProducts" :key="index" class="product-card"
-                        @click="onSelectProduct(product)">
+                    <div
+                        v-for="(product, index) in filteredProducts"
+                        :key="index"
+                        class="product-card"
+                        @click="onSelectProduct(product)"
+                    >
                         <!-- Use first variant's pictureUrl as product image -->
-                        <NuxtImg :src="product.variants[0].pictureUrl" alt="product-image" class="product-image"
-                            width="80" height="80" />
+                        <NuxtImg
+                            :src="product.variants[0].pictureUrl"
+                            alt="product-image"
+                            class="product-image"
+                            width="80"
+                            height="80"
+                        />
                         <h4 class="product-name">{{ product.name }}</h4>
                     </div>
                 </div>
@@ -89,128 +160,145 @@
 </template>
 
 <script setup lang="ts">
-import type { Product, Variant } from '~/model/Product'
+import type { Product, Variant } from '~/model/Product';
 
 definePageMeta({
     layout: 'dashboard',
-})
+});
 
-const { fontDMSansPrompt } = useFontClass()
-const currentBusinessStore = useCurrentBusinessStore()
+const { fontDMSansPrompt } = useFontClass();
+const currentBusinessStore = useCurrentBusinessStore();
 
 // ----- 1) Categories Tree (Sidebar) -----
-const fetchedCategoryList = await $fetch<any[]>(`/api/business/${currentBusinessStore.businessId}/category/list`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-})
+const fetchedCategoryList = await $fetch<any[]>(
+    `/api/business/${currentBusinessStore.businessId}/category/list`,
+    {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    },
+);
 function buildCategoryTree(categories: any[]): any[] {
-    const map = new Map<number, any>()
+    const map = new Map<number, any>();
     categories.forEach(cat => {
-        cat.children = []
-        map.set(cat.id, cat)
-    })
-    const tree: any[] = []
+        cat.children = [];
+        map.set(cat.id, cat);
+    });
+    const tree: any[] = [];
     categories.forEach(cat => {
         if (cat.parentCategoryId) {
-            const parent = map.get(cat.parentCategoryId)
-            if (parent) parent.children.push(cat)
+            const parent = map.get(cat.parentCategoryId);
+            if (parent) parent.children.push(cat);
         } else {
-            tree.push(cat)
+            tree.push(cat);
         }
-    })
-    return tree
+    });
+    return tree;
 }
-const categoryTree = buildCategoryTree(fetchedCategoryList)
+const categoryTree = buildCategoryTree(fetchedCategoryList);
 const treeData = computed(() => {
     function convertNode(node: any) {
         return {
             key: String(node.id),
             label: node.name,
             data: node,
-            children: node.children && node.children.length ? node.children.map(convertNode) : undefined,
-        }
+            children:
+                node.children && node.children.length
+                    ? node.children.map(convertNode)
+                    : undefined,
+        };
     }
-    return categoryTree.map(convertNode)
-})
-const selectedKey = ref({})
+    return categoryTree.map(convertNode);
+});
+const selectedKey = ref({});
 
 // Helper: Build full category path using fetchedCategoryList
 function getCategoryPath(categoryId: number): string[] {
-    const cat = fetchedCategoryList.find((c: any) => c.id === categoryId)
-    if (!cat) return []
-    const path: string[] = []
+    const cat = fetchedCategoryList.find((c: any) => c.id === categoryId);
+    if (!cat) return [];
+    const path: string[] = [];
     function buildPath(c: any) {
         if (c.parentCategoryId) {
-            const parent = fetchedCategoryList.find((p: any) => p.id === c.parentCategoryId)
-            if (parent) buildPath(parent)
+            const parent = fetchedCategoryList.find(
+                (p: any) => p.id === c.parentCategoryId,
+            );
+            if (parent) buildPath(parent);
         }
-        path.push(c.name)
+        path.push(c.name);
     }
-    buildPath(cat)
-    return path
+    buildPath(cat);
+    return path;
 }
 
 // Optionally derive selected category object from tree, if needed.
 function getDescendantCategoryIds(category: any): number[] {
-    let ids = [category.id]
+    let ids = [category.id];
     if (category.children && category.children.length) {
         category.children.forEach((child: any) => {
-            ids = ids.concat(getDescendantCategoryIds(child))
-        })
+            ids = ids.concat(getDescendantCategoryIds(child));
+        });
     }
-    return ids
+    return ids;
 }
 const selectedCategoryObj = computed(() => {
-    const keys = Object.keys(selectedKey.value)
-    if (!keys.length) return null
-    const catId = Number(keys[0])
-    return fetchedCategoryList.find(c => c.id === catId) || null
-})
+    const keys = Object.keys(selectedKey.value);
+    if (!keys.length) return null;
+    const catId = Number(keys[0]);
+    return fetchedCategoryList.find(c => c.id === catId) || null;
+});
 
 // ----- 2) Fetch Product Data from /product/list -----
-const productList: Product[] = await $fetch<Product[]>(`/api/business/${currentBusinessStore.businessId}/product/list`, {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-})
+const productList: Product[] = await $fetch<Product[]>(
+    `/api/business/${currentBusinessStore.businessId}/product/list`,
+    {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    },
+);
 // Store fetched product data.
-const productData = ref(productList)
+const productData = ref(productList);
 
 // ----- 3) Filter / Sort for Product Grid -----
-const filterKeyword = ref('')
+const filterKeyword = ref('');
 const sortOptions = ref([
     { label: 'Name (A-Z)', value: 'nameAsc' },
     { label: 'Name (Z-A)', value: 'nameDesc' },
-])
-const selectedSort = ref('nameAsc')
+]);
+const selectedSort = ref('nameAsc');
 const filteredProducts = computed(() => {
-    let list = [...productData.value]
+    let list = [...productData.value];
     if (selectedCategoryObj.value) {
-        const allowedIds = getDescendantCategoryIds(selectedCategoryObj.value)
-        list = list.filter(prod => allowedIds.includes(prod.categoryId))
+        const allowedIds = getDescendantCategoryIds(selectedCategoryObj.value);
+        list = list.filter(prod => allowedIds.includes(prod.categoryId));
     }
     if (filterKeyword.value.trim()) {
-        list = list.filter(prod => prod.name.toLowerCase().includes(filterKeyword.value.toLowerCase()))
+        list = list.filter(prod =>
+            prod.name.toLowerCase().includes(filterKeyword.value.toLowerCase()),
+        );
     }
     if (selectedSort.value === 'nameAsc') {
-        list.sort((a, b) => a.name.localeCompare(b.name))
+        list.sort((a, b) => a.name.localeCompare(b.name));
     } else if (selectedSort.value === 'nameDesc') {
-        list.sort((a, b) => b.name.localeCompare(a.name))
+        list.sort((a, b) => b.name.localeCompare(a.name));
     }
-    return list
-})
+    return list;
+});
 
 // ----- 4) Dynamic Display: Selected Product & Variant -----
 // Default: select the first product and its first variant if available.
-const selectedProduct = ref<Product | null>(productData.value.length ? productData.value[0] : null)
+const selectedProduct = ref<Product | null>(
+    productData.value.length ? productData.value[0] : null,
+);
 const selectedVariant = ref<Variant | null>(
-    selectedProduct.value && selectedProduct.value.variants.length ? selectedProduct.value.variants[0] : null
-)
+    selectedProduct.value && selectedProduct.value.variants.length
+        ? selectedProduct.value.variants[0]
+        : null,
+);
 
 // When a product is clicked in the grid, update the selection.
 function onSelectProduct(prod: Product) {
-    selectedProduct.value = prod
-    selectedVariant.value = prod.variants[0]
-    console.log('Selected product:', prod)
+    selectedProduct.value = prod;
+    selectedVariant.value = prod.variants[0];
+    console.log('Selected product:', prod);
 }
 
 // ----- 5) Variant Tags -----
@@ -219,29 +307,31 @@ function onSelectProduct(prod: Product) {
 const variantTags = computed(() => {
     if (selectedVariant.value && selectedVariant.value.tagIds) {
         return selectedVariant.value.tagIds
-            .map((id: number) => currentBusinessStore.businessTags.find((t: any) => t.id === id))
-            .filter((t: any) => t)
+            .map((id: number) =>
+                currentBusinessStore.businessTags.find((t: any) => t.id === id),
+            )
+            .filter((t: any) => t);
     }
-    return []
-})
+    return [];
+});
 
 // ----- 6) Helper: Calculate Total Stock Qty for a Variant -----
 function calculateTotalStockQty(variant: Variant): number {
-    return variant.qtyInWarehouse?.reduce((sum, wh) => sum + wh.qty, 0) || 0
+    return variant.qtyInWarehouse?.reduce((sum, wh) => sum + wh.qty, 0) || 0;
 }
 
 // ----- 7) Additional Functions for Product Creation, Refresh, etc. -----
 function onCreateProduct() {
-    console.log('Create product clicked!')
+    console.log('Create product clicked!');
     // Implement your product creation logic here (e.g., open a modal)
 }
 function onAddStock() {
-    console.log('Add Stock button clicked!')
+    console.log('Add Stock button clicked!');
     // Implement additional "Add Stock" logic if needed.
 }
-const lastUpdated = ref(new Date().toLocaleString())
+const lastUpdated = ref(new Date().toLocaleString());
 function refreshData() {
-    lastUpdated.value = new Date().toLocaleString()
+    lastUpdated.value = new Date().toLocaleString();
     // Optionally re-fetch product data.
 }
 
@@ -267,8 +357,8 @@ const groupedFilterOptions = ref([
             { label: 'Out of Stock', value: 'Out of Stock' },
         ],
     },
-])
-const selectedFilters = ref<any[]>([])
+]);
+const selectedFilters = ref<any[]>([]);
 
 // (Optional) Further functions for additional modals, supplier order, etc., can be added here.
 </script>

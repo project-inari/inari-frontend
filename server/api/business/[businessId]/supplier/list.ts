@@ -15,7 +15,7 @@ export default defineEventHandler(async event => {
                     email: 'john@example.com',
                     address: '123 Main St',
                     remarks: 'Active',
-                    status: 'Active'
+                    status: 'Active',
                 },
                 {
                     id: 'c2',
@@ -24,9 +24,9 @@ export default defineEventHandler(async event => {
                     email: 'jane@example.com',
                     address: '456 Oak Ave',
                     remarks: 'Pending',
-                    status: 'Pending'
-                }
-            ]
+                    status: 'Pending',
+                },
+            ],
         },
         {
             id: 2,
@@ -41,19 +41,18 @@ export default defineEventHandler(async event => {
                     email: 'alice@example.com',
                     address: '789 Pine Rd',
                     remarks: 'Active',
-                    status: 'Active'
-                }
-            ]
+                    status: 'Active',
+                },
+            ],
         },
         {
             id: 3,
             name: 'Supplier C',
             description: 'Wholesale supplier',
             type: 'General',
-            contacts: []
-        }
-    ]
-
+            contacts: [],
+        },
+    ];
 
     return data;
 });

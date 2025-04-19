@@ -3,7 +3,7 @@ export default defineEventHandler(async event => {
 
     let inventoryItem: any = null;
 
-    if (productId === "1") {
+    if (productId === '1') {
         inventoryItem = {
             id: 1,
             sku: '001',
@@ -15,8 +15,19 @@ export default defineEventHandler(async event => {
             sellingPrice: 50,
             categories: [
                 { id: 1, name: 'Beverage', parent: [] },
-                { id: 2, name: 'Alcohol', parent: [{ id: 1, name: 'Beverage' }] },
-                { id: 3, name: 'Beer', parent: [{ id: 1, name: 'Beverage' }, { id: 2, name: 'Alcohol' }] },
+                {
+                    id: 2,
+                    name: 'Alcohol',
+                    parent: [{ id: 1, name: 'Beverage' }],
+                },
+                {
+                    id: 3,
+                    name: 'Beer',
+                    parent: [
+                        { id: 1, name: 'Beverage' },
+                        { id: 2, name: 'Alcohol' },
+                    ],
+                },
             ],
             tags: [
                 { id: 1, name: 'In Stock', color: 'white' },
@@ -34,8 +45,8 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 188,
                 },
-            ]
-        }
+            ],
+        };
     } else {
         inventoryItem = {
             id: 2,
@@ -48,12 +59,21 @@ export default defineEventHandler(async event => {
             sellingPrice: 25, // Added a sellingPrice for consistency
             categories: [
                 { id: 1, name: 'Beverage', parent: [] },
-                { id: 2, name: 'Alcohol', parent: [{ id: 1, name: 'Beverage' }] },
-                { id: 3, name: 'Beer', parent: [{ id: 1, name: 'Beverage' }, { id: 2, name: 'Alcohol' }] },
+                {
+                    id: 2,
+                    name: 'Alcohol',
+                    parent: [{ id: 1, name: 'Beverage' }],
+                },
+                {
+                    id: 3,
+                    name: 'Beer',
+                    parent: [
+                        { id: 1, name: 'Beverage' },
+                        { id: 2, name: 'Alcohol' },
+                    ],
+                },
             ],
-            tags: [
-                { id: 1, name: 'In Stock', color: 'white' },
-            ],
+            tags: [{ id: 1, name: 'In Stock', color: 'white' }],
             note: 'This is another note',
             qtyInWarehouse: [
                 {
@@ -64,8 +84,8 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 50,
                 },
-            ]
-        }
+            ],
+        };
     }
 
     return inventoryItem;

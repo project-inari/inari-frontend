@@ -32,7 +32,7 @@ export default defineEventHandler(async event => {
             name: 'Best Seller',
             description: 'this is tag 5',
             color: 'blue',
-        }
+        },
     ];
 
     return tagList;

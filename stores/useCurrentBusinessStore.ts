@@ -25,7 +25,7 @@ export const useCurrentBusinessStore = defineStore('businessName', {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                }
+                },
             );
             this.businessTags = await $fetch<Tag[]>(
                 `/api/business/${businessId}/tag/list`,
@@ -34,8 +34,8 @@ export const useCurrentBusinessStore = defineStore('businessName', {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                }
+                },
             );
-        }
+        },
     },
 });

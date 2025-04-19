@@ -13,12 +13,12 @@ type CreateNewWarehouseRes = {
 
 export default defineEventHandler(async event => {
     const req: CreateNewWarehouseReq = await readBody(event);
-    console.log(req)
+    console.log(req);
 
     const data = {
         warehouseId: 1,
         success: true,
-    }
+    };
 
     return data;
 });

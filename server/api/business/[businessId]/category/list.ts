@@ -18,7 +18,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: null,
         },
@@ -42,7 +42,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: 1,
         },
@@ -61,7 +61,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: 2,
         },
@@ -85,7 +85,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: null,
         },
@@ -109,7 +109,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: 4,
         },
@@ -133,7 +133,7 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: 5,
         },
@@ -157,10 +157,10 @@ export default defineEventHandler(async event => {
                     id: 3,
                     name: 'Low Stock',
                     color: 'orange',
-                }
+                },
             ],
             parentCategoryId: 1,
-        }
+        },
     ];
 
     return categoryList;

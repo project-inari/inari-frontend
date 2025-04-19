@@ -16,7 +16,8 @@ export default defineEventHandler(async event => {
                 sku: '001',
                 purchasePrice: 30,
                 sellingPrice: 50,
-                pictureUrl: 'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                pictureUrl:
+                    'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
                 note: 'This is a note',
                 tagIds: [1, 2, 3],
                 qtyInWarehouse: [
@@ -30,7 +31,8 @@ export default defineEventHandler(async event => {
                 sku: '002',
                 purchasePrice: 15,
                 sellingPrice: 25,
-                pictureUrl: 'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                pictureUrl:
+                    'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
                 note: 'This is another note',
                 tagIds: [2, 3],
                 qtyInWarehouse: [
@@ -39,7 +41,7 @@ export default defineEventHandler(async event => {
                 ],
             },
         ],
-    }
+    };
 
     return data;
 });

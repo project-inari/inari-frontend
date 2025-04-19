@@ -12,7 +12,7 @@ export default defineEventHandler(async event => {
             supplierId: 1,
             purchasePrice: 30,
             sellingPrice: 50,
-            categoryId: 3, 
+            categoryId: 3,
             tags: [
                 { id: 1, name: 'In Stock', color: 'white' },
                 { id: 3, name: 'Low Stock', color: 'orange' },
@@ -27,7 +27,7 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 50,
                 },
-            ]
+            ],
         },
         {
             id: 2,
@@ -39,9 +39,7 @@ export default defineEventHandler(async event => {
             purchasePrice: 15,
             sellingPrice: 25,
             categoryId: 3,
-            tags: [
-                { id: 1, name: 'In Stock', color: 'white' },
-            ],
+            tags: [{ id: 1, name: 'In Stock', color: 'white' }],
             qtyInWarehouse: [
                 {
                     warehouseId: 1,
@@ -51,7 +49,7 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 60,
                 },
-            ]
+            ],
         },
         {
             id: 3,
@@ -63,9 +61,7 @@ export default defineEventHandler(async event => {
             purchasePrice: 20,
             sellingPrice: 35, // Added a sellingPrice for consistency
             categoryId: 3,
-            tags: [
-                { id: 3, name: 'Low Stock', color: 'orange' },
-            ],
+            tags: [{ id: 3, name: 'Low Stock', color: 'orange' }],
             qtyInWarehouse: [
                 {
                     warehouseId: 1,
@@ -75,7 +71,7 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 70,
                 },
-            ]
+            ],
         },
         {
             id: 4,
@@ -87,9 +83,7 @@ export default defineEventHandler(async event => {
             purchasePrice: 10,
             sellingPrice: 20,
             categoryId: 3,
-            tags: [
-                { id: 999, name: 'Crispy', color: 'blue' },
-            ],
+            tags: [{ id: 999, name: 'Crispy', color: 'blue' }],
             qtyInWarehouse: [
                 {
                     warehouseId: 1,
@@ -99,7 +93,7 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 70,
                 },
-            ]
+            ],
         },
         {
             id: 5,
@@ -124,7 +118,7 @@ export default defineEventHandler(async event => {
                     warehouseId: 2,
                     qty: 90,
                 },
-            ]
+            ],
         },
     ];
 

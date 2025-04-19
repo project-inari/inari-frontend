@@ -1,11 +1,18 @@
 <template>
-    <div class="category-manager-page" :class="fontDMSansPrompt">
+    <div
+        class="category-manager-page"
+        :class="fontDMSansPrompt"
+    >
         <!-- PAGE HEADER -->
         <header class="cm-header">
             <h1>Category</h1>
             <div class="cm-header-actions">
-                <PrimeButton label="Create New" class="p-button-sm create-new-button" icon="pi pi-plus"
-                    @click="onCreateNew" />
+                <PrimeButton
+                    label="Create New"
+                    class="p-button-sm create-new-button"
+                    icon="pi pi-plus"
+                    @click="onCreateNew"
+                />
             </div>
         </header>
 
@@ -13,39 +20,81 @@
             <!-- LEFT SIDEBAR: PrimeVue Tree -->
             <aside class="sidebar-tree">
                 <h2>All Products</h2>
-                <PrimeTree v-model:selection-keys="selectedKey" :value="treeData" selection-mode="single" />
+                <PrimeTree
+                    v-model:selection-keys="selectedKey"
+                    :value="treeData"
+                    selection-mode="single"
+                />
             </aside>
 
             <!-- RIGHT CONTENT: Selected Category & Subcategory Table -->
             <section class="main-content">
                 <!-- UPPER BOX: Selected Category Details -->
-                <div v-if="selectedCategoryObj" class="selected-category-box">
+                <div
+                    v-if="selectedCategoryObj"
+                    class="selected-category-box"
+                >
                     <div class="selected-category-header">
                         <h2>{{ selectedCategoryObj.name.toUpperCase() }}</h2>
                     </div>
                     <!-- Category Image -->
-                    <div v-if="selectedCategoryObj.pictureUrl" class="selected-category-image">
-                        <NuxtImg :src="selectedCategoryObj.pictureUrl" alt="Category Image" width="200" height="100" />
+                    <div
+                        v-if="selectedCategoryObj.pictureUrl"
+                        class="selected-category-image"
+                    >
+                        <NuxtImg
+                            :src="selectedCategoryObj.pictureUrl"
+                            alt="Category Image"
+                            width="200"
+                            height="100"
+                        />
                     </div>
                     <!-- Category Description -->
-                    <p v-if="selectedCategoryObj.description" class="selected-category-description">
+                    <p
+                        v-if="selectedCategoryObj.description"
+                        class="selected-category-description"
+                    >
                         {{ selectedCategoryObj.description }}
                     </p>
                     <!-- Assigned Tags -->
-                    <div v-if="selectedCategoryObj.tags && selectedCategoryObj.tags.length" class="assigned-tags">
+                    <div
+                        v-if="
+                            selectedCategoryObj.tags &&
+                            selectedCategoryObj.tags.length
+                        "
+                        class="assigned-tags"
+                    >
                         <span>Assigned Tags:</span>
                         <div class="tags-row">
-                            <PrimeTag v-for="(tag, idx) in selectedCategoryObj.tags" :key="idx" :value="tag.name"
-                                class="category-tag" />
+                            <PrimeTag
+                                v-for="(tag, idx) in selectedCategoryObj.tags"
+                                :key="idx"
+                                :value="tag.name"
+                                class="category-tag"
+                            />
                         </div>
                     </div>
                 </div>
 
                 <!-- LOWER TABLE: Subcategories of the Selected Category -->
-                <PrimeDataTable :value="subCategoryList" class="subcategory-table" :show-gridlines="true" :rows="5">
-                    <PrimeColumn field="id" header="No." />
-                    <PrimeColumn field="name" header="Sub-Category" />
-                    <PrimeColumn field="description" header="Description" />
+                <PrimeDataTable
+                    :value="subCategoryList"
+                    class="subcategory-table"
+                    :show-gridlines="true"
+                    :rows="5"
+                >
+                    <PrimeColumn
+                        field="id"
+                        header="No."
+                    />
+                    <PrimeColumn
+                        field="name"
+                        header="Sub-Category"
+                    />
+                    <PrimeColumn
+                        field="description"
+                        header="Description"
+                    />
                 </PrimeDataTable>
             </section>
         </div>
@@ -53,21 +102,20 @@
 </template>
 
 <script setup lang="ts">
-
 definePageMeta({
     layout: 'dashboard',
-})
+});
 
-const { fontDMSansPrompt } = useFontClass()
+const { fontDMSansPrompt } = useFontClass();
 
-const currentBusinessStore = useCurrentBusinessStore()
+const currentBusinessStore = useCurrentBusinessStore();
 
 // 1) "Create New" button logic
-const isCreateCategoryModalOpen = ref(false)
+const isCreateCategoryModalOpen = ref(false);
 function onCreateNew() {
-    console.log('Create New Category clicked!')
+    console.log('Create New Category clicked!');
     // Example: open a modal or navigate to a create-category page
-    isCreateCategoryModalOpen.value = true
+    isCreateCategoryModalOpen.value = true;
 }
 
 // 2) Fetch categories from API
@@ -76,32 +124,32 @@ const fetchedCategoryList = await $fetch(
     {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-    }
-)
+    },
+);
 
 // 3) Build a hierarchical tree using parentCategoryId
 function buildCategoryTree(categories: any[]): any[] {
-    const map = new Map<number, any>()
+    const map = new Map<number, any>();
     categories.forEach(cat => {
         // Add children array to each category
-        cat.children = []
-        map.set(cat.id, cat)
-    })
-    const tree: any[] = []
+        cat.children = [];
+        map.set(cat.id, cat);
+    });
+    const tree: any[] = [];
     categories.forEach(cat => {
         if (cat.parentCategoryId) {
-            const parent = map.get(cat.parentCategoryId)
+            const parent = map.get(cat.parentCategoryId);
             if (parent) {
-                parent.children.push(cat)
+                parent.children.push(cat);
             }
         } else {
-            tree.push(cat)
+            tree.push(cat);
         }
-    })
-    return tree
+    });
+    return tree;
 }
 
-const categoryTree = buildCategoryTree(fetchedCategoryList)
+const categoryTree = buildCategoryTree(fetchedCategoryList);
 
 // 4) Convert hierarchical tree to PrimeVue Tree format
 const treeData = computed(() => {
@@ -110,26 +158,29 @@ const treeData = computed(() => {
             key: String(node.id),
             label: node.name,
             data: node,
-            children: node.children && node.children.length ? node.children.map(convertNode) : undefined,
-        }
+            children:
+                node.children && node.children.length
+                    ? node.children.map(convertNode)
+                    : undefined,
+        };
     }
-    return categoryTree.map(convertNode)
-})
+    return categoryTree.map(convertNode);
+});
 
 // 5) Selected Key from Tree
-const selectedKey = ref({})
+const selectedKey = ref({});
 const selectedCategoryObj = computed(() => {
-    const keys = Object.keys(selectedKey.value)
-    if (!keys.length) return null
-    const catId = Number(keys[0])
-    return fetchedCategoryList.find(cat => cat.id === catId) || null
-})
+    const keys = Object.keys(selectedKey.value);
+    if (!keys.length) return null;
+    const catId = Number(keys[0]);
+    return fetchedCategoryList.find(cat => cat.id === catId) || null;
+});
 
 // 6) Subcategory List of the selected category
 const subCategoryList = computed(() => {
-    if (!selectedCategoryObj.value) return []
-    return selectedCategoryObj.value.children || []
-})
+    if (!selectedCategoryObj.value) return [];
+    return selectedCategoryObj.value.children || [];
+});
 </script>
 
 <style scoped lang="scss">

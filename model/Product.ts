@@ -4,8 +4,8 @@ export interface Product {
     supplierId: number;
     categoryId: number;
     brand: string;
-    variants: Variant[]
-};
+    variants: Variant[];
+}
 
 export interface Variant {
     variantId?: number;

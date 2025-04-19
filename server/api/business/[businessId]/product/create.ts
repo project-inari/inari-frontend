@@ -20,12 +20,12 @@ type CreateNewProductRes = {
 
 export default defineEventHandler(async event => {
     const req: CreateNewProductReq = await readBody(event);
-    console.log(req)
+    console.log(req);
 
     const data = {
         productId: 1,
         success: true,
-    }
+    };
 
     return data;
 });

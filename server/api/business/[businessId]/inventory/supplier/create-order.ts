@@ -13,7 +13,7 @@ type CreateNewSupplierOrderReq = {
 type OrderItem = {
     itemId: string;
     quantity: number;
-}
+};
 
 type CreateNewSupplierOrderRes = {
     supplierOrderId: number;
@@ -22,7 +22,7 @@ type CreateNewSupplierOrderRes = {
 
 export default defineEventHandler(async event => {
     const req: CreateNewSupplierOrderReq[] = await readBody(event);
-    console.log(req)
+    console.log(req);
 
     let data: CreateNewSupplierOrderRes;
     // try {
@@ -45,7 +45,7 @@ export default defineEventHandler(async event => {
     data = {
         supplierOrderId: 1,
         success: true,
-    }
+    };
 
     return data;
 });

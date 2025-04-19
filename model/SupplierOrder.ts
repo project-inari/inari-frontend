@@ -8,7 +8,7 @@ export interface SupplierOrder {
     shippingCost: number;
     status: string;
     dateCreated: string;
-};
+}
 
 export interface OrderItem {
     variantId: number;

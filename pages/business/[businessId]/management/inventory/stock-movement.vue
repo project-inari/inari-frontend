@@ -50,7 +50,7 @@
 
         <CreateStockMovementModal
             v-model:visible="showCreateStockMovementModal"
-            :isOpened="showCreateStockMovementModal"
+            :is-opened="showCreateStockMovementModal"
         />
     </div>
 </template>
