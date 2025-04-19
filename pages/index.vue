@@ -51,7 +51,8 @@
             >
                 <NuxtImg
                     src="/img/mascot-3.png"
-                    height="400"
+                    height="450"
+                    width="400"
                 />
             </div>
         </div>
