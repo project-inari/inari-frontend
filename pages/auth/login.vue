@@ -89,12 +89,14 @@
 <script lang="ts" setup>
 import { useForm, useField } from 'vee-validate';
 import * as yup from 'yup';
+import type { Business } from '~/model/Business';
 
 definePageMeta({
     title: 'INARI Login',
 });
 
 const { fontDMSansPrompt } = useFontClass();
+const router = useRouter();
 
 const schema = yup.object({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -115,11 +117,14 @@ const errorMessages = computed(() => Object.values(errors.value));
 
 const onSubmit = handleSubmit(
     async () => {
+        let loginRes = null;
+        let businessRes: Business[] = [];
+
         callError.value = false;
         submitAttempted.value = false;
 
         try {
-            await $fetch('/api/auth/login', {
+            loginRes = await $fetch('/api/auth/login', {
                 method: 'POST',
                 body: {
                     email: email.value,
@@ -129,6 +134,24 @@ const onSubmit = handleSubmit(
         } catch (error) {
             callError.value = true;
             console.log(error);
+        }
+
+        try {
+            businessRes = await $fetch<Business[]>(
+                `/api/user/${loginRes?.username}/business`,
+                {
+                    method: 'GET',
+                },
+            );
+        } catch (error) {
+            callError.value = true;
+            console.log(error);
+        }
+
+        if (businessRes.length > 0) {
+            router.push(`/business/${businessRes[0].id}`);
+        } else {
+            router.push('/business/create');
         }
     },
     () => {

@@ -18,9 +18,7 @@
         <!-- MOVEMENT HISTORY TABLE -->
         <PrimeDataTable
             :value="filteredMovementData"
-            :paginator="true"
-            :rows="5"
-            responsive-layout="scroll"
+            scrollable
             class="movement-table"
         >
             <PrimeColumn
@@ -50,53 +48,10 @@
             />
         </PrimeDataTable>
 
-        <!-- SECOND SEARCH BAR -->
-        <div class="stock-table-search">
-            <PrimeInputText
-                v-model="stockSearch"
-                placeholder="Search your business"
-                class="stock-search-input"
-            />
-        </div>
-
-        <!-- STOCK TABLE -->
-        <PrimeDataTable
-            :value="filteredStockData"
-            :paginator="true"
-            :rows="5"
-            responsive-layout="scroll"
-            class="stock-table"
-        >
-            <PrimeColumn
-                header="SKU"
-                field="sku"
-            />
-            <PrimeColumn header="Inventory Items">
-                <template #body="slotProps">
-                    <div class="item-cell">
-                        <NuxtImg
-                            :src="slotProps.data.img"
-                            alt="item-image"
-                            width="40"
-                            height="40"
-                        />
-                        <span>{{ slotProps.data.item }}</span>
-                    </div>
-                </template>
-            </PrimeColumn>
-            <PrimeColumn
-                header="Variants"
-                field="variant"
-            />
-            <PrimeColumn
-                header="Stock Qty"
-                field="qty"
-            />
-            <PrimeColumn
-                header="Stock Values"
-                field="value"
-            />
-        </PrimeDataTable>
+        <CreateStockMovementModal
+            v-model:visible="showCreateStockMovementModal"
+            :is-opened="showCreateStockMovementModal"
+        />
     </div>
 </template>
 
@@ -158,7 +113,6 @@ const movementData = ref([
         items: 'Heineken Original',
         totalQty: 10,
     },
-    // ... more data as needed
 ]);
 
 // Filter logic for the movement table
@@ -177,49 +131,15 @@ const filteredMovementData = computed(() => {
     });
 });
 
-// Example event handler
+const showCreateStockMovementModal = ref(false);
 function onMoveStock() {
     console.log('Move Stock clicked');
-    // Add your logic or route navigation here
+    showCreateStockMovementModal.value = true;
 }
 
 // -------------------------
 // 2) Stock Table
 // -------------------------
-const stockSearch = ref('');
-const stockData = ref([
-    {
-        sku: '001',
-        img: '/img/heineken.png',
-        item: 'Heineken Original',
-        variant: '620 ml',
-        qty: 288,
-        value: 8640,
-    },
-    {
-        sku: '002',
-        img: '/img/haribo.png',
-        item: 'Haribo Gold Bear',
-        variant: '72 pcs',
-        qty: 72,
-        value: 720,
-    },
-    // ... more data as needed
-]);
-
-// Filter logic for the stock table
-const filteredStockData = computed(() => {
-    const keyword = stockSearch.value.toLowerCase();
-    if (!keyword) return stockData.value;
-
-    return stockData.value.filter(row => {
-        return (
-            row.sku.toLowerCase().includes(keyword) ||
-            row.item.toLowerCase().includes(keyword) ||
-            row.variant.toLowerCase().includes(keyword)
-        );
-    });
-});
 </script>
 
 <style scoped lang="scss">
