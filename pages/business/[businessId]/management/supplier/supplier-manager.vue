@@ -1,290 +1,166 @@
 <template>
-    <div
-        class="supplier-manager-page"
-        :class="fontDMSansPrompt"
-    >
-        <!-- Header: Only Title Now -->
+    <div class="supplier-manager-page" :class="fontDMSansPrompt">
+        <!-- PAGE HEADER -->
         <header class="supplier-manager-header">
             <div class="header-left">
                 <h1 class="title">Supplier Manager</h1>
             </div>
-            <div class="header-right">
-                <!-- (Button removed from header) -->
-            </div>
         </header>
 
-        <!-- Search / Filter Bar -->
+        <!-- SEARCH & CREATE BAR -->
         <div class="header-actions">
             <div class="search-bar">
-                <label>Search:</label>
-                <PrimeInputText
-                    v-model="searchKeyword"
-                    placeholder="Search suppliers..."
-                    class="global-search-input"
-                />
+                <label>Search Suppliers:</label>
+                <PrimeInputText v-model="searchKeyword" placeholder="Search suppliers..." class="global-search-input" />
             </div>
             <div class="create-supplier-button-container">
-                <PrimeButton
-                    label="Create Supplier"
-                    icon="pi pi-plus"
-                    @click="onCreateSupplier"
-                />
+                <PrimeButton label="Create Supplier" icon="pi pi-plus" @click="onCreateSupplier" />
             </div>
         </div>
 
-        <!-- Upper Table: Supplier List -->
+        <!-- SUPPLIER LIST -->
         <div class="supplier-list-section">
-            <PrimeDataTable
-                v-model:selection="selectedSupplier"
-                :value="filteredSuppliers"
-                selection-mode="single"
-                removable-sort
-                scrollable
-                scroll-height="250px"
-                responsive-layout="scroll"
-                class="supplier-table"
-            >
-                <!-- Running number column -->
+            <PrimeDataTable v-model:selection="selectedSupplier" :value="filteredSuppliers" selection-mode="single"
+                scrollable scroll-height="250px" class="supplier-table">
                 <PrimeColumn header="#">
                     <template #body="slotProps">
-                        <span>{{ slotProps.index + 1 }}</span>
+                        {{ slotProps.index + 1 }}
                     </template>
                 </PrimeColumn>
-                <PrimeColumn
-                    field="name"
-                    header="Supplier"
-                    sortable
-                />
-                <PrimeColumn
-                    field="type"
-                    header="Type"
-                />
-                <PrimeColumn
-                    field="description"
-                    header="Description"
-                    sortable
-                />
+                <PrimeColumn field="name" header="Name" sortable />
+                <PrimeColumn field="type" header="Type" />
+                <PrimeColumn field="description" header="Description" />
             </PrimeDataTable>
         </div>
 
-        <!-- Lower Section: Supplier Contacts & Create Supplier Button -->
-        <div
-            v-if="selectedSupplier"
-            class="supplier-contacts-section"
-        >
+        <!-- CONTACTS & ADD CONTACT -->
+        <div v-if="selectedSupplier" class="supplier-contacts-section">
             <div class="create-supplier-contact-button-container">
-                <PrimeButton
-                    label="Create Supplier Contact"
-                    icon="pi pi-plus"
-                    outlined
-                    @click="onCreateSupplierContact"
-                />
+                <PrimeButton label="Create Supplier Contact" icon="pi pi-plus" outlined
+                    @click="onCreateSupplierContact" />
             </div>
             <h2 class="supplier-contact-title">
-                {{ selectedSupplier.name }} Contacts
+                {{ selectedSupplier.name }}’s Contacts
             </h2>
-            <PrimeDataTable
-                :value="selectedSupplierContacts"
-                removable-sort
-                scrollable
-                scroll-height="250px"
-                responsive-layout="scroll"
-                class="supplier-contact-table"
-            >
-                <!-- Running number column -->
+            <PrimeDataTable :value="selectedSupplierContacts" scrollable scroll-height="250px"
+                class="supplier-contact-table">
                 <PrimeColumn header="#">
                     <template #body="slotProps">
-                        <span>{{ slotProps.index + 1 }}</span>
+                        {{ slotProps.index + 1 }}
                     </template>
                 </PrimeColumn>
-                <PrimeColumn
-                    field="fullName"
-                    header="Contact Person"
-                    sortable
-                />
-                <PrimeColumn
-                    field="phoneNo"
-                    header="Phone"
-                />
-                <PrimeColumn
-                    field="email"
-                    header="Email"
-                />
-                <PrimeColumn
-                    field="address"
-                    header="Address"
-                />
-                <PrimeColumn
-                    field="remarks"
-                    header="Remarks"
-                />
-                <PrimeColumn
-                    field="status"
-                    header="Status"
-                />
+                <PrimeColumn field="fullName" header="Name" />
+                <PrimeColumn field="phoneNo" header="Phone" />
+                <PrimeColumn field="email" header="Email" />
+                <PrimeColumn field="address" header="Address" />
+                <PrimeColumn field="remarks" header="Remarks" />
+                <PrimeColumn field="status" header="Status" />
             </PrimeDataTable>
-            <!-- New "Create Supplier" Button below contacts table -->
         </div>
+
+        <!-- Create Supplier Modal -->
+        <CreateSupplierModal v-model:isOpened="isSupplierModalOpen" @save="onSupplierCreated" />
+
+        <!-- Create Supplier Contact Modal -->
+        <CreateNewSupplierContactModal v-model:isOpened="isSupplierContactModalOpen"
+            :supplierId="selectedSupplier?.id || 0" @save="onSupplierContactCreated" />
     </div>
 </template>
 
 <script lang="ts" setup>
-import type { Supplier } from '~/model/Supplier';
+import type { Supplier } from '~/model/Supplier'
 
-definePageMeta({
-    layout: 'dashboard',
-});
+const { fontDMSansPrompt } = useFontClass()
+const currentBusinessStore = useCurrentBusinessStore()
 
-const { fontDMSansPrompt } = useFontClass();
-const currentBusinessStore = useCurrentBusinessStore();
+// raw list from API
+const allSuppliers = ref<Supplier[]>(
+    await $fetch<Supplier[]>(`/api/business/${currentBusinessStore.businessId}/supplier/list`)
+)
 
-// Fetch suppliers from API
-const supplierInfo = await $fetch<Supplier[]>(
-    `/api/business/${currentBusinessStore.businessId}/supplier/list`,
-    {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    },
-);
-const supplierList = ref(supplierInfo);
-
-// Search keyword for filtering
-const searchKeyword = ref('');
-
-// Filtered suppliers computed property
+// search/filter
+const searchKeyword = ref('')
 const filteredSuppliers = computed(() => {
-    if (!searchKeyword.value.trim()) {
-        return supplierList.value;
-    }
-    return supplierList.value.filter(
-        supp =>
-            supp.name
-                .toLowerCase()
-                .includes(searchKeyword.value.toLowerCase()) ||
-            (supp.description || '')
-                .toLowerCase()
-                .includes(searchKeyword.value.toLowerCase()),
-    );
-});
+    if (!searchKeyword.value.trim()) return allSuppliers.value
+    return allSuppliers.value.filter(s =>
+        s.name.toLowerCase().includes(searchKeyword.value.toLowerCase())
+    )
+})
 
-// Selected supplier (from the upper table)
-const selectedSupplier = ref<Supplier | null>(null);
+// table selection
+const selectedSupplier = ref<Supplier | null>(null)
+const selectedSupplierContacts = computed(
+    () => selectedSupplier.value?.contacts || []
+)
 
-// Computed contacts for the selected supplier, or an empty array if none.
-const selectedSupplierContacts = computed(() => {
-    return selectedSupplier.value?.contacts || [];
-});
-
-// Handler for the Create Supplier button (moved down).
+// create-supplier modal
+const isSupplierModalOpen = ref(false)
 function onCreateSupplier() {
-    console.log('Create Supplier button clicked.');
-    // Here, add your logic to open a modal or navigate to a supplier creation page.
+    isSupplierModalOpen.value = true
+}
+function onSupplierCreated(newSupplier: Supplier) {
+    allSuppliers.value.unshift(newSupplier)
+    isSupplierModalOpen.value = false
 }
 
+// create-supplier-contact modal
+const isSupplierContactModalOpen = ref(false)
 function onCreateSupplierContact() {
-    console.log('Create Supplier Contact button clicked.');
-    // Here, add your logic to open a modal or navigate to a supplier creation page.
+    if (!selectedSupplier.value) return
+    isSupplierContactModalOpen.value = true
+}
+function onSupplierContactCreated({
+    supplierId,
+    contact
+}: { supplierId: number; contact: Omit<NonNullable<Supplier['contacts']>[0], 'id'> }) {
+    const sup = allSuppliers.value.find(s => s.id === supplierId)
+    if (sup) {
+        sup.contacts = sup.contacts || []
+        sup.contacts.push(contact as any)
+    }
+    isSupplierContactModalOpen.value = false
 }
 </script>
 
 <style scoped lang="scss">
 .supplier-manager-page {
     padding: 1rem;
-    background-color: #fff;
+    background: #fff;
 }
 
-/* HEADER */
 .supplier-manager-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 1rem;
-
-    .header-left {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-
-        .title {
-            margin: 0;
-            font-size: 28px;
-        }
-    }
-
-    .header-right {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
 }
 
-/* HEADER ACTIONS */
 .header-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
     margin-bottom: 1rem;
-
-    .search-bar {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-
-        label {
-            font-weight: 600;
-        }
-
-        .global-search-input {
-            width: 240px;
-        }
-    }
-
-    .create-supplier-button-container {
-        display: flex;
-        justify-content: flex-end;
-    }
 }
 
-/* SUPPLIER TABLE */
-.supplier-list-section {
-    margin-bottom: 1rem;
-
-    .supplier-table {
-        margin-bottom: 1rem;
-    }
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-/* CONTACTS SECTION */
+.global-search-input {
+    width: 240px;
+}
+
+.create-supplier-button-container,
+.create-supplier-contact-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.supplier-table,
+.supplier-contact-table {
+    margin-bottom: 1rem;
+}
+
 .supplier-contacts-section {
     margin-top: 1rem;
-
-    .supplier-contact-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-
-    .supplier-contact-table {
-        margin-bottom: 1rem;
-    }
-
-    .create-supplier-contact-button-container {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 1rem;
-    }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .header-actions {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .global-search-input {
-        width: 100%;
-    }
 }
 </style>

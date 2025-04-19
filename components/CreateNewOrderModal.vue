@@ -31,6 +31,12 @@
                     />
                 </div>
                 <div class="form-row">
+                    <label>Order ID:</label>
+                    <PrimeInputText
+                        v-model="form.orderId"
+                    />
+                </div>
+                <div class="form-row">
                     <label>Channel:</label>
                     <PrimeDropdown
                         v-model="form.channelId"
@@ -322,12 +328,12 @@ const channels = ref<{ id: number; name: string }[]>(
     ),
 );
 const statuses = ref<{ id: number; name: string }[]>(
-    await $fetch(
+    await $fetch<{ id: number; name: string }[]>(
         `/api/business/${currentBusinessStore.businessId}/order/status/list`,
     ),
 );
 const inventory = ref<InventoryItem[]>(
-    await $fetch(
+    await $fetch<InventoryItem[]>(
         `/api/business/${currentBusinessStore.businessId}/inventory/list`,
     ),
 );

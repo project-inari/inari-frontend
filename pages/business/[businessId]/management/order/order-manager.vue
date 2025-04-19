@@ -249,12 +249,12 @@ const statuses = ref<{ id: number; name: string }[]>(
     ),
 );
 const channels = ref<{ id: number; name: string }[]>(
-    await $fetch(
+    await $fetch<{ id: number; name: string }[]>(
         `/api/business/${currentBusinessStore.businessId}/order/channel/list`,
     ),
 );
 const productList = ref<InventoryItem[]>(
-    await $fetch(
+    await $fetch<InventoryItem[]>(
         `/api/business/${currentBusinessStore.businessId}/inventory/list`,
     ),
 );

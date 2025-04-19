@@ -6,7 +6,7 @@ export interface CustomerOrderItem {
 }
 
 export interface CustomerOrder {
-    id: number;
+    id?: number;
     orderId: string;
     customerId: number;
     channelId: number;

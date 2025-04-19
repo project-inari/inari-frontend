@@ -1,18 +1,11 @@
 <template>
-    <div
-        class="category-manager-page"
-        :class="fontDMSansPrompt"
-    >
+    <div class="category-manager-page" :class="fontDMSansPrompt">
         <!-- PAGE HEADER -->
         <header class="cm-header">
             <h1>Category</h1>
             <div class="cm-header-actions">
-                <PrimeButton
-                    label="Create New"
-                    class="p-button-sm create-new-button"
-                    icon="pi pi-plus"
-                    @click="onCreateNew"
-                />
+                <PrimeButton label="Create New" class="create-new-button" icon="pi pi-plus"
+                    @click="onCreateNew" />
             </div>
         </header>
 
@@ -20,84 +13,48 @@
             <!-- LEFT SIDEBAR: PrimeVue Tree -->
             <aside class="sidebar-tree">
                 <h2>All Products</h2>
-                <PrimeTree
-                    v-model:selection-keys="selectedKey"
-                    :value="treeData"
-                    selection-mode="single"
-                />
+                <PrimeTree v-model:selection-keys="selectedKey" :value="treeData" selection-mode="single" />
             </aside>
 
             <!-- RIGHT CONTENT: Selected Category & Subcategory Table -->
             <section class="main-content">
                 <!-- UPPER BOX: Selected Category Details -->
-                <div
-                    v-if="selectedCategoryObj"
-                    class="selected-category-box"
-                >
+                <div v-if="selectedCategoryObj" class="selected-category-box">
                     <div class="selected-category-header">
                         <h2>{{ selectedCategoryObj.name.toUpperCase() }}</h2>
                     </div>
                     <!-- Category Image -->
-                    <div
-                        v-if="selectedCategoryObj.pictureUrl"
-                        class="selected-category-image"
-                    >
-                        <NuxtImg
-                            :src="selectedCategoryObj.pictureUrl"
-                            alt="Category Image"
-                            width="200"
-                            height="100"
-                        />
+                    <div v-if="selectedCategoryObj.pictureUrl" class="selected-category-image">
+                        <NuxtImg :src="selectedCategoryObj.pictureUrl" alt="Category Image" width="200" height="100" />
                     </div>
                     <!-- Category Description -->
-                    <p
-                        v-if="selectedCategoryObj.description"
-                        class="selected-category-description"
-                    >
+                    <p v-if="selectedCategoryObj.description" class="selected-category-description">
                         {{ selectedCategoryObj.description }}
                     </p>
                     <!-- Assigned Tags -->
-                    <div
-                        v-if="
-                            selectedCategoryObj.tags &&
-                            selectedCategoryObj.tags.length
-                        "
-                        class="assigned-tags"
-                    >
+                    <div v-if="
+                        selectedCategoryObj.tags &&
+                        selectedCategoryObj.tags.length
+                    " class="assigned-tags">
                         <span>Assigned Tags:</span>
                         <div class="tags-row">
-                            <PrimeTag
-                                v-for="(tag, idx) in selectedCategoryObj.tags"
-                                :key="idx"
-                                :value="tag.name"
-                                class="category-tag"
-                            />
+                            <PrimeTag v-for="(tag, idx) in selectedCategoryObj.tags" :key="idx" :value="tag.name"
+                                class="category-tag" />
                         </div>
                     </div>
                 </div>
 
                 <!-- LOWER TABLE: Subcategories of the Selected Category -->
-                <PrimeDataTable
-                    :value="subCategoryList"
-                    class="subcategory-table"
-                    :show-gridlines="true"
-                    :rows="5"
-                >
-                    <PrimeColumn
-                        field="id"
-                        header="No."
-                    />
-                    <PrimeColumn
-                        field="name"
-                        header="Sub-Category"
-                    />
-                    <PrimeColumn
-                        field="description"
-                        header="Description"
-                    />
+                <PrimeDataTable :value="subCategoryList" class="subcategory-table" :show-gridlines="true" :rows="5">
+                    <PrimeColumn field="id" header="No." />
+                    <PrimeColumn field="name" header="Sub-Category" />
+                    <PrimeColumn field="description" header="Description" />
                 </PrimeDataTable>
             </section>
         </div>
+
+        <CreateNewCategoryModal v-model:isOpened="isCreateCategoryModalOpen"
+            @update:visible="isCreateCategoryModalOpen = $event" @save="onCategoryCreated" />
     </div>
 </template>
 
@@ -117,6 +74,11 @@ function onCreateNew() {
     // Example: open a modal or navigate to a create-category page
     isCreateCategoryModalOpen.value = true;
 }
+
+const onCategoryCreated = (newCategory: any) => {
+    // Handle the new category creation logic here
+    console.log('New Category Created:', newCategory);
+};
 
 // 2) Fetch categories from API
 const fetchedCategoryList = await $fetch(
