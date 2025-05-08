@@ -1,6 +1,5 @@
 export default defineEventHandler(async event => {
     const businessId = getRouterParam(event, 'businessId');
-    console.log(businessId);
 
     const channelList: any[] = [
         {

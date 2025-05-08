@@ -1,14 +1,4 @@
-import { readBody, createError } from 'h3';
-
-// const config = useRuntimeConfig();
-
-type CreateNewSupplierOrderReq = {
-    receiveId: string;
-    supplierId: string;
-    warehouseId: string;
-    orderItems: OrderItem[];
-    shippingCost: number;
-};
+import { readBody } from 'h3';
 
 type OrderItem = {
     itemId: string;
@@ -21,31 +11,30 @@ type CreateNewSupplierOrderRes = {
 };
 
 export default defineEventHandler(async event => {
-    const req: CreateNewSupplierOrderReq[] = await readBody(event);
-    console.log(req);
+    const businessId = getRouterParam(event, 'businessId') ?? '';
+    const req = await readBody(event);
+    console.log('req', req);
+    console.log(req.orderItems)
 
-    let data: CreateNewSupplierOrderRes;
-    // try {
-    //     data = await $fetch<CreateNewSupplierOrderRes>(
-    //         `${config.BACKEND_API_BASE_URL}/v1/inventory/supplier-order`,
-    //         {
-    //             method: 'POST',
-    //             body: req,
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'X-API-Key': config.BACKEND_API_KEY,
-    //             },
-    //         },
-    //     );
-    // } catch (err) {
-    //     console.error('Create new supplier order error:', err);
-    //     throw createError({ statusCode: 500, statusMessage: 'Create new supplier order failed' });
-    // }
-
-    data = {
-        supplierOrderId: 1,
-        success: true,
-    };
+    const data: CreateNewSupplierOrderRes = await $fetch(`${process.env.BACKEND_API_BASE_URL}/v1/supplier/order/create`, {
+        method: 'POST',
+        body: {
+            'businessId': parseInt(businessId, 10) || 1,
+            'supplierId': req.supplierId,
+            'warehouseId': req.warehouseId,
+            'receiveId': req.receiveId,
+            'shippingMethod': req.shippingMethod,
+            'shippingCost': req.shippingCost,
+            'status': req.status,
+            'supplierOrderItems': req.orderItems.map((item: OrderItem) => ({
+                'variantId': item.itemId,
+                'quantity': item.quantity,
+            })),
+        },
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
     return data;
 });

@@ -49,7 +49,7 @@
             <PrimeButton icon="pi pi-trash" severity="danger" text class="remove-btn" @click="removeContact(idx)" />
             <hr />
         </div>
-        <PrimeButton label="Add Contact" icon="pi pi-plus" class="add-contact-btn" @click="addContact" outlined />
+        <PrimeButton label="Add Contact" icon="pi pi-plus" class="add-contact-btn" outlined @click="addContact" />
 
         <!-- Footer -->
         <div class="footer-actions">

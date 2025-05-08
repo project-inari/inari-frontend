@@ -12,7 +12,7 @@
             <div class="field">
                 <label class="label">Parent Category:</label>
                 <PrimeDropdown v-model="form.parentCategoryId" :options="parentOptions" option-label="name"
-                    option-value="id" placeholder="— None —" showClear />
+                    option-value="id" placeholder="— None —" show-clear />
             </div>
 
             <!-- Image Upload -->
@@ -22,7 +22,7 @@
                     <img v-if="form.pictureUrl" :src="form.pictureUrl" alt="Preview" class="preview" />
                     <div v-else class="placeholder">Click to upload</div>
                 </div>
-                <input type="file" ref="fileInput" accept="image/*" @change="onFileChange" style="display:none" />
+                <input ref="fileInput" type="file" accept="image/*" style="display:none" @change="onFileChange" />
             </div>
 
             <!-- Description -->
@@ -41,7 +41,7 @@
 
         <div class="footer-actions">
             <PrimeButton label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger" @click="close()" />
-            <PrimeButton label="Save" icon="pi pi-check" @click="submit()" :disabled="!form.name.trim()" />
+            <PrimeButton label="Save" icon="pi pi-check" :disabled="!form.name.trim()" @click="submit()" />
         </div>
     </PrimeDialog>
 </template>
@@ -130,7 +130,7 @@ async function submit() {
     const payload: Omit<Category, 'id'> = {
         name: form.name.trim(),
         parentCategoryId: form.parentCategoryId,
-        tags: form.tags.map(tagId => allTags.value.find(tag => tag.id === tagId.id) as Tag).filter(Boolean),
+        tags: form.tags,
         pictureUrl: form.pictureUrl,
         description: form.description.trim()
     }
@@ -139,6 +139,10 @@ async function submit() {
         {
             method: 'POST',
             body: payload,
+            headers: { 'Content-Type': 'application/json' },
+            params: {
+                businessId: currentBusinessStore.businessId
+            }
         },
     );
     emit('save', payload)

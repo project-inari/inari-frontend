@@ -59,20 +59,20 @@
         </div>
 
         <!-- Create Supplier Modal -->
-        <CreateSupplierModal v-model:isOpened="isSupplierModalOpen" @save="onSupplierCreated" />
+        <CreateSupplierModal v-model:is-opened="isSupplierModalOpen" @save="onSupplierCreated" />
 
         <!-- Create Supplier Contact Modal -->
-        <CreateNewSupplierContactModal v-model:isOpened="isSupplierContactModalOpen"
-            :supplierId="selectedSupplier?.id || 0" @save="onSupplierContactCreated" />
+        <CreateNewSupplierContactModal v-model:is-opened="isSupplierContactModalOpen"
+            :supplier-id="selectedSupplier?.id || 0" @save="onSupplierContactCreated" />
     </div>
 </template>
 
 <script lang="ts" setup>
+import type { Supplier } from '~/model/Supplier'
+
 definePageMeta({
     layout: 'dashboard',
 });
-
-import type { Supplier } from '~/model/Supplier'
 
 const { fontDMSansPrompt } = useFontClass()
 const currentBusinessStore = useCurrentBusinessStore()

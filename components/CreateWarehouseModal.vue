@@ -17,8 +17,8 @@
                     @click="triggerFileUpload"
                 >
                     <NuxtImg
-                        v-if="editData.images && editData.images.length"
-                        :src="editData.images[0]"
+                        v-if="editData.image"
+                        :src="editData.image"
                         alt="Warehouse Main Image"
                         class="main-image"
                         width="180"
@@ -125,7 +125,7 @@ const editData = ref({
     id: props.warehouse?.id || null,
     name: props.warehouse?.name || '',
     description: props.warehouse?.description || '',
-    images: props.warehouse?.images || [],
+    image: props.warehouse?.image || '',
 });
 
 // Validation errors
@@ -141,7 +141,7 @@ watch(
                 id: props.warehouse?.id || null,
                 name: props.warehouse?.name || '',
                 description: props.warehouse?.description || '',
-                images: props.warehouse?.images || [],
+                image: props.warehouse?.image || [],
             };
         }
     },
@@ -162,7 +162,7 @@ function handleFileChange(e: Event) {
     if (file) {
         const reader = new FileReader();
         reader.onload = evt => {
-            editData.value.images = [evt.target?.result];
+            editData.value.image = [evt.target?.result];
         };
         reader.readAsDataURL(file);
     }

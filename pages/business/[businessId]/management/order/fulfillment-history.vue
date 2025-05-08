@@ -43,7 +43,7 @@
 
         <!-- CREATE ORDER MODAL -->
         <CreateNewOrderModal
-            :isOpened="isCreateModalOpen"
+            :is-opened="isCreateModalOpen"
             @update:visible="isCreateModalOpen = $event"
             @save="onOrderCreated"
         />

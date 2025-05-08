@@ -1,5 +1,6 @@
 export interface CustomerOrderItem {
     variantId: number;
+    warehouseId: number;
     quantity: number;
     pricePerUnit: number;
     discountPerUnit: number;

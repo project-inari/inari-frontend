@@ -429,8 +429,15 @@ async function onSave() {
     if (!validateForm()) {
         return;
     }
-    // Optionally, transform tag selections if needed.
-    // For this example, we assume variant.tagIds already contains numbers.
+    
+    await $fetch(
+        `/api/business/${currentBusinessStore.businessId}/product/create`,
+        {
+            method: 'POST',
+            body: formData.value,
+            headers: { 'Content-Type': 'application/json' },
+        },
+    );
     emit('save', formData.value);
     emit('update:visible', false);
 }

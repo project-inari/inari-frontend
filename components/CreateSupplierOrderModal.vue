@@ -1,126 +1,58 @@
 <template>
     <div>
         <!-- Main Dialog -->
-        <PrimeDialog
-            v-model:visible="visible"
-            maximizable
-            modal
-            header="Create Supplier Order"
-            :style="{ width: '70rem' }"
-            :class="fontDMSansPrompt"
-        >
+        <PrimeDialog v-model:visible="visible" maximizable modal header="Create Supplier Order"
+            :style="{ width: '70rem' }" :class="fontDMSansPrompt">
             <div class="action-bar">
                 <div>
                     <label>Search: </label>
-                    <PrimeInputText
-                        v-model="searchKeyword"
-                        placeholder="Type to search any field..."
-                        class="global-search-input"
-                    />
+                    <PrimeInputText v-model="searchKeyword" placeholder="Type to search any field..."
+                        class="global-search-input" />
                 </div>
                 <div class="action-buttons">
                     <!-- Create New Item opens CreateItemModal -->
-                    <PrimeButton
-                        label="Create New Item"
-                        class="create-item"
-                        outlined
-                        severity="primary"
-                        @click="openCreateItemModal"
-                    />
-                    <PrimeButton
-                        label="Add Item"
-                        class="add-item"
-                        severity="primary"
-                        @click="openAddItemModal"
-                    />
+                    <PrimeButton label="Create New Item" class="create-item" outlined severity="primary"
+                        @click="openCreateItemModal" />
+                    <PrimeButton label="Add Item" class="add-item" severity="primary" @click="openAddItemModal" />
                 </div>
             </div>
 
             <!-- Grouped Tables by Supplier -->
-            <template
-                v-for="(items, supplierKey) in groupedItems"
-                :key="supplierKey"
-            >
+            <template v-for="(items, supplierKey) in groupedItems" :key="supplierKey">
                 <h3 class="supplier-header">
                     Supplier:
                     {{ supplierInfoMap[supplierKey]?.name || supplierKey }}
                 </h3>
 
                 <div class="group-inputs">
-                    <PrimeInputText
-                        v-model="groupInputs[supplierKey].receiveId"
-                        placeholder="Receive ID"
-                        class="input-group"
-                    />
-                    <PrimeDropdown
-                        v-model="groupInputs[supplierKey].warehouseId"
-                        :options="warehouseOptions"
-                        option-label="name"
-                        option-value="id"
-                        placeholder="Select Warehouse"
-                        class="input-group"
-                    />
-                    <PrimeInputNumber
-                        v-model="groupInputs[supplierKey].shippingCost"
-                        placeholder="Shipping Cost"
-                        class="input-group"
-                    />
+                    <PrimeInputText v-model="groupInputs[supplierKey].receiveId" placeholder="Receive ID"
+                        class="input-group" />
+                    <PrimeDropdown v-model="groupInputs[supplierKey].warehouseId" :options="warehouseOptions"
+                        option-label="name" option-value="id" placeholder="Select Warehouse" class="input-group" />
+                    <PrimeInputText v-model="groupInputs[supplierKey].shippingMethod" placeholder="Shipping Method"
+                        class="input-group" />
+                    <PrimeInputNumber v-model="groupInputs[supplierKey].shippingCost" placeholder="Shipping Cost"
+                        class="input-group" />
                 </div>
 
-                <PrimeDataTable
-                    :value="items"
-                    removable-sort
-                    scrollable
-                    scroll-height="300px"
-                    responsive-layout="scroll"
-                    class="inventory-table"
-                    :class="fontDMSansPrompt"
-                >
-                    <PrimeColumn
-                        field="sku"
-                        header="SKU"
-                        sortable
-                    />
+                <PrimeDataTable :value="items" removable-sort scrollable scroll-height="300px"
+                    responsive-layout="scroll" class="inventory-table" :class="fontDMSansPrompt">
+                    <PrimeColumn field="sku" header="SKU" sortable />
                     <PrimeColumn header="Image">
                         <template #body="slotProps">
-                            <NuxtImg
-                                :src="slotProps.data.img"
-                                alt="item-image"
-                                width="40"
-                                height="40"
-                            />
+                            <NuxtImg :src="slotProps.data.img" alt="item-image" width="40" height="40" />
                         </template>
                     </PrimeColumn>
-                    <PrimeColumn
-                        header="Item"
-                        sortable
-                    >
+                    <PrimeColumn header="Item" sortable>
                         <template #body="slotProps">
                             <span>{{ slotProps.data.item }}</span>
                         </template>
                     </PrimeColumn>
-                    <PrimeColumn
-                        field="variant"
-                        header="Variants"
-                        sortable
-                    />
-                    <PrimeColumn
-                        field="purchasePrice"
-                        header="Purchase Price"
-                        sortable
-                    />
-                    <PrimeColumn
-                        field="orderQty"
-                        header="To Order Qty"
-                        sortable
-                    >
+                    <PrimeColumn field="variant" header="Variants" sortable />
+                    <PrimeColumn field="purchasePrice" header="Purchase Price" sortable />
+                    <PrimeColumn field="orderQty" header="To Order Qty" sortable>
                         <template #body="slotProps">
-                            <PrimeInputNumber
-                                v-model="slotProps.data.orderQty"
-                                show-buttons
-                                :min="0"
-                                fluid
-                            />
+                            <PrimeInputNumber v-model="slotProps.data.orderQty" show-buttons :min="0" fluid />
                         </template>
                     </PrimeColumn>
                     <PrimeColumn header="Stock Qty">
@@ -140,20 +72,14 @@
                     </PrimeColumn>
                     <PrimeColumn>
                         <template #body="slotProps">
-                            <PrimeButton
-                                icon="pi pi-times"
-                                outlined
-                                severity="danger"
-                                @click="removeItem(slotProps.data)"
-                            />
+                            <PrimeButton icon="pi pi-times" outlined severity="danger"
+                                @click="removeItem(slotProps.data)" />
                         </template>
                     </PrimeColumn>
                 </PrimeDataTable>
 
                 <div class="supplier-total-row">
-                    <span class="label"
-                        >Supplier Order Total (incl. shipping):</span
-                    >
+                    <span class="label">Supplier Order Total (incl. shipping):</span>
                     <span class="value">{{
                         getSupplierSubtotal(supplierKey)
                     }}</span>
@@ -166,69 +92,29 @@
                 <span class="value">{{ grandTotal }}</span>
             </div>
 
-            <PrimeButton
-                label="Submit Orders"
-                class="mt-4"
-                @click="onSubmitCreateNewSupplierOrders"
-            />
+            <PrimeButton label="Submit Orders" class="mt-4" @click="onSubmitCreateNewSupplierOrders" />
         </PrimeDialog>
 
         <!-- Add Item Dialog -->
-        <PrimeDialog
-            v-model:visible="isAddItemModalVisible"
-            modal
-            header="Add Item to Supplier Order"
-            :class="fontDMSansPrompt"
-        >
-            <PrimeDataTable
-                v-model:selection="itemToAddSelected"
-                :value="allItemsList"
-                selection-mode="multiple"
-                data-key="id"
-                removable-sort
-                scrollable
-                scroll-height="400px"
-                responsive-layout="scroll"
-                class="inventory-table"
-                :class="fontDMSansPrompt"
-            >
-                <PrimeColumn
-                    selection-mode="multiple"
-                    header-style="width: 3rem"
-                />
-                <PrimeColumn
-                    field="sku"
-                    header="SKU"
-                    sortable
-                />
+        <PrimeDialog v-model:visible="isAddItemModalVisible" modal header="Add Item to Supplier Order"
+            :class="fontDMSansPrompt">
+            <PrimeDataTable v-model:selection="itemToAddSelected" :value="allItemsList" selection-mode="multiple"
+                data-key="id" removable-sort scrollable scroll-height="400px" responsive-layout="scroll"
+                class="inventory-table" :class="fontDMSansPrompt">
+                <PrimeColumn selection-mode="multiple" header-style="width: 3rem" />
+                <PrimeColumn field="sku" header="SKU" sortable />
                 <PrimeColumn header="Image">
                     <template #body="slotProps">
-                        <NuxtImg
-                            :src="slotProps.data.img"
-                            alt="item-image"
-                            width="40"
-                            height="40"
-                        />
+                        <NuxtImg :src="slotProps.data.img" alt="item-image" width="40" height="40" />
                     </template>
                 </PrimeColumn>
-                <PrimeColumn
-                    header="Item"
-                    sortable
-                >
+                <PrimeColumn header="Item" sortable>
                     <template #body="slotProps">
                         <span>{{ slotProps.data.item }}</span>
                     </template>
                 </PrimeColumn>
-                <PrimeColumn
-                    field="variant"
-                    header="Variants"
-                    sortable
-                />
-                <PrimeColumn
-                    field="purchasePrice"
-                    header="Purchase Price"
-                    sortable
-                />
+                <PrimeColumn field="variant" header="Variants" sortable />
+                <PrimeColumn field="purchasePrice" header="Purchase Price" sortable />
                 <PrimeColumn header="Stock Qty">
                     <template #body="slotProps">
                         <span>{{
@@ -237,12 +123,8 @@
                     </template>
                 </PrimeColumn>
             </PrimeDataTable>
-            <PrimeButton
-                label="Add Selected Items"
-                class="submit-add-item-button"
-                severity="primary"
-                @click="onSubmitAddItem"
-            />
+            <PrimeButton label="Add Selected Items" class="submit-add-item-button" severity="primary"
+                @click="onSubmitAddItem" />
         </PrimeDialog>
 
         <!-- Create New Item Modal -->
@@ -286,7 +168,7 @@ const warehouseOptions = ref(warehouseList);
 const groupInputs = reactive<
     Record<
         string,
-        { receiveId: string; warehouseId: string; shippingCost: number }
+        { receiveId: string; warehouseId: string; shippingCost: number; shippingMethod: string }
     >
 >({});
 
@@ -306,6 +188,7 @@ const groupedItems = computed(() => {
                 receiveId: '',
                 warehouseId: '',
                 shippingCost: 0,
+                shippingMethod: '',
             };
         }
         groups[supplierKey].push(item);
@@ -369,33 +252,30 @@ const grandTotal = computed(() => {
 });
 
 async function onSubmitCreateNewSupplierOrders() {
-    const requests = Object.entries(groupedItems.value).map(
-        ([supplierKey, items]) => {
-            const input = groupInputs[supplierKey];
-            return {
-                receiveId: input.receiveId,
-                supplierId: supplierKey,
-                warehouseId: input.warehouseId,
-                shippingCost: input.shippingCost,
-                orderItems: items.map(item => ({
-                    itemId: item.id,
-                    quantity: item.orderQty,
-                })),
-            };
-        },
-    );
+    const url = `/api/business/${currentBusinessStore.businessId}/inventory/supplier/create-order`
+    for (const [supplierKey, items] of Object.entries(groupedItems.value)) {
+        const input = groupInputs[supplierKey]
+        const body = {
+            receiveId: input.receiveId,
+            supplierId: Number(supplierKey),
+            warehouseId: input.warehouseId,
+            shippingCost: input.shippingCost,
+            shippingMethod: input.shippingMethod,
+            status: 'Ordered',
+            orderItems: items.map(item => ({
+                itemId: item.id,
+                quantity: item.orderQty,
+            })),
+        }
 
-    await $fetch(
-        `/api/business/${currentBusinessStore.businessId}/inventory/supplier/create-order`,
-        {
-            method: 'POST',
-            body: requests,
-        },
-    );
+        console.log('POST body:', JSON.stringify(body, null, 2))
+        await $fetch(url, { method: 'POST', body: body })
+    }
 
-    itemsInList.value = [];
-    Object.keys(groupInputs).forEach(key => delete groupInputs[key]);
-    visible.value = false;
+    // clear state…
+    itemsInList.value = []
+    Object.keys(groupInputs).forEach(k => delete groupInputs[k])
+    visible.value = false
 }
 
 async function callGetAllItemsList() {

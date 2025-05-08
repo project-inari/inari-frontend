@@ -82,6 +82,9 @@ async function submit() {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json' },
+        params: {
+            businessId: currentBusinessStore.businessId
+        }
     })
     emit('save', payload)
     visible.value = false

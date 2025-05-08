@@ -33,19 +33,19 @@
                 <PrimeDropdown
                     v-model="selectedChannel"
                     :options="channels"
-                    optionLabel="name"
-                    optionValue="id"
+                    option-label="name"
+                    option-value="id"
                     placeholder="All Channels"
-                    showClear
+                    show-clear
                 />
                 <label>Status:</label>
                 <PrimeDropdown
                     v-model="selectedStatusFilter"
                     :options="statuses"
-                    optionLabel="name"
-                    optionValue="id"
+                    option-label="name"
+                    option-value="id"
                     placeholder="All Statuses"
-                    showClear
+                    show-clear
                 />
             </div>
         </div>
@@ -204,7 +204,7 @@
 
         <!-- CreateOrder Modal -->
         <CreateNewOrderModal
-            :isOpened="isCreateModalOpen"
+            :is-opened="isCreateModalOpen"
             @update:visible="isCreateModalOpen = $event"
             @save="onOrderCreated"
         />

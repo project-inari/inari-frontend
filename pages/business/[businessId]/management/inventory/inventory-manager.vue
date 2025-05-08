@@ -509,7 +509,7 @@ async function editItem(rowData: InventoryItem) {
     try {
         // Fetch the product data for this variant.
         const productData = await $fetch<Product>(
-            `/api/business/${currentBusinessStore.businessId}/product/variant/${variantId}`,
+            `/api/business/${currentBusinessStore.businessId}/product/${variantId}`,
             {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },

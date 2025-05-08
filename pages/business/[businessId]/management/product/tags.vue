@@ -74,12 +74,14 @@
             </section>
         </div>
 
-        <CreateNewTagModal v-model:isOpened="isTagModalOpen" @save="onTagCreated"
+        <CreateNewTagModal v-model:is-opened="isTagModalOpen" @save="onTagCreated"
             @update:visible="isTagModalOpen = $event" />
     </div>
 </template>
 
 <script setup lang="ts">
+import type { Tag } from '~/model/Tag';
+
 definePageMeta({
     layout: 'dashboard',
 });
@@ -101,7 +103,7 @@ function onCreateNewTag() {
 }
 
 // 2) Fetch tags from API
-const tagList = await $fetch(
+const tagList = await $fetch<Tag[]>(
     `/api/business/${currentBusinessStore.businessId}/tag/list`,
     {
         method: 'GET',

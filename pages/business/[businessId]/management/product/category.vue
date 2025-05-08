@@ -53,7 +53,7 @@
             </section>
         </div>
 
-        <CreateNewCategoryModal v-model:isOpened="isCreateCategoryModalOpen"
+        <CreateNewCategoryModal v-model:is-opened="isCreateCategoryModalOpen"
             @update:visible="isCreateCategoryModalOpen = $event" @save="onCategoryCreated" />
     </div>
 </template>

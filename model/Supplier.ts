@@ -8,6 +8,7 @@ export interface Supplier {
 
 export interface SupplierContact {
     id?: string;
+    supplierId?: number;
     fullName: string;
     phoneNo?: string;
     email?: string;

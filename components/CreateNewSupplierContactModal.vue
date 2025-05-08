@@ -74,6 +74,7 @@ function close() {
 // submit new contact
 async function submit() {
     const contact: Omit<SupplierContact, 'id'> = {
+        supplierId: props.supplierId,
         fullName: form.fullName.trim(),
         phoneNo: form.phoneNo?.trim() || undefined,
         email: form.email?.trim() || undefined,
