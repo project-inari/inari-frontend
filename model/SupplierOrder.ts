@@ -18,6 +18,6 @@ export interface OrderItem {
     purchasePrice: number;
     pictureUrl: string;
     categoryId: number;
-    tagIds: number[];
+    tagIds?: number[];
     orderQty: number;
 }

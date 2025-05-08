@@ -17,7 +17,6 @@ export default defineEventHandler(async event => {
                     pictureUrl:
                         'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
                     categoryId: 1,
-                    tagIds: [1, 2],
                     orderQty: 100,
                 },
                 {
@@ -29,7 +28,6 @@ export default defineEventHandler(async event => {
                     pictureUrl:
                         'https://d2oto3d7z6t29c.cloudfront.net/entries/transformed/32/6d/414824_003cecee716f408d9ffe7fc2fe124fa7.jpg',
                     categoryId: 1,
-                    tagIds: [1, 3],
                     orderQty: 50,
                 },
             ],
@@ -53,7 +51,6 @@ export default defineEventHandler(async event => {
                     pictureUrl:
                         'https://wishbeer.com/cdn/shop/products/6852_1024x1024.jpg?v=1560155131',
                     categoryId: 1,
-                    tagIds: [2, 3],
                     orderQty: 200,
                 },
                 {
@@ -65,7 +62,6 @@ export default defineEventHandler(async event => {
                     pictureUrl:
                         'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.tallidrinks.com%2Fproduct-page%2Fcorona-extra-beer&psig=AOvVaw28X4Y7Si0-yA2UKaigFpKV&ust=1744632147530000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCKiQua371IwDFQAAAAAdAAAAABAE',
                     categoryId: 1,
-                    tagIds: [1, 2],
                     orderQty: 150,
                 },
             ],

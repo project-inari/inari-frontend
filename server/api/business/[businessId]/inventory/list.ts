@@ -32,7 +32,7 @@ export default defineEventHandler(async event => {
         {
             id: 2,
             sku: '002',
-            img: '/img/heineken.png',
+            img: 'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
             item: 'Heineken Original',
             variant: '500 ml',
             supplierId: 2,
@@ -54,7 +54,7 @@ export default defineEventHandler(async event => {
         {
             id: 3,
             sku: '003',
-            img: '/img/hoegaarden.png',
+            img: 'https://d19oj5aeuefgv.cloudfront.net/0239911',
             item: 'Hoegaarden Rose',
             variant: '250 ml',
             supplierId: 1,
@@ -76,7 +76,7 @@ export default defineEventHandler(async event => {
         {
             id: 4,
             sku: '004',
-            img: '/img/snowbeer.png',
+            img: 'https://d19oj5aeuefgv.cloudfront.net/0226662',
             item: 'Snow Weizen',
             variant: '490 ml',
             supplierId: 2,
@@ -98,7 +98,7 @@ export default defineEventHandler(async event => {
         {
             id: 5,
             sku: '006',
-            img: '/img/pringles.png',
+            img: 'https://assets.tops.co.th/PRINGLES-PringlesPotatoChipSourCreamandOnion102g-8886467100024-1?$JPEG$',
             item: 'Pringles Sour Cream',
             variant: '300 g',
             supplierId: 1,

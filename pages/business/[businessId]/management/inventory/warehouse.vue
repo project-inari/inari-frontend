@@ -28,7 +28,7 @@
                 @click="selectWarehouse(wh)"
             >
                 <NuxtImg
-                    :src="wh.img"
+                    :src="wh.pictureUrl"
                     alt="warehouse-icon"
                     class="warehouse-icon"
                     width="80"

@@ -68,6 +68,10 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+    layout: 'dashboard',
+});
+
 import type { Supplier } from '~/model/Supplier'
 
 const { fontDMSansPrompt } = useFontClass()

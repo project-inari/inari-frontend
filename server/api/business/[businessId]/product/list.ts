@@ -55,7 +55,7 @@ export default defineEventHandler(async event => {
                     purchasePrice: 30,
                     sellingPrice: 50,
                     pictureUrl:
-                        'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                        'https://www.raanthai.co.uk/cdn/shop/files/mdr039lg.jpg?v=1721495680',
                     note: 'This is a note',
                     tagIds: [1, 2],
                     qtyInWarehouse: [
@@ -70,7 +70,7 @@ export default defineEventHandler(async event => {
                     purchasePrice: 15,
                     sellingPrice: 25,
                     pictureUrl:
-                        'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                        'https://www.raanthai.co.uk/cdn/shop/files/mdr039lg.jpg?v=1721495680',
                     note: 'This is another note',
                     tagIds: [1, 2],
                     qtyInWarehouse: [
@@ -94,7 +94,7 @@ export default defineEventHandler(async event => {
                     purchasePrice: 30,
                     sellingPrice: 50,
                     pictureUrl:
-                        'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                        'https://wishbeer.com/cdn/shop/products/6852.jpg?v=1560155131',
                     note: 'This is a note',
                     tagIds: [3, 4],
                     qtyInWarehouse: [
@@ -109,7 +109,7 @@ export default defineEventHandler(async event => {
                     purchasePrice: 15,
                     sellingPrice: 25,
                     pictureUrl:
-                        'https://newyorkpizza.online/live/wp-content/uploads/2020/06/Heineken-Beer.jpg',
+                        'https://wishbeer.com/cdn/shop/products/6852.jpg?v=1560155131',
                     note: 'This is another note',
                     tagIds: [2, 3, 4],
                     qtyInWarehouse: [
