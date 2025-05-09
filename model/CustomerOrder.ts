@@ -16,5 +16,5 @@ export interface CustomerOrder {
     shippingFee: number;
     shippingCost: number;
     items: CustomerOrderItem[];
-    orderedAt: string;
+    orderedAt?: string;
 }
