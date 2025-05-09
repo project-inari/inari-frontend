@@ -9,12 +9,12 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-    )
+        },
+    );
 
     const fetchCustomers = fetchList.customers;
 
-    const customerList: Customer[] = fetchCustomers.map((customer) => {
+    const customerList: Customer[] = fetchCustomers.map(customer => {
         return {
             id: customer.id,
             name: customer.name,

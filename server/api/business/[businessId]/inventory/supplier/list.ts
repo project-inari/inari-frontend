@@ -9,11 +9,11 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        },
     );
     const fetchSupplierOrders = fetchList.supplierOrders;
 
-    const data: SupplierOrder[] = fetchSupplierOrders.map((order) => {
+    const data: SupplierOrder[] = fetchSupplierOrders.map(order => {
         return {
             id: order.id,
             receiveId: order.receiveId,
@@ -22,27 +22,29 @@ export default defineEventHandler(async event => {
             status: order.status,
             shippingMethod: order.shippingMethod,
             shippingCost: order.shippingCost,
-            orderItems: order.orderItems.map((item: {
-                variantId: string;
-                productName: string;
-                variantName: string;
-                skuNo: string;
-                basePurchasePrice: number;
-                pictureUrl: string;
-                categoryId: string;
-                quantity: number;
-            }) => {
-                return {
-                    variantId: item.variantId,
-                    productName: item.productName,
-                    variantName: item.variantName,
-                    sku: item.skuNo,
-                    purchasePrice: item.basePurchasePrice,
-                    pictureUrl: item.pictureUrl,
-                    categoryId: item.categoryId,
-                    orderQty: item.quantity,
-                };
-            }),
+            orderItems: order.orderItems.map(
+                (item: {
+                    variantId: string;
+                    productName: string;
+                    variantName: string;
+                    skuNo: string;
+                    basePurchasePrice: number;
+                    pictureUrl: string;
+                    categoryId: string;
+                    quantity: number;
+                }) => {
+                    return {
+                        variantId: item.variantId,
+                        productName: item.productName,
+                        variantName: item.variantName,
+                        sku: item.skuNo,
+                        purchasePrice: item.basePurchasePrice,
+                        pictureUrl: item.pictureUrl,
+                        categoryId: item.categoryId,
+                        orderQty: item.quantity,
+                    };
+                },
+            ),
             dateCreated: order.createdAt,
         };
     });

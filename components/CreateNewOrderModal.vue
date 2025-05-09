@@ -1,16 +1,34 @@
 <template>
     <div>
         <!-- Main Dialog -->
-        <PrimeDialog v-model:visible="visible" maximizable modal header="Create New Order" :style="{ width: '70rem' }"
-            :class="fontDMSansPrompt" :closable="true" :dismissable-mask="true">
+        <PrimeDialog
+            v-model:visible="visible"
+            maximizable
+            modal
+            header="Create New Order"
+            :style="{ width: '70rem' }"
+            :class="fontDMSansPrompt"
+            :closable="true"
+            :dismissable-mask="true"
+        >
             <!-- Customer / Channel / Status / Shipping -->
             <div class="action-bar">
                 <div class="form-row">
                     <label>Customer:</label>
-                    <PrimeDropdown v-model="form.customerId" :options="customers" option-label="name" option-value="id"
-                        placeholder="Select Customer" class="customer-dropdown" />
-                    <PrimeButton label="New Customer" icon="pi pi-user-plus" class="p-button-text"
-                        @click="isCreateCustomerModalVisible = true" />
+                    <PrimeDropdown
+                        v-model="form.customerId"
+                        :options="customers"
+                        option-label="name"
+                        option-value="id"
+                        placeholder="Select Customer"
+                        class="customer-dropdown"
+                    />
+                    <PrimeButton
+                        label="New Customer"
+                        icon="pi pi-user-plus"
+                        class="p-button-text"
+                        @click="isCreateCustomerModalVisible = true"
+                    />
                 </div>
                 <div class="form-row">
                     <label>Order ID:</label>
@@ -18,25 +36,46 @@
                 </div>
                 <div class="form-row">
                     <label>Channel:</label>
-                    <PrimeDropdown v-model="form.channelId" :options="channels" option-label="name" option-value="id"
-                        placeholder="Select Channel" />
+                    <PrimeDropdown
+                        v-model="form.channelId"
+                        :options="channels"
+                        option-label="name"
+                        option-value="id"
+                        placeholder="Select Channel"
+                    />
                 </div>
                 <div class="form-row">
                     <label>Status:</label>
-                    <PrimeDropdown v-model="form.statusId" :options="statuses" option-label="name" option-value="id"
-                        placeholder="Select Status" />
+                    <PrimeDropdown
+                        v-model="form.statusId"
+                        :options="statuses"
+                        option-label="name"
+                        option-value="id"
+                        placeholder="Select Status"
+                    />
                 </div>
                 <div class="form-row">
                     <label>Ship Method:</label>
-                    <PrimeInputText v-model="form.shippingMethod" placeholder="e.g. Standard" />
+                    <PrimeInputText
+                        v-model="form.shippingMethod"
+                        placeholder="e.g. Standard"
+                    />
                 </div>
                 <div class="form-row">
                     <label>Shipping Fee:</label>
-                    <PrimeInputNumber v-model="form.shippingFee" :min="0" placeholder="0" />
+                    <PrimeInputNumber
+                        v-model="form.shippingFee"
+                        :min="0"
+                        placeholder="0"
+                    />
                 </div>
                 <div class="form-row">
                     <label>Shipping Cost:</label>
-                    <PrimeInputNumber v-model="form.shippingCost" :min="0" placeholder="0" />
+                    <PrimeInputNumber
+                        v-model="form.shippingCost"
+                        :min="0"
+                        placeholder="0"
+                    />
                 </div>
             </div>
 
@@ -44,24 +83,48 @@
             <div class="action-bar">
                 <div class="form-row">
                     <label>Search Items:</label>
-                    <PrimeInputText v-model="searchKeyword" placeholder="Filter inventory..." />
+                    <PrimeInputText
+                        v-model="searchKeyword"
+                        placeholder="Filter inventory..."
+                    />
                 </div>
                 <div class="action-buttons">
-                    <PrimeButton label="Create New Item" outlined severity="primary"
-                        @click="isCreateItemModalVisible = true" />
-                    <PrimeButton label="Add Item" severity="primary" @click="openAddItemModal" />
+                    <PrimeButton
+                        label="Create New Item"
+                        outlined
+                        severity="primary"
+                        @click="isCreateItemModalVisible = true"
+                    />
+                    <PrimeButton
+                        label="Add Item"
+                        severity="primary"
+                        @click="openAddItemModal"
+                    />
                 </div>
             </div>
 
             <!-- Items Table -->
-            <PrimeDataTable :value="form.items" removable-sort scrollable scroll-height="300px"
-                responsive-layout="scroll" class="inventory-table">
-                <PrimeColumn header="#" style="width: 3rem">
+            <PrimeDataTable
+                :value="form.items"
+                removable-sort
+                scrollable
+                scroll-height="300px"
+                responsive-layout="scroll"
+                class="inventory-table"
+            >
+                <PrimeColumn
+                    header="#"
+                    style="width: 3rem"
+                >
                     <template #body="p">{{ p.index + 1 }}</template>
                 </PrimeColumn>
                 <PrimeColumn header="Image">
                     <template #body="p">
-                        <img :src="getProduct(p.data.variantId)?.img" alt="Product" width="50" />
+                        <img
+                            :src="getProduct(p.data.variantId)?.img"
+                            alt="Product"
+                            width="50"
+                        />
                     </template>
                 </PrimeColumn>
                 <PrimeColumn header="SKU">
@@ -81,23 +144,45 @@
                 </PrimeColumn>
                 <PrimeColumn header="Warehouse">
                     <template #body="p">
-                        <PrimeDropdown v-model="p.data.warehouseId" :options="warehouses" option-label="name"
-                            option-value="id" placeholder="Select Warehouse" show-clear class="w-full" />
+                        <PrimeDropdown
+                            v-model="p.data.warehouseId"
+                            :options="warehouses"
+                            option-label="name"
+                            option-value="id"
+                            placeholder="Select Warehouse"
+                            show-clear
+                            class="w-full"
+                        />
                     </template>
                 </PrimeColumn>
                 <PrimeColumn header="Qty">
                     <template #body="p">
-                        <PrimeInputNumber v-model="p.data.quantity" :min="1" show-buttons size="small" />
+                        <PrimeInputNumber
+                            v-model="p.data.quantity"
+                            :min="1"
+                            show-buttons
+                            size="small"
+                        />
                     </template>
                 </PrimeColumn>
                 <PrimeColumn header="Price/Unit">
                     <template #body="p">
-                        <PrimeInputNumber v-model="p.data.pricePerUnit" :min="0" show-buttons size="small" />
+                        <PrimeInputNumber
+                            v-model="p.data.pricePerUnit"
+                            :min="0"
+                            show-buttons
+                            size="small"
+                        />
                     </template>
                 </PrimeColumn>
                 <PrimeColumn header="Discount/Unit">
                     <template #body="p">
-                        <PrimeInputNumber v-model="p.data.discountPerUnit" :min="0" show-buttons size="small" />
+                        <PrimeInputNumber
+                            v-model="p.data.discountPerUnit"
+                            :min="0"
+                            show-buttons
+                            size="small"
+                        />
                     </template>
                 </PrimeColumn>
                 <PrimeColumn header="Total">
@@ -105,8 +190,13 @@
                 </PrimeColumn>
                 <PrimeColumn style="width: 3rem">
                     <template #body="p">
-                        <PrimeButton icon="pi pi-times" outlined severity="danger" size="small"
-                            @click="removeItem(p.data)" />
+                        <PrimeButton
+                            icon="pi pi-times"
+                            outlined
+                            severity="danger"
+                            size="small"
+                            @click="removeItem(p.data)"
+                        />
                     </template>
                 </PrimeColumn>
             </PrimeDataTable>
@@ -116,12 +206,22 @@
                 <span class="label">Grand Total:</span>
                 <span class="value">{{ grandTotal }} Baht</span>
             </div>
-            <PrimeButton label="Submit Order" class="mt-4" @click="submit()" />
+            <PrimeButton
+                label="Submit Order"
+                class="mt-4"
+                @click="submit()"
+            />
         </PrimeDialog>
 
         <!-- New Customer Dialog -->
-        <PrimeDialog v-model:visible="isCreateCustomerModalVisible" modal header="New Customer"
-            :class="fontDMSansPrompt" :closable="true" :dismissable-mask="true">
+        <PrimeDialog
+            v-model:visible="isCreateCustomerModalVisible"
+            modal
+            header="New Customer"
+            :class="fontDMSansPrompt"
+            :closable="true"
+            :dismissable-mask="true"
+        >
             <div class="form-row">
                 <label>Name:</label>
                 <PrimeInputText v-model="newCustomer.name" />
@@ -138,29 +238,64 @@
                 <label>Phone:</label>
                 <PrimeInputText v-model="newCustomer.phoneNo" />
             </div>
-            <div class="mt-4" style="text-align: right">
-                <PrimeButton label="Cancel" class="p-button-text p-button-danger"
-                    @click="isCreateCustomerModalVisible = false" />
-                <PrimeButton label="Save" @click="saveCustomer()" />
+            <div
+                class="mt-4"
+                style="text-align: right"
+            >
+                <PrimeButton
+                    label="Cancel"
+                    class="p-button-text p-button-danger"
+                    @click="isCreateCustomerModalVisible = false"
+                />
+                <PrimeButton
+                    label="Save"
+                    @click="saveCustomer()"
+                />
             </div>
         </PrimeDialog>
 
         <!-- Add Item Dialog -->
-        <PrimeDialog v-model:visible="isAddItemModalVisible" modal header="Add Inventory Items"
-            :class="fontDMSansPrompt">
-            <PrimeDataTable v-model:selection="toAdd" :value="filteredInventory" selection-mode="multiple" data-key="id"
-                scrollable scroll-height="400px">
-                <PrimeColumn selection-mode="multiple" header-style="width:3rem" />
-                <PrimeColumn field="sku" header="SKU" sortable />
+        <PrimeDialog
+            v-model:visible="isAddItemModalVisible"
+            modal
+            header="Add Inventory Items"
+            :class="fontDMSansPrompt"
+        >
+            <PrimeDataTable
+                v-model:selection="toAdd"
+                :value="filteredInventory"
+                selection-mode="multiple"
+                data-key="id"
+                scrollable
+                scroll-height="400px"
+            >
+                <PrimeColumn
+                    selection-mode="multiple"
+                    header-style="width:3rem"
+                />
+                <PrimeColumn
+                    field="sku"
+                    header="SKU"
+                    sortable
+                />
                 <PrimeColumn header="Item">
                     <template #body="p">{{ p.data.item }}</template>
                 </PrimeColumn>
-                <PrimeColumn field="variant" header="Variant" sortable />
+                <PrimeColumn
+                    field="variant"
+                    header="Variant"
+                    sortable
+                />
                 <PrimeColumn header="Stock Qty">
                     <template #body="p">{{ aggregateStock(p.data) }}</template>
                 </PrimeColumn>
             </PrimeDataTable>
-            <PrimeButton label="Add Selected" class="mt-2" severity="primary" @click="addSelected()" />
+            <PrimeButton
+                label="Add Selected"
+                class="mt-2"
+                severity="primary"
+                @click="addSelected()"
+            />
         </PrimeDialog>
 
         <!-- Create New Item Modal -->
@@ -199,8 +334,10 @@ const customers = ref<Customer[]>(
     ),
 );
 const warehouses = ref<{ id: number; name: string }[]>(
-    await $fetch(`/api/business/${currentBusinessStore.businessId}/inventory/warehouse/list`)
-)
+    await $fetch(
+        `/api/business/${currentBusinessStore.businessId}/inventory/warehouse/list`,
+    ),
+);
 const channels = ref<{ id: number; name: string }[]>(
     await $fetch<{ id: number; name: string }[]>(
         `/api/business/${currentBusinessStore.businessId}/order/channel/list`,

@@ -429,7 +429,7 @@ async function onSave() {
     if (!validateForm()) {
         return;
     }
-    
+
     await $fetch(
         `/api/business/${currentBusinessStore.businessId}/product/create`,
         {

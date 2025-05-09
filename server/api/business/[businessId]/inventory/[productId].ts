@@ -11,7 +11,11 @@ export default defineEventHandler(async event => {
         categoryId: string;
         basePurchasePrice: number;
         baseSellingPrice: number;
-        categories: { id: string; name: string; parent: { id: string; name: string }[] }[];
+        categories: {
+            id: string;
+            name: string;
+            parent: { id: string; name: string }[];
+        }[];
         tags: { id: string; tagName: string; color: string }[];
         note: string;
         qtyInWarehouse: { warehouseId: string; qty: number }[];
@@ -24,8 +28,8 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-    )
+        },
+    );
 
     const inventoryItem = {
         id: fetchItem.variantId,
@@ -37,26 +41,30 @@ export default defineEventHandler(async event => {
         categoryId: fetchItem.categoryId,
         purchasePrice: fetchItem.basePurchasePrice,
         sellingPrice: fetchItem.baseSellingPrice,
-        categories: (fetchItem.categories ?? []).map((category: { id: any; name: any; parent: any[]; }) => {
-            return {
-                id: category.id,
-                name: category.name,
-                parent: (category.parent ?? []).map((parentCategory) => ({
-                    id: parentCategory.id,
-                    name: parentCategory.name,
-                })),
-            };
-        }),
-        tags: (fetchItem.tags ?? []).map((tag: { id: any; tagName: any; color: any; }) => {
-            return {
-                id: tag.id,
-                name: tag.tagName,
-                color: tag.color,
-            };
-        }),
+        categories: (fetchItem.categories ?? []).map(
+            (category: { id: any; name: any; parent: any[] }) => {
+                return {
+                    id: category.id,
+                    name: category.name,
+                    parent: (category.parent ?? []).map(parentCategory => ({
+                        id: parentCategory.id,
+                        name: parentCategory.name,
+                    })),
+                };
+            },
+        ),
+        tags: (fetchItem.tags ?? []).map(
+            (tag: { id: any; tagName: any; color: any }) => {
+                return {
+                    id: tag.id,
+                    name: tag.tagName,
+                    color: tag.color,
+                };
+            },
+        ),
         note: fetchItem.note,
         qtyInWarehouse: fetchItem.qtyInWarehouse,
-    }
+    };
 
     // if (productId === '1') {
     //     inventoryItem = {

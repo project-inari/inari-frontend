@@ -9,28 +9,38 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-    )
+        },
+    );
 
     const fetchSuppliers = fetchList.suppliers;
 
-    const data: Supplier[] = fetchSuppliers.map((supplier) => {
+    const data: Supplier[] = fetchSuppliers.map(supplier => {
         return {
             id: supplier.id,
             name: supplier.name,
             description: supplier.description,
             type: supplier.type,
-            contacts: supplier.supplierContacts.map((contact: { id: any; fullName: any; phoneNo: any; email: any; address: any; remarks: any; status: any; }) => {
-                return {
-                    id: contact.id,
-                    fullName: contact.fullName,
-                    phoneNo: contact.phoneNo,
-                    email: contact.email,
-                    address: contact.address,
-                    remarks: contact.remarks,
-                    status: contact.status,
-                };
-            }),
+            contacts: supplier.supplierContacts.map(
+                (contact: {
+                    id: any;
+                    fullName: any;
+                    phoneNo: any;
+                    email: any;
+                    address: any;
+                    remarks: any;
+                    status: any;
+                }) => {
+                    return {
+                        id: contact.id,
+                        fullName: contact.fullName,
+                        phoneNo: contact.phoneNo,
+                        email: contact.email,
+                        address: contact.address,
+                        remarks: contact.remarks,
+                        status: contact.status,
+                    };
+                },
+            ),
         };
     });
 

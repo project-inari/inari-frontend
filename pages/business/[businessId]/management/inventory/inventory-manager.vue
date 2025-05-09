@@ -670,10 +670,10 @@ function closeSupplierOrderModal() {
 }
 
 .dynamic-item-img {
-  width: 120px;    /* or whatever width you prefer */
-  height: auto;    /* auto so aspect ratio is preserved */
-  object-fit: contain; /* ensures the entire image fits without distortion */
-  border-radius: 4px;
+    width: 120px; /* or whatever width you prefer */
+    height: auto; /* auto so aspect ratio is preserved */
+    object-fit: contain; /* ensures the entire image fits without distortion */
+    border-radius: 4px;
 }
 
 .dynamic-display-left-side {

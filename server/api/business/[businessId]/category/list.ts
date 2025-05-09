@@ -1,33 +1,42 @@
-import type { Category } from "~/model/Category";
+import type { Category } from '~/model/Category';
 
 export default defineEventHandler(async event => {
     const businessId = getRouterParam(event, 'businessId');
     const fetchList = await $fetch<{ businessCategories: any[] }>(
-        `${process.env.BACKEND_API_BASE_URL}/v1/category/list/${businessId}`, 
+        `${process.env.BACKEND_API_BASE_URL}/v1/category/list/${businessId}`,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        },
     );
 
     const fetchCategories = fetchList.businessCategories;
 
-    const categoryList: Category[] = fetchCategories.map((category) => {
+    const categoryList: Category[] = fetchCategories.map(category => {
         return {
             id: category.id,
             name: category.categoryName,
             pictureUrl: category.categoryPictureUrl,
             description: category.description,
-            tags: category.tags ? category.tags.map((tag: { id: any; tagName: any; description: any; color: any; }) => {
-            return {
-                id: tag.id,
-                name: tag.tagName,
-                description: tag.description,
-                color: tag.color,
-            };
-            }) : [],
+            tags: category.tags
+                ? category.tags.map(
+                      (tag: {
+                          id: any;
+                          tagName: any;
+                          description: any;
+                          color: any;
+                      }) => {
+                          return {
+                              id: tag.id,
+                              name: tag.tagName,
+                              description: tag.description,
+                              color: tag.color,
+                          };
+                      },
+                  )
+                : [],
             parentCategoryId: category.parentCategoryId,
         };
     });

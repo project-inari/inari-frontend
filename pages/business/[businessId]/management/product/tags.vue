@@ -1,11 +1,18 @@
 <template>
-    <div class="tag-management-page" :class="fontDMSansPrompt">
+    <div
+        class="tag-management-page"
+        :class="fontDMSansPrompt"
+    >
         <!-- HEADER -->
         <header class="tag-header">
             <h1>Tags</h1>
             <div class="tag-header-actions">
-                <PrimeButton label="Create New" class="create-new-button" icon="pi pi-plus"
-                    @click="onCreateNewTag" />
+                <PrimeButton
+                    label="Create New"
+                    class="create-new-button"
+                    icon="pi pi-plus"
+                    @click="onCreateNewTag"
+                />
             </div>
         </header>
 
@@ -14,10 +21,15 @@
             <aside class="sidebar-tags">
                 <h2>All Products</h2>
                 <ul class="tag-list">
-                    <li v-for="(tg, idx) in tagList" :key="idx" :class="[
-                        'tag-list-item',
-                        { active: selectedTag && selectedTag.id === tg.id },
-                    ]" @click="selectTag(tg)">
+                    <li
+                        v-for="(tg, idx) in tagList"
+                        :key="idx"
+                        :class="[
+                            'tag-list-item',
+                            { active: selectedTag && selectedTag.id === tg.id },
+                        ]"
+                        @click="selectTag(tg)"
+                    >
                         {{ tg.name }}
                     </li>
                 </ul>
@@ -26,22 +38,37 @@
             <!-- MAIN CONTENT: Selected Tag Details + Inventory Table -->
             <section class="main-content">
                 <!-- TOP BOX: Selected Tag Details -->
-                <div v-if="selectedTag" class="selected-tag-box">
+                <div
+                    v-if="selectedTag"
+                    class="selected-tag-box"
+                >
                     <div class="selected-tag-header">
-                        <NuxtImg v-if="tagIconUrl" :src="tagIconUrl" alt="tag-icon" class="tag-icon" width="64"
-                            height="64" />
+                        <NuxtImg
+                            v-if="tagIconUrl"
+                            :src="tagIconUrl"
+                            alt="tag-icon"
+                            class="tag-icon"
+                            width="64"
+                            height="64"
+                        />
                         <div class="tag-info">
                             <h2>{{ selectedTag.name.toUpperCase() }}</h2>
                             <!-- Example: Show color and date created if available -->
                             <div class="tag-meta">
                                 <span class="tag-color-label">
                                     Color:
-                                    <PrimeTag :value="selectedTag.color" :severity="getTagColor(selectedTag)"
-                                        class="tag-color-tag" />
+                                    <PrimeTag
+                                        :value="selectedTag.color"
+                                        :severity="getTagColor(selectedTag)"
+                                        class="tag-color-tag"
+                                    />
                                 </span>
                             </div>
                             <!-- Tag description if any -->
-                            <p v-if="selectedTagDescription" class="tag-description">
+                            <p
+                                v-if="selectedTagDescription"
+                                class="tag-description"
+                            >
                                 {{ selectedTagDescription }}
                             </p>
                         </div>
@@ -49,19 +76,38 @@
                 </div>
 
                 <!-- TABLE: Items that have the selected tag -->
-                <div v-if="selectedTag" class="tag-items-section">
+                <div
+                    v-if="selectedTag"
+                    class="tag-items-section"
+                >
                     <h3>Assigned Items</h3>
-                    <PrimeDataTable :value="filteredItems" :rows="5" scrollable class="tag-items-table">
-                        <PrimeColumn field="sku" header="SKU" />
+                    <PrimeDataTable
+                        :value="filteredItems"
+                        :rows="5"
+                        scrollable
+                        class="tag-items-table"
+                    >
+                        <PrimeColumn
+                            field="sku"
+                            header="SKU"
+                        />
                         <PrimeColumn header="Inventory Item">
                             <template #body="slotProps">
                                 <div class="item-cell">
-                                    <NuxtImg :src="slotProps.data.img" alt="item-image" width="40" height="40" />
+                                    <NuxtImg
+                                        :src="slotProps.data.img"
+                                        alt="item-image"
+                                        width="40"
+                                        height="40"
+                                    />
                                     <span>{{ slotProps.data.item }}</span>
                                 </div>
                             </template>
                         </PrimeColumn>
-                        <PrimeColumn field="variant" header="Variant" />
+                        <PrimeColumn
+                            field="variant"
+                            header="Variant"
+                        />
                         <PrimeColumn header="Stock Qty">
                             <template #body="slotProps">
                                 <span>{{
@@ -74,8 +120,11 @@
             </section>
         </div>
 
-        <CreateNewTagModal v-model:is-opened="isTagModalOpen" @save="onTagCreated"
-            @update:visible="isTagModalOpen = $event" />
+        <CreateNewTagModal
+            v-model:is-opened="isTagModalOpen"
+            @save="onTagCreated"
+            @update:visible="isTagModalOpen = $event"
+        />
     </div>
 </template>
 

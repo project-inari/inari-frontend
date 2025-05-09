@@ -7,12 +7,12 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-    )
+        },
+    );
 
     const fetchInventoryItems = fetchList.inventory;
 
-    const inventoryItemsList: any[] = fetchInventoryItems.map((item) => {
+    const inventoryItemsList: any[] = fetchInventoryItems.map(item => {
         return {
             id: item.variantId,
             sku: item.skuNo,
@@ -23,13 +23,15 @@ export default defineEventHandler(async event => {
             sellingPrice: item.baseSellingPrice,
             supplierId: item.supplierId,
             categoryId: item.categoryId,
-            tags: item.tags.map((tag: { id: any; tagName: any; color: any; }) => {
-                return {
-                    id: tag.id,
-                    name: tag.tagName,
-                    color: tag.color,
-                };
-            }),
+            tags: item.tags.map(
+                (tag: { id: any; tagName: any; color: any }) => {
+                    return {
+                        id: tag.id,
+                        name: tag.tagName,
+                        color: tag.color,
+                    };
+                },
+            ),
             qtyInWarehouse: item.qtyInWarehouse,
         };
     });

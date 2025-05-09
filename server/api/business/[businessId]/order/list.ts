@@ -9,11 +9,11 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        },
     );
 
     const fetchOrders = fetchList.customerOrders;
-    const orderList: CustomerOrder[] = fetchOrders.map((order) => {
+    const orderList: CustomerOrder[] = fetchOrders.map(order => {
         return {
             id: order.id,
             orderId: order.orderId,
@@ -23,14 +23,21 @@ export default defineEventHandler(async event => {
             shippingMethod: order.shippingMethod,
             shippingFee: order.shippingFee,
             shippingCost: order.shippingCost,
-            items: order.items.map((item: { variantId: any; quantity: any; pricePerUnit: any; discountPerUnit: any; }) => {
-                return {
-                    variantId: item.variantId,
-                    quantity: item.quantity,
-                    pricePerUnit: item.pricePerUnit,
-                    discountPerUnit: item.discountPerUnit,
-                };
-            }),
+            items: order.items.map(
+                (item: {
+                    variantId: any;
+                    quantity: any;
+                    pricePerUnit: any;
+                    discountPerUnit: any;
+                }) => {
+                    return {
+                        variantId: item.variantId,
+                        quantity: item.quantity,
+                        pricePerUnit: item.pricePerUnit,
+                        discountPerUnit: item.discountPerUnit,
+                    };
+                },
+            ),
             orderedAt: order.createdAt,
         };
     });

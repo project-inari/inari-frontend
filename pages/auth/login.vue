@@ -55,6 +55,7 @@
                     v-model="password"
                     class="login-input-text"
                     variant="filled"
+                    type="password"
                     :class="fontDMSansPrompt"
                 />
                 <label

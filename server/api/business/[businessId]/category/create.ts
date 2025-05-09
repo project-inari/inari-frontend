@@ -14,17 +14,17 @@ export default defineEventHandler(async event => {
     await $fetch(`${process.env.BACKEND_API_BASE_URL}/v1/category/create`, {
         method: 'POST',
         body: {
-            'businessId': parseInt(businessId, 10) || 1,
-            'categoryName': req.name,
-            'categoryPictureUrl': req.pictureUrl,
-            'description': req.description,
-            'parentCategoryId': req.parentCategoryId,
-            'tagIds': req.tags,
+            businessId: parseInt(businessId, 10) || 1,
+            categoryName: req.name,
+            categoryPictureUrl: req.pictureUrl,
+            description: req.description,
+            parentCategoryId: req.parentCategoryId,
+            tagIds: req.tags,
         },
         headers: {
             'Content-Type': 'application/json',
         },
-    })
+    });
 
     const data: CreateNewCategoryRes = {
         categoryId: 1,

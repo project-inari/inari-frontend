@@ -9,36 +9,48 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        },
     );
 
     const fetchProducts = fetchList.products;
 
-    const data: Product[] = fetchProducts.map((product) => {
+    const data: Product[] = fetchProducts.map(product => {
         return {
             productId: product.id,
             name: product.name,
             supplierId: product.supplierId,
             categoryId: product.categoryId,
             brand: product.brand,
-            variants: product.variants.map((variant: { variantId: any; variantName: any; skuNo: any; basePurchasePrice: any; baseSellingPrice: any; pictureUrl: any; note: any; tagIds: any; qtyInWarehouse: any[]; }) => {
-                return {
-                    variantId: variant.variantId,
-                    name: variant.variantName,
-                    sku: variant.skuNo,
-                    purchasePrice: variant.basePurchasePrice,
-                    sellingPrice: variant.baseSellingPrice,
-                    pictureUrl: variant.pictureUrl,
-                    note: variant.note,
-                    tagIds: variant.tagIds,
-                    qtyInWarehouse: variant.qtyInWarehouse.map((qty) => {
-                        return {
-                            warehouseId: qty.warehouseId,
-                            qty: qty.qty,
-                        };
-                    }),
-                };
-            }),
+            variants: product.variants.map(
+                (variant: {
+                    variantId: any;
+                    variantName: any;
+                    skuNo: any;
+                    basePurchasePrice: any;
+                    baseSellingPrice: any;
+                    pictureUrl: any;
+                    note: any;
+                    tagIds: any;
+                    qtyInWarehouse: any[];
+                }) => {
+                    return {
+                        variantId: variant.variantId,
+                        name: variant.variantName,
+                        sku: variant.skuNo,
+                        purchasePrice: variant.basePurchasePrice,
+                        sellingPrice: variant.baseSellingPrice,
+                        pictureUrl: variant.pictureUrl,
+                        note: variant.note,
+                        tagIds: variant.tagIds,
+                        qtyInWarehouse: variant.qtyInWarehouse.map(qty => {
+                            return {
+                                warehouseId: qty.warehouseId,
+                                qty: qty.qty,
+                            };
+                        }),
+                    };
+                },
+            ),
         };
     });
 

@@ -14,15 +14,15 @@ export default defineEventHandler(async event => {
     await $fetch(`${process.env.BACKEND_API_BASE_URL}/v1/tag/create`, {
         method: 'POST',
         body: {
-            'businessId': parseInt(businessId, 10) || 1,
-            'tagName': req.name,
-            'color': req.color,
-            'description': req.description,
+            businessId: parseInt(businessId, 10) || 1,
+            tagName: req.name,
+            color: req.color,
+            description: req.description,
         },
         headers: {
             'Content-Type': 'application/json',
         },
-    })
+    });
 
     const data: CreateNewTagRes = {
         tagId: 1,

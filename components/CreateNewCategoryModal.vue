@@ -1,71 +1,126 @@
 <template>
-    <PrimeDialog v-model:visible="visible" header="Create New Category" :style="{ width: '40rem' }" :closable="true"
-        :dismissable-mask="true" :class="fontDMSansPrompt" modal>
+    <PrimeDialog
+        v-model:visible="visible"
+        header="Create New Category"
+        :style="{ width: '40rem' }"
+        :closable="true"
+        :dismissable-mask="true"
+        :class="fontDMSansPrompt"
+        modal
+    >
         <div class="form-grid">
             <!-- Name -->
             <div class="field">
                 <label class="label">Category Name:</label>
-                <PrimeInputText v-model="form.name" placeholder="Enter category name" />
+                <PrimeInputText
+                    v-model="form.name"
+                    placeholder="Enter category name"
+                />
             </div>
 
             <!-- Parent Category -->
             <div class="field">
                 <label class="label">Parent Category:</label>
-                <PrimeDropdown v-model="form.parentCategoryId" :options="parentOptions" option-label="name"
-                    option-value="id" placeholder="— None —" show-clear />
+                <PrimeDropdown
+                    v-model="form.parentCategoryId"
+                    :options="parentOptions"
+                    option-label="name"
+                    option-value="id"
+                    placeholder="— None —"
+                    show-clear
+                />
             </div>
 
             <!-- Image Upload -->
             <div class="field">
                 <label class="label">Image:</label>
-                <div class="image-upload" @click="triggerFile">
-                    <img v-if="form.pictureUrl" :src="form.pictureUrl" alt="Preview" class="preview" />
-                    <div v-else class="placeholder">Click to upload</div>
+                <div
+                    class="image-upload"
+                    @click="triggerFile"
+                >
+                    <img
+                        v-if="form.pictureUrl"
+                        :src="form.pictureUrl"
+                        alt="Preview"
+                        class="preview"
+                    />
+                    <div
+                        v-else
+                        class="placeholder"
+                    >
+                        Click to upload
+                    </div>
                 </div>
-                <input ref="fileInput" type="file" accept="image/*" style="display:none" @change="onFileChange" />
+                <input
+                    ref="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style="display: none"
+                    @change="onFileChange"
+                />
             </div>
 
             <!-- Description -->
             <div class="field full-width">
                 <label class="label">Description:</label>
-                <textarea v-model="form.description" rows="3" placeholder="Enter a description..."></textarea>
+                <textarea
+                    v-model="form.description"
+                    rows="3"
+                    placeholder="Enter a description..."
+                ></textarea>
             </div>
 
             <!-- Tags -->
             <div class="field full-width">
                 <label class="label">Tags:</label>
-                <PrimeMultiSelect v-model="form.tags" :options="tagOptions" option-label="name" option-value="id"
-                    placeholder="Select tags..." display="chip" />
+                <PrimeMultiSelect
+                    v-model="form.tags"
+                    :options="tagOptions"
+                    option-label="name"
+                    option-value="id"
+                    placeholder="Select tags..."
+                    display="chip"
+                />
             </div>
         </div>
 
         <div class="footer-actions">
-            <PrimeButton label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger" @click="close()" />
-            <PrimeButton label="Save" icon="pi pi-check" :disabled="!form.name.trim()" @click="submit()" />
+            <PrimeButton
+                label="Cancel"
+                icon="pi pi-times"
+                class="p-button-text p-button-danger"
+                @click="close()"
+            />
+            <PrimeButton
+                label="Save"
+                icon="pi pi-check"
+                :disabled="!form.name.trim()"
+                @click="submit()"
+            />
         </div>
     </PrimeDialog>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, computed, watch } from 'vue'
-import type { Category } from '~/model/Category'
-import type { Tag } from '~/model/Tag'
+import { ref, reactive, computed, watch } from 'vue';
+import type { Category } from '~/model/Category';
+import type { Tag } from '~/model/Tag';
 
-const { fontDMSansPrompt } = useFontClass()
-const currentBusinessStore = useCurrentBusinessStore()
+const { fontDMSansPrompt } = useFontClass();
+const currentBusinessStore = useCurrentBusinessStore();
 
 // Props & v-model
-const props = defineProps<{ isOpened: boolean }>()
+const props = defineProps<{ isOpened: boolean }>();
 const emit = defineEmits<{
-    (e: 'update:isOpened', v: boolean): void
-    (e: 'save', newCategory: Omit<Category, 'id'>): void
-}>()
+    (e: 'update:isOpened', v: boolean): void;
+    (e: 'save', newCategory: Omit<Category, 'id'>): void;
+}>();
 
 // Control dialog visibility
 const visible = computed({
     get: () => props.isOpened,
     set: v => emit('update:isOpened', v),
-})
+});
 
 // Form state
 const form = reactive<Omit<Category, 'id'>>({
@@ -73,13 +128,13 @@ const form = reactive<Omit<Category, 'id'>>({
     parentCategoryId: undefined,
     tags: [] as Tag[],
     pictureUrl: '',
-    description: ''
-})
+    description: '',
+});
 
 // Refs & lookups
-const fileInput = ref<HTMLInputElement | null>(null)
-const allCategories = ref<Category[]>([])
-const allTags = ref<Tag[]>([])
+const fileInput = ref<HTMLInputElement | null>(null);
+const allCategories = ref<Category[]>([]);
+const allTags = ref<Tag[]>([]);
 
 // Load categories & tags each time modal opens
 watch(
@@ -87,42 +142,42 @@ watch(
     async opened => {
         if (opened) {
             allCategories.value = await $fetch<Category[]>(
-                `/api/business/${currentBusinessStore.businessId}/category/list`
-            )
+                `/api/business/${currentBusinessStore.businessId}/category/list`,
+            );
             allTags.value = await $fetch<Tag[]>(
-                `/api/business/${currentBusinessStore.businessId}/tag/list`
-            )
+                `/api/business/${currentBusinessStore.businessId}/tag/list`,
+            );
             // reset form
-            form.name = ''
-            form.parentCategoryId = undefined
-            form.tags = []
-            form.pictureUrl = ''
-            form.description = ''
+            form.name = '';
+            form.parentCategoryId = undefined;
+            form.tags = [];
+            form.pictureUrl = '';
+            form.description = '';
         }
     },
-    { immediate: true }
-)
+    { immediate: true },
+);
 
 // Dropdown options
 const parentOptions = computed(() =>
-    allCategories.value.map(c => ({ id: c.id, name: c.name }))
-)
+    allCategories.value.map(c => ({ id: c.id, name: c.name })),
+);
 const tagOptions = computed(() =>
-    allTags.value.map(t => ({ id: t.id, name: t.name }))
-)
+    allTags.value.map(t => ({ id: t.id, name: t.name })),
+);
 
 // Image upload handlers
 function triggerFile() {
-    fileInput.value?.click()
+    fileInput.value?.click();
 }
 function onFileChange(e: Event) {
-    const file = (e.target as HTMLInputElement).files?.[0]
-    if (!file) return
-    const reader = new FileReader()
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
     reader.onload = () => {
-        form.pictureUrl = reader.result as string
-    }
-    reader.readAsDataURL(file)
+        form.pictureUrl = reader.result as string;
+    };
+    reader.readAsDataURL(file);
 }
 
 // Emit payload
@@ -132,8 +187,8 @@ async function submit() {
         parentCategoryId: form.parentCategoryId,
         tags: form.tags,
         pictureUrl: form.pictureUrl,
-        description: form.description.trim()
-    }
+        description: form.description.trim(),
+    };
     await $fetch(
         `/api/business/${currentBusinessStore.businessId}/category/create`,
         {
@@ -141,17 +196,17 @@ async function submit() {
             body: payload,
             headers: { 'Content-Type': 'application/json' },
             params: {
-                businessId: currentBusinessStore.businessId
-            }
+                businessId: currentBusinessStore.businessId,
+            },
         },
     );
-    emit('save', payload)
+    emit('save', payload);
 
-    visible.value = false
+    visible.value = false;
 }
 
 function close() {
-    visible.value = false
+    visible.value = false;
 }
 </script>
 

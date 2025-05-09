@@ -1,20 +1,20 @@
-import type { Tag } from "~/model/Tag";
+import type { Tag } from '~/model/Tag';
 
 export default defineEventHandler(async event => {
     const businessId = getRouterParam(event, 'businessId');
     const fetchList = await $fetch<{ businessTags: any[] }>(
-        `${process.env.BACKEND_API_BASE_URL}/v1/tag/list/${businessId}`, 
+        `${process.env.BACKEND_API_BASE_URL}/v1/tag/list/${businessId}`,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        },
     );
 
     const fetchTags = fetchList.businessTags;
 
-    const tagList: Tag[] = fetchTags.map((tag) => {
+    const tagList: Tag[] = fetchTags.map(tag => {
         return {
             id: tag.id,
             name: tag.tagName,

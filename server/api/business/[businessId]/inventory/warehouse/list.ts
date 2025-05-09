@@ -7,11 +7,11 @@ export default defineEventHandler(async event => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-    )
+        },
+    );
 
     const fetchWarehouses = fetchList.warehouses;
-    const warehouseList: any[] = fetchWarehouses.map((warehouse) => {
+    const warehouseList: any[] = fetchWarehouses.map(warehouse => {
         return {
             id: warehouse.id,
             name: warehouse.name,
